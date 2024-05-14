@@ -1,18 +1,32 @@
+<!-- HTML structure for the shared header component -->
 <section class="bg-white d-flex justify-content-between align-items-center mb-5 px-4 py-5 rounded-4">
+  <!-- Left section of the header -->
   <div class="headerContent">
+    <!-- Header link and text -->
     <div class="d-flex flex-column gap-2">
+      <!-- Link with optional icon -->
       <a [routerLink]="headerLink">
-        <i class="fa-solid fa-angle-left" *ngIf="headerLinkText"></i> {{ headerLinkText }}
+        <!-- Icon -->
+        <i class="fa-solid fa-angle-left" *ngIf="headerLinkText"></i>
+        <!-- Text -->
+        {{ headerLinkText }}
       </a>
+      <!-- Main header text -->
       <h3 class="mb-0 fs-2">
         {{ headerText }}
       </h3>
     </div>
+    <!-- Additional main header text -->
     <h3 class="mb-0 fs-2">
       {{ headerMainText }}
     </h3>
   </div>
+  <!-- Right section of the header containing a button -->
   <div class="headerBtn">
-    <button class="primary rounded-1" *ngIf="headerBtnVisibility" [routerLink]="headerBtnLink"> {{ '+ ' + headerBtnText }} </button>
+    <!-- Button with optional router link -->
+    <button class="primary rounded-1" *ngIf="headerBtnVisibility" [routerLink]="headerBtnLink">
+      <!-- Button text -->
+      {{ '+ ' + headerBtnText }}
+    </button>
   </div>
 </section>
