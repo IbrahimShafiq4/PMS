@@ -42,7 +42,7 @@ export class SidebarComponent {
         this.textLinkVisibility = false;
       }
 
-      if (window.innerWidth <= 767) {
+      if (window.innerWidth <= 991) {
         this.arrowVisibility = true;
       } else {
         this.arrowVisibility = false;

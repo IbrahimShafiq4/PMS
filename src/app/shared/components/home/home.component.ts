@@ -11,12 +11,12 @@ export class HomeComponent {
   tasksChart = new Chart({
     chart: {
       type: 'pie', // Chart type
-      width: 500, // Chart width
-      height: 300, // Chart height
+      width: 300, // Chart width
+      height: 200, // Chart height
     },
     title: {
       text: 'Tasks', // Chart title
-      floating: true, // Floating title
+      floating: false, // Floating title
     },
     credits: {
       enabled: false, // Credits disabled
@@ -43,12 +43,12 @@ export class HomeComponent {
   usersChart = new Chart({
     chart: {
       type: 'pie', // Chart type
-      width: 500, // Chart width
-      height: 300, // Chart height
+      width: 300, // Chart width
+      height: 200, // Chart height
     },
     title: {
-      text: 'Users', // Chart title
-      floating: false, // Not floating
+      text: 'Tasks', // Chart title
+      floating: false, // Floating title
     },
     credits: {
       enabled: false, // Credits disabled
@@ -63,8 +63,8 @@ export class HomeComponent {
       {
         type: 'pie', // Series type
         data: [
-          { name: 'Active', y: 7, color: '#000' }, // Data points
-          { name: 'Inactive', y: 2, color: '#393e64' },
+          { name: 'Active', y: 7, color: '#B0C5A4' }, // Data points
+          { name: 'inActive', y: 2, color: '#0e382f' },
         ],
       },
     ],
