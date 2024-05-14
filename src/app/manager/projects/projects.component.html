@@ -1,1 +1,8 @@
-<app-shared-header></app-shared-header>
+<app-shared-header
+  [headerBtnText]="'Add New Category'"
+  [headerBtnVisibility]="true"
+  [headerMainText]="'Projects'"
+  [headerBtnLink]="'add'"
+></app-shared-header>
+<app-shared-table [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
+  [tableBodyContent]="projectTableData" (editCategory)="willBeEdited($event)"></app-shared-table>

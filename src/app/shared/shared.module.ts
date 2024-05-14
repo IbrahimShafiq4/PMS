@@ -57,7 +57,8 @@ import { SharedTableComponent } from './components/shared-table/shared-table.com
     NavbarComponent,
     SidebarComponent,
     MatMenuModule,
-    SharedHeaderComponent
+    SharedHeaderComponent,
+    SharedTableComponent
   ],
   providers: [AuthService],
 })
