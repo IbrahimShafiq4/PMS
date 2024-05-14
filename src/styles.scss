@@ -1,0 +1,470 @@
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+@import "ngx-toastr/toastr";
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$project-manager-primary: mat.define-palette(mat.$yellow-palette, 900);
+$project-manager-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
+
+// The warn palette is optional (defaults to red).
+$project-manager-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$project-manager-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $project-manager-primary,
+      accent: $project-manager-accent,
+      warn: $project-manager-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($project-manager-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+}
+
+// Start Global Style
+
+* {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.bg-main-background {
+  background-color: var(--main-color);
+}
+
+// Start Global Style
+
+// Global variables
+$main-transition: 0.3s linear;
+$main-color: #ef9b28;
+$main-dark-color: #0c0c0c;
+$green-color: #0e382f;
+$danger-color: #fa12409e;
+$border-style: 2px solid;
+
+// Variables for default font sizes
+$default-span-font-size: 1rem;
+$default-p-font-size: 1rem;
+$default-h1-font-size: 2.5rem;
+$default-h2-font-size: 2rem;
+$default-h3-font-size: 1.8rem;
+$default-h4-font-size: 1.6rem;
+$default-h5-font-size: 1.4rem;
+$default-h6-font-size: 1.2rem;
+
+span {
+  font-size: $default-span-font-size;
+}
+
+p {
+  font-size: $default-p-font-size;
+}
+
+h1 {
+  font-size: $default-h1-font-size;
+}
+
+h2 {
+  font-size: $default-h2-font-size;
+}
+
+h3 {
+  font-size: $default-h3-font-size;
+}
+
+h4 {
+  font-size: $default-h4-font-size;
+}
+
+h5 {
+  font-size: $default-h5-font-size;
+}
+
+h6 {
+  font-size: $default-h6-font-size;
+}
+
+h1 span,
+h2 span,
+h3 span,
+h4 span,
+h5 span,
+h6 span {
+  font-size: inherit;
+}
+
+@media (max-width: 576px) {
+  span {
+    font-size: $default-span-font-size - 0.2rem;
+  }
+
+  p {
+    font-size: $default-p-font-size - 0.2rem;
+  }
+
+  h1 {
+    font-size: $default-h1-font-size - 0.3rem;
+  }
+
+  h2 {
+    font-size: $default-h2-font-size - 0.3rem;
+  }
+
+  h3 {
+    font-size: $default-h3-font-size - 0.2rem;
+  }
+
+  h4 {
+    font-size: $default-h4-font-size - 0.2rem;
+  }
+
+  h5 {
+    font-size: $default-h5-font-size - 0.2rem;
+  }
+
+  h6 {
+    font-size: $default-h6-font-size - 0.2rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  span {
+    font-size: $default-span-font-size - 0.1rem;
+  }
+
+  p {
+    font-size: $default-p-font-size - 0.1rem;
+  }
+
+  h1 {
+    font-size: $default-h1-font-size - 0.2rem;
+  }
+
+  h2 {
+    font-size: $default-h2-font-size - 0.2rem;
+  }
+
+  h3 {
+    font-size: $default-h3-font-size - 0.1rem;
+  }
+
+  h4 {
+    font-size: $default-h4-font-size - 0.1rem;
+  }
+
+  h5 {
+    font-size: $default-h5-font-size - 0.1rem;
+  }
+
+  h6 {
+    font-size: $default-h6-font-size - 0.1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  span {
+    font-size: $default-span-font-size;
+  }
+
+  p {
+    font-size: $default-p-font-size;
+  }
+
+  h1 {
+    font-size: $default-h1-font-size;
+  }
+
+  h2 {
+    font-size: $default-h2-font-size;
+  }
+
+  h3 {
+    font-size: $default-h3-font-size;
+  }
+
+  h4 {
+    font-size: $default-h4-font-size;
+  }
+
+  h5 {
+    font-size: $default-h5-font-size;
+  }
+
+  h6 {
+    font-size: $default-h6-font-size;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  span,
+  p,
+  h1,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: $default-span-font-size;
+  }
+
+  h2 {
+    font-size: $default-h2-font-size;
+  }
+}
+
+@media (min-width: 1201px) {
+  span,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: $default-span-font-size;
+  }
+}
+
+.auth {
+  background-image: url(./assets/images/bg1.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  .auth-content {
+    background-color: #31595190;
+    width: 45rem;
+    box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.1),
+      -3px -3px 3px rgba($color: #000000, $alpha: 0.1),
+      inset -3px -3px 3px rgba($color: #000000, $alpha: 0.1),
+      inset 3px 3px 3px rgba($color: #000000, $alpha: 0.1);
+    -webkit-box-reflect: below 0px
+      linear-gradient(
+        to bottom,
+        rgba($color: #000000, $alpha: 0),
+        rgba($color: #000000, $alpha: 0.4)
+      );
+
+    h2 {
+      font-size: 2rem;
+      color: $main-color;
+      position: relative;
+      width: fit-content;
+      margin-bottom: 2rem;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -7px;
+        left: 2px;
+        background-color: $main-color;
+        width: 16px;
+        height: 4px;
+        transition: $main-transition;
+      }
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .auth-content {
+        width: 35rem;
+        padding: 20px;
+      }
+    }
+
+    @media screen and (min-width: 769px) and (max-width: 992px) {
+      .auth-content {
+        width: 35rem;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .auth-content {
+        width: 35rem;
+      }
+    }
+  }
+}
+
+button {
+  padding: 0.4rem 0.8rem;
+  font-size: 1.1rem;
+  border-color: transparent;
+  outline: none;
+  border-radius: 15rem;
+  transition: $main-transition;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  &.primary {
+    background-color: $main-color;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      color: $main-color;
+      border: $border-style $main-color;
+    }
+  }
+
+  &.primary-outline {
+    background-color: transparent;
+    color: $main-color;
+    border: $border-style $main-color;
+
+    &:hover {
+      background-color: $main-color;
+      color: #fff;
+    }
+  }
+
+  &.dark {
+    background-color: $main-dark-color;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      color: $main-dark-color;
+      border: $border-style $main-dark-color;
+    }
+  }
+
+  &.dark-outline {
+    background-color: transparent;
+    color: $main-dark-color;
+    border: $border-style $main-dark-color;
+
+    &:hover {
+      background-color: $main-dark-color;
+      color: #fff;
+    }
+  }
+
+  &.green {
+    background-color: $green-color;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      color: $green-color;
+      border: $border-style $green-color;
+    }
+  }
+
+  &.green-outline {
+    background-color: transparent;
+    color: $green-color;
+    border: $border-style $green-color;
+
+    &:hover {
+      background-color: $green-color;
+      color: #fff;
+    }
+  }
+
+  &.danger {
+    background-color: $danger-color;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      color: $danger-color;
+      border: $border-style $danger-color;
+    }
+  }
+
+  &.danger-outline {
+    background-color: transparent;
+    color: $danger-color;
+    border: $border-style $danger-color;
+
+    &:hover {
+      background-color: $danger-color;
+      color: #fff;
+    }
+  }
+
+  &:disabled {
+    cursor: no-drop;
+  }
+
+  @media screen and (max-width: 576px) {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  @media screen and (min-width: 577px) and (max-width: 768px) {
+    font-size: 1.1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 992px) {
+    font-size: 1.2rem;
+    padding: 0.7rem 1.5rem;
+  }
+
+  @media screen and (min-width: 993px) and (max-width: 1200px) {
+    font-size: 1.3rem;
+    padding: 0.8rem 1.8rem;
+  }
+
+  @media screen and (min-width: 1201px) {
+    font-size: 1.4rem;
+    padding: 0.9rem 2rem;
+  }
+}
+
+
+// Main Classes
+.bg-main-background {
+  background-color: $main-color;
+}
+
+.main-text-color {
+  color: $main-color;
+}
+
+.main-transition {
+  transition: $main-transition;
+}

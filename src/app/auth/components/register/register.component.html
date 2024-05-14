@@ -1,0 +1,125 @@
+<section>
+  <h2>Create New Account</h2>
+
+  <!-- Registration form -->
+  <form class="my-4 d-flex flex-column gap-3" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)">
+    <div class="row">
+      <!-- Ngx-dropzone for image -->
+      <div class="col-md-12 d-flex justify-content-center my-4">
+        <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+          <div class="overlay"></div>
+          <ngx-dropzone-label class="m-0">
+            <i class="fa-solid fa-camera fa-2x text-white"></i>
+          </ngx-dropzone-label>
+          <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove(f)"
+            *ngFor="let f of files" [file]="f">
+            <ngx-dropzone-label></ngx-dropzone-label>
+          </ngx-dropzone-image-preview>
+        </ngx-dropzone>
+      </div>
+      <!-- End Ngx-dropzone for image -->
+
+      <!-- Username -->
+      <div class="col-12 col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Username</mat-label>
+          <input formControlName="userName" type="text" placeholder="Enter your Name" matInput>
+          <!-- Error message for username field -->
+          <mat-error *ngIf="registerForm.get('userName')?.touched && registerForm.get('userName')?.invalid">
+            <!-- Error message for required validation -->
+            <span *ngIf="registerForm.get('userName')?.hasError('required')"> Username is <strong>required</strong>
+            </span>
+            <!-- Error message for pattern validation -->
+            <span *ngIf="registerForm.get('userName')?.hasError('pattern')"> Username must start with a letter, contain
+              only alphanumeric characters, and end with a number. </span>
+            <!-- Error message for minlength validation -->
+            <span *ngIf="registerForm.get('userName')?.hasError('minlength')"> Username must be at least 3 characters
+              long. </span>
+            <!-- Error message for maxlength validation -->
+            <span *ngIf="registerForm.get('userName')?.hasError('maxlength')"> Username cannot be more than 15
+              characters long. </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Email -->
+      <div class="col-12 col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" type="email" placeholder="Enter your E-mail" matInput>
+          <!-- Error message for email field -->
+          <mat-error *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+            Please enter a valid email address.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Country -->
+      <div class="col-12 col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Country</mat-label>
+          <input formControlName="country" type="text" placeholder="Enter your City" matInput>
+          <!-- Error message for country field -->
+          <mat-error *ngIf="registerForm.get('country')?.touched && registerForm.get('country')?.invalid">
+            Country is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="col-12 col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Phone Number</mat-label>
+          <input formControlName="phoneNumber" type="text" placeholder="Phone Number" matInput>
+          <!-- Error message for phone number field -->
+          <mat-error *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.invalid">
+            Please enter a valid phone number starting with 01, and 11 digits long.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Password -->
+      <div class="col-12 col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+            placeholder="Enter Your Password">
+          <!-- Error message for password field -->
+          <mat-error *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+            Password is required and must be between 8 and 16 characters long, containing at least one uppercase letter,
+            one lowercase letter, one digit, and one special character.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="col-12 col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Confirm password</mat-label>
+          <input matInput [type]="hideTwo ? 'password' : 'text'" formControlName="confirmPassword"
+            placeholder="Confirm Password">
+          <!-- Error message for confirm password field -->
+          <mat-error
+            *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
+            Please confirm your password.
+          </mat-error>
+          <!-- Error message if passwords do not match -->
+          <mat-error
+            *ngIf="registerForm.hasError('passwordMisMatch') && (registerForm.get('confirmPassword')?.touched)">
+            Passwords do not match.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="links d-flex justify-content-between">
+      <a class="text-white fs-6" routerLink="">Login Now ?</a>
+      <a class="text-white fs-6" routerLink="verify">Have Code ?</a>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="primary" [disabled]="registerForm.invalid" role="button">Register</button>
+
+  </form>
+</section>

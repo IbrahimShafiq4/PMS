@@ -1,0 +1,28 @@
+section {
+  height: 100%;
+  .top-section {
+    background-image: url(../../../../assets/images/home-bg.png);
+    background-position: center center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 15rem 0;
+
+    h2 {
+      span {
+        color: #ef9b28;
+        font-weight: normal;
+      }
+    }
+
+    p {
+      font-size: 1.3rem;
+    }
+  }
+
+  .bottom-section {
+    .title-content {
+      border-left: 6px solid #ef9b28;
+      padding-left: 20px;
+    }
+  }
+}

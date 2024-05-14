@@ -1,0 +1,16 @@
+<div class="row">
+  <!-- Sidebar Column -->
+  <div class="col-12 p-0">
+    <!-- Navbar Component -->
+    <app-navbar></app-navbar>
+  </div>
+  <div class="p-0" [class]="!sidebarCollapsed ? 'col-md-2' : 'col-md-1'" class="animatedToggle">
+    <!-- Sidebar Component with sidebarCollapsed event listener -->
+    <app-sidebar (sidebarCollapsed)="onToggleSidebar($event)"></app-sidebar>
+  </div>
+  <!-- Main Content Column -->
+  <div class="p-0" [class]="!sidebarCollapsed ? 'col-md-10 px-5' : 'col-md-11 px-4'" class="animatedToggle py-3">
+    <!-- Router Outlet for rendering dynamic content -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
