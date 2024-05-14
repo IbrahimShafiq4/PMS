@@ -5,11 +5,11 @@
   <form class="my-4 d-flex flex-column gap-3" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)">
     <div class="row">
       <!-- Ngx-dropzone for image -->
-      <div class="col-md-12 d-flex justify-content-center my-4">
+      <div class="col-md-12 d-flex justify-content-center my-1">
         <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
           <div class="overlay"></div>
           <ngx-dropzone-label class="m-0">
-            <i class="fa-solid fa-camera fa-2x text-white"></i>
+            <i class="fa-solid fa-camera main-green-color"></i>
           </ngx-dropzone-label>
           <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove(f)"
             *ngFor="let f of files" [file]="f">
@@ -27,16 +27,16 @@
           <!-- Error message for username field -->
           <mat-error *ngIf="registerForm.get('userName')?.touched && registerForm.get('userName')?.invalid">
             <!-- Error message for required validation -->
-            <span *ngIf="registerForm.get('userName')?.hasError('required')"> Username is <strong>required</strong>
+            <span *ngIf="registerForm.get('userName')?.getError('required')"> Username is <strong>required</strong>
             </span>
             <!-- Error message for pattern validation -->
-            <span *ngIf="registerForm.get('userName')?.hasError('pattern')"> Username must start with a letter, contain
+            <span *ngIf="registerForm.get('userName')?.getError('pattern')"> Username must start with a letter, contain
               only alphanumeric characters, and end with a number. </span>
             <!-- Error message for minlength validation -->
-            <span *ngIf="registerForm.get('userName')?.hasError('minlength')"> Username must be at least 3 characters
+            <span *ngIf="registerForm.get('userName')?.getError('minlength')"> Username must be at least 3 characters
               long. </span>
             <!-- Error message for maxlength validation -->
-            <span *ngIf="registerForm.get('userName')?.hasError('maxlength')"> Username cannot be more than 15
+            <span *ngIf="registerForm.get('userName')?.getError('maxlength')"> Username cannot be more than 15
               characters long. </span>
           </mat-error>
         </mat-form-field>

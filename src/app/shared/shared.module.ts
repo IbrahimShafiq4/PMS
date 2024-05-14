@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ChartModule } from 'angular-highcharts';
 import { AuthService } from '../auth/services/auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { SharedTableComponent } from './components/shared-table/shared-table.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { MatMenuModule } from '@angular/material/menu';
     SharedHeaderComponent,
     NavbarComponent,
     SidebarComponent,
+    SharedHeaderComponent,
+    SharedTableComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +56,8 @@ import { MatMenuModule } from '@angular/material/menu';
     SharedHeaderComponent,
     NavbarComponent,
     SidebarComponent,
-    MatMenuModule
+    MatMenuModule,
+    SharedHeaderComponent
   ],
   providers: [AuthService],
 })
