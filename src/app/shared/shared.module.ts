@@ -16,9 +16,11 @@ import { ChartModule } from 'angular-highcharts';
 import { AuthService } from '../auth/services/auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedTableComponent } from './components/shared-table/shared-table.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import { NoDataComponent } from './components/no-data/no-data.component'
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NoDataComponent } from './components/no-data/no-data.component';
+import { HelperService } from './components/services/helper.service';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -27,7 +29,7 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     SidebarComponent,
     SharedHeaderComponent,
     SharedTableComponent,
-    NoDataComponent
+    NoDataComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     MatMenuModule,
     MatCardModule,
     MatPaginatorModule
+
   ],
   exports: [
     CommonModule,
@@ -67,6 +70,6 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     MatCardModule,
     MatPaginatorModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, HelperService],
 })
 export class SharedModule {}

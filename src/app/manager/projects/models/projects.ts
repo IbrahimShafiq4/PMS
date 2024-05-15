@@ -13,6 +13,22 @@ export interface IProjectData {
   creationDate: string;
   modificationDate: string;
   task: IProjectTasks[];
+  manager?: projectManager;
+}
+
+export interface projectManager {
+  id: number;
+  userName: string;
+  imagePath: string;
+  email: string;
+  password: string;
+  country: string;
+  phoneNumber: string;
+  verificationCode: string | null;
+  isVerified: boolean;
+  isActivated: boolean;
+  creationDate: Date;
+  modificationDate: Date;
 }
 
 export interface IProjectTasks {
@@ -31,25 +47,29 @@ export interface IProjectParamsRequest {
   [key: string]: any;
 }
 
-
 //interface for add project request
 export interface IAdd {
-  title:string;
-  description:string;
-  // [key: string]: any;
+  title: string;
+  description: string;
 }
+
 //interface for add project response
 export interface IAddResponse {
-  title:string;
-  description:string;
-  manager:IManager;
-  id:number;
-  creationDate:string;
-  modificationDate:string;
+  title: string;
+  description: string;
+  manager: IManager;
+  id: number;
+  creationDate: string;
+  modificationDate: string;
 }
 
+export interface IManager {
+  id: number;
+}
 
-
-export interface IManager{
-  id:number
+export interface IUpdateResponse {
+  id: number;
+  title: string;
+  description: string;
+  modificationDate: string;
 }

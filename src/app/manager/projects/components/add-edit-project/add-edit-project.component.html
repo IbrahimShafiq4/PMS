@@ -1,28 +1,26 @@
+<app-shared-header [headerLinkText]="'View All Projects'" [headerLink]="navigationLink" [headerBtnVisibility]="false"
+  [headerText]=" addEditText" [headerBtnLink]="'add'"></app-shared-header>
+<div class="container p-0 mx-auto">
+  <mat-card class="p-5">
+    <form class="d-flex gap-5 flex-column" [formGroup]="projectForm" (ngSubmit)="sendData(projectForm)">
+      <div>
+        <mat-label class="mb-3 d-block fs-5 text-secondary">Title</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input formControlName="title" matInput placeholder="Enter the Project Title">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-label class="mb-3 d-block fs-5 text-secondary">Description</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <textarea formControlName="description" matInput placeholder="Enter the Project Description"> </textarea>
+        </mat-form-field>
+      </div>
 
-  <app-shared-header  [headerLinkText]="'View All Categories'" [headerLink]="'../'" [headerBtnVisibility]="false"
-    [headerText]="'Add a New Project'" [headerBtnLink]="'add'"></app-shared-header>
-  <div class="container  p-0 m-0 ">
-    <mat-card class="px-4 py-3  ">
-      <form action="" [formGroup]="projectForm" (ngSubmit)="sendData(projectForm)">
-        <div>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Title </mat-label>
-            <input formControlName="title" matInput placeholder="Title">
-          </mat-form-field>
-        </div>
+      <mat-card-actions class="d-flex justify-content-between">
+        <button type="button" [routerLink]="navigationLink" class="dark-outline">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </mat-card-actions>
 
-        <div>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Description </mat-label>
-            <textarea formControlName="description" matInput placeholder="Description"> </textarea>
-          </mat-form-field>
-        </div>
-
-        <mat-card-actions class="d-flex justify-content-between">
-          <button type="button" routerLink="../" class="dark-outline">Cancle</button>
-          <button type="submit" class="primary">Save</button>
-
-        </mat-card-actions>
-      </form>
-    </mat-card>
-  </div>
+    </form>
+  </mat-card>
+</div>

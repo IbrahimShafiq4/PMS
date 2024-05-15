@@ -3,14 +3,15 @@
     <img src="../../../../assets/images/logo-dark.png" class="" alt="logo">
   </figure>
   <div class="user-content d-flex align-items-center">
-    <div class="d-flex align-items-center gap-1 justify-content-end">
+    <div class="d-flex align-items-center gap-lg-4 gap-md-3 gap-sm-2 gap-1 justify-content-end">
       <i class="fa-solid fa-bell fa-2x main-text-color border-end px-4"></i>
       <figure class="w-25 mb-0 text-end">
-        <img src="../../../../assets/images/profile.jpeg" class="rounded-circle w-25" alt="profile image">
+        <img [src]="currentUserData.imagePath ? imgBaseUrl + currentUserData.imagePath : emptyUserImage"
+          class="rounded-circle" alt="profile image">
       </figure>
       <div class="user">
-        <p class="mb-0 fw-bold">Upskilling</p>
-        <p class="mb-0 text-secondary">upskilling@gmail.com</p>
+        <p class="mb-0 fw-bold">{{ currentUserData.userName }}</p>
+        <p class="mb-0 text-secondary"> {{ currentUserData.email }} </p>
       </div>
       <div>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
