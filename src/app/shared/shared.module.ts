@@ -44,7 +44,7 @@ import { NoDataComponent } from './components/no-data/no-data.component';
     ChartModule,
     MatMenuModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
     MatCardModule
   ],
   exports: [
@@ -67,7 +67,7 @@ import { NoDataComponent } from './components/no-data/no-data.component';
     SharedHeaderComponent,
     SharedTableComponent,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
     MatCardModule
   ],
   providers: [AuthService],
