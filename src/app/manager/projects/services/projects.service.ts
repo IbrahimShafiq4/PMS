@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IProjectList, IProjectParamsRequest } from '../models/projects';
+import { IProjectList, IProjectParamsRequest ,IAdd ,IAddResponse } from '../models/projects';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,5 +14,10 @@ export class ProjectsService {
     return this._HttpClient.get<IProjectList>('Project/manager', {
       params: params,
     });
+  }
+
+   //add new project
+   onAddProject(data:IAdd):Observable<IAddResponse>{
+    return this._HttpClient.post<IAddResponse>('Project',data);
   }
 }

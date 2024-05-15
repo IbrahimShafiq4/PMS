@@ -30,3 +30,26 @@ export interface IProjectParamsRequest {
   pageNumber: number;
   [key: string]: any;
 }
+
+
+//interface for add project request
+export interface IAdd {
+  title:string;
+  description:string;
+  // [key: string]: any;
+}
+//interface for add project response
+export interface IAddResponse {
+  title:string;
+  description:string;
+  manager:IManager;
+  id:number;
+  creationDate:string;
+  modificationDate:string;
+}
+
+
+
+export interface IManager{
+  id:number
+}
