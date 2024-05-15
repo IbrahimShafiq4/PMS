@@ -1,23 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IProjectList, IProjectParamsRequest ,IAdd ,IAddResponse } from '../models/projects';
+import {
+  IProjectList,
+  IProjectParamsRequest,
+  IAddResponse,
+  IProjectData,
+  IUpdateResponse,
+  IAdd,
+} from '../models/projects';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
-
-
   constructor(private _HttpClient: HttpClient) {}
+
   getAllProjects(params: IProjectParamsRequest): Observable<IProjectList> {
     return this._HttpClient.get<IProjectList>('Project/manager', {
       params: params,
     });
   }
 
-   //add new project
-   onAddProject(data:IAdd):Observable<IAddResponse>{
-    return this._HttpClient.post<IAddResponse>('Project',data);
+  //add new project
+  onAddProject(data: IAdd): Observable<IAddResponse> {
+    return this._HttpClient.post<IAddResponse>('Project', data);
+  }
+
+  getSingleProject(projectId: number): Observable<IProjectData> {
+    return this._HttpClient.get<IProjectData>(`Project/${projectId}`);
+  }
+
+  updateProject(
+    projectId: number,
+    updatedProjectData: IAdd
+  ): Observable<IUpdateResponse> {
+    return this._HttpClient.put<IUpdateResponse>(
+      `Project/${projectId}`,
+      updatedProjectData
+    );
   }
 }
