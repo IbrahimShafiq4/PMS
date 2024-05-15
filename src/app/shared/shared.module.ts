@@ -18,7 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SharedTableComponent } from './components/shared-table/shared-table.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { NoDataComponent } from './components/no-data/no-data.component'
+import { NoDataComponent } from './components/no-data/no-data.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -44,6 +45,7 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     MatMenuModule,
     MatCardModule,
     MatPaginatorModule
+    MatCardModule
   ],
   exports: [
     CommonModule,
@@ -66,6 +68,7 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     SharedTableComponent,
     MatCardModule,
     MatPaginatorModule
+    MatCardModule
   ],
   providers: [AuthService],
 })
