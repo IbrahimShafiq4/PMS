@@ -45,9 +45,8 @@ import { HelperService } from './components/services/helper.service';
     ChartModule,
     MatMenuModule,
     MatCardModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatCardModule
+    MatPaginatorModule
+
   ],
   exports: [
     CommonModule,
@@ -69,8 +68,7 @@ import { HelperService } from './components/services/helper.service';
     SharedHeaderComponent,
     SharedTableComponent,
     MatCardModule,
-    MatPaginatorModule,
-    MatCardModule
+    MatPaginatorModule
   ],
   providers: [AuthService, HelperService],
 })

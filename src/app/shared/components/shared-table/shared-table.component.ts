@@ -15,16 +15,12 @@ export class SharedTableComponent {
   @Input() tableHeaders: string[] = [];
   @Input() tableDefinitionText: string = '';
   @Input() tableBodyContent!: IProjectList;
-  @Output() searchValue: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchValueEntered: EventEmitter<string> = new EventEmitter<string>();
   @Output() editCategory: EventEmitter<number> = new EventEmitter();
-  data: string = '';
+  searchValue:string=''
 
   ngOnInit(): void {}
-  ngOnChanges(): void {
-    this.searchValue.emit(this.data);
-    console.log('searchValue', this.searchValue);
-    console.log(this.data);
-  }
+
   isEdited(rowData: any) {
     this.editCategory.emit(rowData);
   }
@@ -32,5 +28,10 @@ export class SharedTableComponent {
   handlePageEvent(e: any) {
     this.pageSize.emit(e.pageSize);
     this.pageNumber.emit(e.pageIndex);
+  }
+  sendSearchValue(searchValue:Event) {
+    console.log('this.searchValue',searchValue);
+
+    this.searchValueEntered.emit(this.searchValue);
   }
 }
