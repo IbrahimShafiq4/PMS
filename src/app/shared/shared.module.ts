@@ -18,7 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SharedTableComponent } from './components/shared-table/shared-table.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { NoDataComponent } from './components/no-data/no-data.component'
+import { NoDataComponent } from './components/no-data/no-data.component';
+import { FirstTenWordsPipe } from 'src/app/core/pipe/FirstTenWords.pipe';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -27,7 +28,8 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     SidebarComponent,
     SharedHeaderComponent,
     SharedTableComponent,
-    NoDataComponent
+    NoDataComponent,
+    FirstTenWordsPipe
   ],
   imports: [
     CommonModule,
@@ -65,7 +67,8 @@ import { NoDataComponent } from './components/no-data/no-data.component'
     SharedHeaderComponent,
     SharedTableComponent,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FirstTenWordsPipe
   ],
   providers: [AuthService],
 })
