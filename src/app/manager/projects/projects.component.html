@@ -5,4 +5,4 @@
   [headerBtnLink]="'add'"
 ></app-shared-header>
 <app-shared-table [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
-  [tableBodyContent]="projectTableData" (editCategory)="willBeEdited($event)"></app-shared-table>
+  [tableBodyContent]="projectTableData" (editCategory)="willBeEdited($event)" (pageNumber)="pageNumber($event)" (pageSize)="pageSize($event)"></app-shared-table>

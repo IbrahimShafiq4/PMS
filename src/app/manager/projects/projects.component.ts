@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit {
   projectTableData: IProjectList = {
     data: [],
     pageNumber: 0,
-    pageSize: 0,
+    pageSize: 5,
     totalNumberOfRecords: 0,
     totalNumberOfPages: 0,
   };
@@ -41,9 +41,10 @@ export class ProjectsComponent implements OnInit {
   getProject() {
     let requestParams: IProjectParamsRequest = {
       title: '',
-      pageNumber: 1,
-      pageSize: 10,
+      pageNumber: this.projectTableData.pageNumber,
+      pageSize: this.projectTableData.pageSize,
     };
+    console.log('requestParams', requestParams);
 
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
@@ -61,5 +62,15 @@ export class ProjectsComponent implements OnInit {
 
   willBeEdited(event: number) {
     this._Router.navigate([`/dashboard/manager/projects/edit/${event}`]);
+  }
+  pageSize(event: number) {
+    console.log('pageSize', event);
+    this.projectTableData.pageSize = event;
+    this.getProject();
+  }
+  pageNumber(event: number) {
+    console.log('pageNumber', event);
+    this.projectTableData.pageNumber = event;
+    this.getProject();
   }
 }

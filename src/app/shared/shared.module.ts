@@ -17,6 +17,8 @@ import { AuthService } from '../auth/services/auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedTableComponent } from './components/shared-table/shared-table.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { NoDataComponent } from './components/no-data/no-data.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {MatCardModule} from '@angular/material/card';
     NavbarComponent,
     SidebarComponent,
     SharedHeaderComponent,
-    SharedTableComponent
+    SharedTableComponent,
+    NoDataComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,8 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     ChartModule,
     MatMenuModule,
+    MatCardModule,
+    MatPaginatorModule
     MatCardModule
   ],
   exports: [
@@ -61,6 +66,8 @@ import {MatCardModule} from '@angular/material/card';
     MatMenuModule,
     SharedHeaderComponent,
     SharedTableComponent,
+    MatCardModule,
+    MatPaginatorModule
     MatCardModule
   ],
   providers: [AuthService],
