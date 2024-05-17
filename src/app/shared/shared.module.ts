@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
     SharedHeaderComponent,
     SharedTableComponent,
     NoDataComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    FirstTenWordsPipe
   ],
 
   imports: [
