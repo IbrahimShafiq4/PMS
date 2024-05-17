@@ -20,6 +20,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
+import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { HelperService } from './components/services/helper.service';
     SharedHeaderComponent,
     SharedTableComponent,
     NoDataComponent,
+    FirstTenWordsPipe
   ],
   imports: [
     CommonModule,
