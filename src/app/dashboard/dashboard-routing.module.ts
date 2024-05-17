@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from '../shared/components/home/home.component';
 import { UpdateProfileComponent } from '../shared/components/update-profile/update-profile.component';
+import { ViewComponent } from '../shared/components/view/view.component';
+import { DeleteComponent } from '../shared/components/delete/delete.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,16 @@ const routes: Routes = [
         path: 'update-profile',
         component: UpdateProfileComponent,
         title: 'Update Profile',
+      },
+      {
+        path: 'view/:id/:navigatedFrom',
+        component: ViewComponent,
+        title: 'View',
+      },
+      {
+        path: 'delete/:id/:navigatedFrom',
+        component: DeleteComponent,
+        title: 'Delete',
       },
     ],
   },

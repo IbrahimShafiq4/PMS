@@ -9,16 +9,14 @@
     <div class="row" [ngClass]="updateView ? 'align-items-center' : ''">
       <!-- Ngx-dropzone for image -->
       <div class="d-flex justify-content-center my-1 main-transition" [ngClass]="updateView ? 'col-lg-2' : 'col-lg-12'">
-        <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
-          <div class="overlay"></div>
-          <ngx-dropzone-label class="m-0">
-            <i class="fa-solid fa-camera main-green-color"></i>
-          </ngx-dropzone-label>
-          <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove(f)"
-            *ngFor="let f of files" [file]="f">
-            <ngx-dropzone-label></ngx-dropzone-label>
+        <ngx-dropzone [class]="files.length?'border-0':'border-1'" (change)="onSelect($event)">
+          <ngx-dropzone-label *ngIf="!imgSrc"> <i class="fa-upload fa-solid"></i></ngx-dropzone-label>
+          <ngx-dropzone-label *ngIf="imgSrc"> <img [src]="imgSrc" alt="" class="w-100"></ngx-dropzone-label>
+          <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+            class=" m-auto overflow-auto w-25">
           </ngx-dropzone-image-preview>
-        </ngx-dropzone>
+
+          </ngx-dropzone>
       </div>
       <!-- End Ngx-dropzone for image -->
 

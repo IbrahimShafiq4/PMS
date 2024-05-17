@@ -22,6 +22,9 @@ import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
+import { ViewComponent } from './components/view/view.component';
+import { DeleteComponent } from './components/delete/delete.component';
+import { ProjectsService } from '../manager/projects/services/projects.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
     SharedTableComponent,
     NoDataComponent,
     UpdateProfileComponent,
-    FirstTenWordsPipe
+    FirstTenWordsPipe,
+    ViewComponent,
+    DeleteComponent
   ],
 
   imports: [
@@ -77,6 +82,6 @@ import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
     UpdateProfileComponent
   ],
 
-  providers: [AuthService, HelperService],
+  providers: [AuthService, HelperService, ProjectsService],
 })
 export class SharedModule {}
