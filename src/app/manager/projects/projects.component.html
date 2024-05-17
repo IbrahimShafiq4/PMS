@@ -6,9 +6,9 @@
   [tableDefinitionText]="'projects'"
   [tableBodyContent]="projectTableData"
   (editCategory)="willBeEdited($event)"
-  (searchValueEntered)="this.getSearchVal($event)"
-  (pageNumber)="pageNumber($event)"
-  (pageSize)="pageSize($event)"
+  (searchValueEntered)="getSearchVal($event)"
+  (pageIndexChanged)="pageNumber($event)"
+  (pageSizeChanged)="pageSize($event)"
   (view)="willBeViewed($event)"
   (delete)="willBeDeleted($event)"
 ></app-shared-table>

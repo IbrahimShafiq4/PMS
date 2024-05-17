@@ -49,16 +49,14 @@ export class ProjectsComponent implements OnInit {
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
         this.projectTableData = res;
-        console.log(res.data);
-
       },
       error: (error: HttpErrorResponse) =>
         this._toastrService.error(error.error.message, 'Error'),
-      complete: () =>{}
+      complete: () => {}
     });
   }
 
-  getSearchVal(event: any) {
+  getSearchVal(event: string) {
     this.searchValue = event;
     this.getProject();
   }
@@ -67,21 +65,21 @@ export class ProjectsComponent implements OnInit {
     this._Router.navigate([`/dashboard/manager/projects/edit/${event}`]);
   }
 
-  pageSize(event: number) {
+  pageSize(event: number) { // Ensure it accepts number
     this.projectTableData.pageSize = event;
     this.getProject();
   }
 
-  pageNumber(event: number) {
+  pageNumber(event: number) { // Ensure it accepts number
     this.projectTableData.pageNumber = event;
     this.getProject();
   }
 
   willBeDeleted(event: number) {
-    this._Router.navigate([`/dashboard/delete/${event}/projects`])
+    this._Router.navigate([`/dashboard/delete/${event}/projects`]);
   }
 
   willBeViewed(event: number) {
-    this._Router.navigate([`/dashboard/view/${event}/projects`])
+    this._Router.navigate([`/dashboard/view/${event}/projects`]);
   }
 }

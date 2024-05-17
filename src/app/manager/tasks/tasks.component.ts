@@ -69,6 +69,7 @@ export class TasksComponent {
     this.taskTableData.pageNumber = event;
     this.getTasks();
   }
+  
   pageSize(event: number) {
     this.taskTableData.pageSize = event;
     this.getTasks();

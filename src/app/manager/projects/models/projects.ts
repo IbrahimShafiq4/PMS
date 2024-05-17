@@ -41,7 +41,7 @@ export interface IProjectTasks {
 }
 
 export interface IProjectParamsRequest {
-  title: string;
+  title?: string;
   pageSize: number;
   pageNumber: number;
   [key: string]: any;

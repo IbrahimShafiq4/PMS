@@ -1,11 +1,11 @@
-<app-shared-header
-  [headerBtnText]="'Add New Task'"
-  [headerBtnVisibility]="true"
-  [headerMainText]="'Tasks'"
-  [headerBtnLink]="'add'"
-></app-shared-header>
+<app-shared-header [headerBtnText]="'Add New Task'" [headerBtnVisibility]="true" [headerMainText]="'Tasks'"
+  [headerBtnLink]="'add'"></app-shared-header>
 
-<app-shared-table [tableHeaders]="tableHeaders" [tableDefinitionText]="'Tasks'"
-  [tableBodyContent]="taskTableData" (editCategory)="willBeEdited($event)" (searchValueEntered)="this.getSearchVal($event)"
-   (pageNumber)="pageNumber($event)" (pageSize)="pageSize($event)"></app-shared-table>
-
+<app-shared-table
+  [tableHeaders]="tableHeaders"
+  [tableDefinitionText]="'Tasks'"
+  [tableBodyContent]="taskTableData"
+  (editCategory)="willBeEdited($event)"
+  (searchValueEntered)="this.getSearchVal($event)"
+  (pageIndexChanged)="pageNumber($event)"
+  (pageSizeChanged)="pageSize($event)"></app-shared-table>
