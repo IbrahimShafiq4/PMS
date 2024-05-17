@@ -48,7 +48,7 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
     ChartModule,
     MatMenuModule,
     MatCardModule,
-    MatPaginatorModule,
+    MatPaginatorModule
   ],
 
   exports: [

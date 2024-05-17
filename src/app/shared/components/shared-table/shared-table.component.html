@@ -2,7 +2,9 @@
 
   <mat-form-field class="w-25 mx-4" appearance="outline">
     <mat-label>Search By Title</mat-label>
-    <input matInput (keyup.enter)="inputFilter()" [(ngModel)]="data" placeholder="Placeholder">
+
+    <input matInput  [(ngModel)]="searchValue"  (keyup.enter)="sendSearchValue($event)"  placeholder="Placeholder">
+
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
 
@@ -16,7 +18,9 @@
       <ng-container *ngIf="tableDefinitionText === 'projects'">
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
-          <td>{{ tableBody.description.slice(0, 10) }}</td>
+
+          <td>{{ tableBody.description| FirstTenWords }}</td>
+
           <td>
             <span class="badge bg-secondary"> {{ tableBody.task.length > 0 ? tableBody.task[0]?.title : 'No Tasks Yet'
               }}</span>
