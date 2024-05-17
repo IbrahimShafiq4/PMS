@@ -22,6 +22,7 @@ import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
     ChartModule,
     MatMenuModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule
   ],
 
   exports: [
@@ -75,7 +77,8 @@ import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
     MatCardModule,
     MatPaginatorModule,
     UpdateProfileComponent,
-    FirstTenWordsPipe
+    FirstTenWordsPipe,
+    MatSelectModule
   ],
 
   providers: [AuthService, HelperService],

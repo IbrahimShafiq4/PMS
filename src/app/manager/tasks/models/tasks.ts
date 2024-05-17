@@ -23,7 +23,6 @@ export interface ITaskDetail {
 export interface ITasksParameters {
   title?: string;
   status?: string;
-  id?: number;
   pageSize: number;
   pageNumber: number;
   [key: string]: any;

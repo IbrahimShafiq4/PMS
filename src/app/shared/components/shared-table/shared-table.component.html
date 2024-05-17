@@ -13,19 +13,34 @@
       <tr *ngIf="tableDefinitionText === 'projects'">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
+      <tr *ngIf="tableDefinitionText === 'Tasks'">
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
     </thead>
     <tbody>
-      <ng-container *ngIf="tableDefinitionText === 'projects'">
+      <ng-container *ngIf="isProject(tableBodyContent)">
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
 
           <td>{{ tableBody.description| FirstTenWords }}</td>
 
           <td>
-            <span class="badge bg-secondary"> {{ tableBody.task.length > 0 ? tableBody.task[0]?.title : 'No Tasks Yet'
-              }}</span>
+            <span *ngIf="tableBody.task.length">
+              <ng-container *ngFor="let task of tableBody.task, let last=last">
+                {{task.title}}
+                <span *ngIf="!last">,</span>
+              </ng-container>
+            </span>
+            <span class="badge bg-secondary" *ngIf="!tableBody.task.length">
+              No Tasks Yet
+            </span>
           </td>
-          <td>{{ tableBody.creationDate | date : 'short' }}</td>
+          <!-- <td>
+            <span class="badge bg-secondary">
+              {{ tableBody.task.length > 0 ? tableBody.task[0]?.title : 'No Tasks Yet' }}</span>
+          </td> -->
+
+          <td>{{ tableBody.creationDate| date : 'short' }}</td>
           <td>{{ tableBody.modificationDate | date : 'short' }}</td>
           <td>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
@@ -49,6 +64,45 @@
           </td>
         </tr>
       </ng-container>
+
+      <ng-container *ngIf="!isProject(tableBodyContent)">
+        <tr *ngFor="let tableBody of tableBodyContent.data">
+          <td>{{ tableBody.title }}</td>
+          <td class="">
+            <span class="status d-flex align-items-center justify-content-center w-50" [ngClass]="{'toDo': tableBody.status=='ToDo','inProgress': tableBody.status=='InProgress','done': tableBody.status=='Done'}">
+              {{ tableBody.status }}
+            </span>
+
+          </td>
+          <td>{{tableBody.project?.title}}</td>
+          <td>{{tableBody.employee?.userName}}</td>
+
+
+          <td>{{ tableBody.creationDate | date : 'short' }}</td>
+
+          <td>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+              aria-label="Example icon-button with a menu">
+              <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="isEdited(tableBody.id)">
+                <mat-icon class="main-green-color">edit_square</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item type="button" [routerLink]="'/auth/change-password'">
+                <mat-icon class="main-green-color">delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <button mat-menu-item type="button">
+                <mat-icon class="main-green-color">visibility</mat-icon>
+                <span>View</span>
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </ng-container>
+
     </tbody>
   </table>
 
