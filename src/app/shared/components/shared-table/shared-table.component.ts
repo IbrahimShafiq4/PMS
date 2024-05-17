@@ -17,22 +17,31 @@ export class SharedTableComponent {
   @Input() tableBodyContent!: IProjectList;
   @Output() searchValueEntered: EventEmitter<string> = new EventEmitter<string>();
   @Output() editCategory: EventEmitter<number> = new EventEmitter();
+  @Output() view: EventEmitter<number> = new EventEmitter<number>();
+  @Output() delete: EventEmitter<number> = new EventEmitter<number>();
+
   searchValue:string=''
 
   ngOnInit(): void {}
 
   isEdited(rowData: any) {
     this.editCategory.emit(rowData);
-
   }
 
   handlePageEvent(e: any) {
     this.pageSize.emit(e.pageSize);
     this.pageNumber.emit(e.pageIndex);
   }
-  sendSearchValue(searchValue:Event) {
-    console.log('this.searchValue',searchValue);
 
+  sendSearchValue() {
     this.searchValueEntered.emit(this.searchValue);
+  }
+
+  viewItem(rowId: number) {
+    this.view.emit(rowId);
+  }
+
+  deleteItem(rowId: number) {
+    this.delete.emit(rowId)
   }
 }

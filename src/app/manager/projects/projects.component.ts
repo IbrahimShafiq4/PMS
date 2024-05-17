@@ -12,7 +12,7 @@ import { exhaustMap, fromEvent, interval, reduce, take, tap } from 'rxjs';
   styleUrls: ['./projects.component.scss'],
 })
 export class ProjectsComponent implements OnInit {
-  searchValue:string='';
+  searchValue: string = '';
   tableHeaders: string[] = [
     'Title',
     'Description',
@@ -42,7 +42,7 @@ export class ProjectsComponent implements OnInit {
 
   getProject() {
     let requestParams: IProjectParamsRequest = {
-      title:this.searchValue,
+      title: this.searchValue,
       pageNumber: this.projectTableData.pageNumber,
       pageSize: this.projectTableData.pageSize,
     };
@@ -60,10 +60,10 @@ export class ProjectsComponent implements OnInit {
         ),
     });
   }
-  getSearchVal(event:any){
-  console.log("getSearchVal",event);
-   this.searchValue=event;
-   this.getProject();
+
+  getSearchVal(event: any) {
+    this.searchValue = event;
+    this.getProject();
   }
 
   willBeEdited(event: number) {
@@ -78,5 +78,13 @@ export class ProjectsComponent implements OnInit {
   pageNumber(event: number) {
     this.projectTableData.pageNumber = event;
     this.getProject();
+  }
+
+  willBeDeleted(event: number) {
+    this._Router.navigate([`/dashboard/delete/${event}/projects`])
+  }
+
+  willBeViewed(event: number) {
+    this._Router.navigate([`/dashboard/view/${event}/projects`])
   }
 }
