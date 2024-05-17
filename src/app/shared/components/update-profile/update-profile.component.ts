@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,7 @@ export class UpdateProfileComponent {
   hideTwo: boolean = true;
 
   updateView: boolean = true;
+  imgUrl: string = 'https://upskilling-egypt.com:3003/';
 
   // userName that will be set to the toastr
   userName: string = '';
@@ -26,6 +27,10 @@ export class UpdateProfileComponent {
     private _Router: Router
   ) {}
 
+  ngOnInit(): void {
+    this.getCurrentUser()
+  }
+
   // used for storing the images
   files: File[] = [];
 
@@ -33,41 +38,38 @@ export class UpdateProfileComponent {
   imgSrc: any;
 
   updateForm = new FormGroup({
-    userName: new FormControl(null, [
+    userName: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(15),
       Validators.pattern(/^[A-Za-z][A-Za-z0-9]*[0-9]$/),
     ]),
 
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email]),
 
-    country: new FormControl(null, [Validators.required]),
+    country: new FormControl('', [Validators.required]),
 
-    phoneNumber: new FormControl(null, [
+    phoneNumber: new FormControl('', [
       Validators.required,
       Validators.pattern(/^01[0125][0-9]{8}$/),
       Validators.maxLength(12),
     ]),
 
-    confirmPassword: new FormControl(null, [
+    confirmPassword: new FormControl('', [
       Validators.required,
     ]),
   });
 
   onUpdate(registrationForm: FormGroup) {
-    this._AuthService.register(registrationForm.value).subscribe({
+    this._AuthService.updateProfile(registrationForm.value).subscribe({
       next: (res) => (this.userName = registrationForm.value.userName),
       error: (error: HttpErrorResponse) =>
         this._ToastrService.error(error.error.message, 'Error'),
       complete: () => {
         this._ToastrService.success(
-          `Welcome TO Our PMS ${this.userName}`,
+          `Account updated Successfully`,
           'Success'
         );
-        setTimeout(() => {
-          this._Router.navigate(['/auth/verify']);
-        }, 500);
       },
     });
   }
@@ -89,12 +91,12 @@ export class UpdateProfileComponent {
       next: (res) => userData = res,
       error: (error: HttpErrorResponse) => this._ToastrService.error(error.error.message, 'Error'),
       complete: () => {
-        this.imgSrc = userData.imagePath;
+        this.imgSrc =  this.imgUrl + userData.imagePath;
         this.updateForm.patchValue({
-          // userName: userData.userName,
-          // email: userData.email,
-          // country: userData.country,
-          // phoneNumber: userData.phoneNumber,
+          userName: userData.userName,
+          email: userData.email,
+          country: userData.country,
+          phoneNumber: userData.phoneNumber,
         })
       }
     })

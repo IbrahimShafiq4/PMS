@@ -13,9 +13,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-
 export class ProjectsService {
-  constructor(private _HttpClient: HttpClient) {  }
+  constructor(private _HttpClient: HttpClient) {}
 
   getAllProjects(params: IProjectParamsRequest): Observable<IProjectList> {
     return this._HttpClient.get<IProjectList>('Project/manager', {
@@ -47,5 +46,15 @@ export class ProjectsService {
       `Project/${projectId}`,
       updatedProjectData
     );
+  }
+
+  deleteProject(projectId: number): Observable<{
+    raw: [];
+    affected: number;
+  }> {
+    return this._HttpClient.delete<{
+      raw: [];
+      affected: number;
+    }>(`Project/${projectId}`);
   }
 }

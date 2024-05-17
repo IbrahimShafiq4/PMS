@@ -23,6 +23,9 @@ import { HelperService } from './components/services/helper.service';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
 import {MatSelectModule} from '@angular/material/select';
+import { ViewComponent } from './components/view/view.component';
+import { DeleteComponent } from './components/delete/delete.component';
+import { ProjectsService } from '../manager/projects/services/projects.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import {MatSelectModule} from '@angular/material/select';
     SharedTableComponent,
     NoDataComponent,
     UpdateProfileComponent,
+    FirstTenWordsPipe,
+    ViewComponent,
+    DeleteComponent,
     FirstTenWordsPipe
   ],
 
@@ -81,6 +87,6 @@ import {MatSelectModule} from '@angular/material/select';
     MatSelectModule
   ],
 
-  providers: [AuthService, HelperService],
+  providers: [AuthService, HelperService, ProjectsService],
 })
 export class SharedModule {}

@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './add-edit-project.component.html',
   styleUrls: ['./add-edit-project.component.scss'],
 })
+
 export class AddEditProjectComponent implements OnInit {
   navigationLink: string = '/dashboard/manager/projects/'; // Navigation link for redirection after form submission
   projectId: number = 0; // ID of the project being edited, initialized to 0 for new project

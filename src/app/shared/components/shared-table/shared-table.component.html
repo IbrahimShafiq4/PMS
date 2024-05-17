@@ -3,7 +3,7 @@
   <mat-form-field class="w-25 mx-4" appearance="outline">
     <mat-label>Search By Title</mat-label>
 
-    <input matInput  [(ngModel)]="searchValue"  (keyup.enter)="sendSearchValue($event)"  placeholder="Placeholder">
+    <input matInput  [(ngModel)]="searchValue" (keyup.enter)="sendSearchValue()"  placeholder="Placeholder">
 
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
@@ -21,9 +21,7 @@
       <ng-container *ngIf="isProject(tableBodyContent)">
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
-
-          <td>{{ tableBody.description| FirstTenWords }}</td>
-
+          <td>{{ tableBody.description.slice(0, 15) }}</td>
           <td>
             <span *ngIf="tableBody.task.length">
               <ng-container *ngFor="let task of tableBody.task, let last=last">
@@ -34,6 +32,8 @@
             <span class="badge bg-secondary" *ngIf="!tableBody.task.length">
               No Tasks Yet
             </span>
+            <span class="badge bg-secondary">
+              {{ tableBody.task.length > 0 ? tableBody.task[0]?.title : 'No Tasks Yet' }}</span>
           </td>
           <!-- <td>
             <span class="badge bg-secondary">
@@ -52,11 +52,11 @@
                 <mat-icon class="main-green-color">edit_square</mat-icon>
                 <span>Edit</span>
               </button>
-              <button mat-menu-item type="button" [routerLink]="'/auth/change-password'">
-                <mat-icon class="main-green-color">delete</mat-icon>
+              <button mat-menu-item type="button" (click)="deleteItem(tableBody.id)">
+                <mat-icon class="main-green-color" >delete</mat-icon>
                 <span>Delete</span>
               </button>
-              <button mat-menu-item type="button">
+              <button mat-menu-item type="button" (click)="viewItem(tableBody.id)">
                 <mat-icon class="main-green-color">visibility</mat-icon>
                 <span>View</span>
               </button>

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./projects.component.scss'],
 })
 export class ProjectsComponent implements OnInit {
-  searchValue:string='';
+  searchValue: string = '';
   tableHeaders: string[] = [
     'Title',
     'Description',
@@ -41,7 +41,7 @@ export class ProjectsComponent implements OnInit {
 
   getProject() {
     let requestParams: IProjectParamsRequest = {
-      title:this.searchValue,
+      title: this.searchValue,
       pageNumber: this.projectTableData.pageNumber,
       pageSize: this.projectTableData.pageSize,
     };
@@ -57,10 +57,10 @@ export class ProjectsComponent implements OnInit {
       complete: () =>{}
     });
   }
-  getSearchVal(event:string){
-  console.log("getSearchVal",event);
-   this.searchValue=event;
-   this.getProject();
+
+  getSearchVal(event: any) {
+    this.searchValue = event;
+    this.getProject();
   }
 
   willBeEdited(event: number) {
@@ -75,5 +75,13 @@ export class ProjectsComponent implements OnInit {
   pageNumber(event: number) {
     this.projectTableData.pageNumber = event;
     this.getProject();
+  }
+
+  willBeDeleted(event: number) {
+    this._Router.navigate([`/dashboard/delete/${event}/projects`])
+  }
+
+  willBeViewed(event: number) {
+    this._Router.navigate([`/dashboard/view/${event}/projects`])
   }
 }

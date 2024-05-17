@@ -1,10 +1,14 @@
-<app-shared-header
-  [headerBtnText]="'Add New Project'"
-  [headerBtnVisibility]="true"
-  [headerMainText]="'Projects'"
-  [headerBtnLink]="'add'"
-></app-shared-header>
+<app-shared-header [headerBtnText]="'Add New Project'" [headerBtnVisibility]="true" [headerMainText]="'Projects'"
+  [headerBtnLink]="'add'"></app-shared-header>
 
-<app-shared-table [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
-  [tableBodyContent]="projectTableData" (editCategory)="willBeEdited($event)" (searchValueEntered)="this.getSearchVal($event)" (pageNumber)="pageNumber($event)" (pageSize)="pageSize($event)"></app-shared-table>
-
+<app-shared-table
+  [tableHeaders]="tableHeaders"
+  [tableDefinitionText]="'projects'"
+  [tableBodyContent]="projectTableData"
+  (editCategory)="willBeEdited($event)"
+  (searchValueEntered)="this.getSearchVal($event)"
+  (pageNumber)="pageNumber($event)"
+  (pageSize)="pageSize($event)"
+  (view)="willBeViewed($event)"
+  (delete)="willBeDeleted($event)"
+></app-shared-table>
