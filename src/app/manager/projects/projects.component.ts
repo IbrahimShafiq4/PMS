@@ -4,6 +4,7 @@ import { ProjectsService } from './services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { exhaustMap, fromEvent, interval, reduce, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -44,7 +45,6 @@ export class ProjectsComponent implements OnInit {
       pageNumber: this.projectTableData.pageNumber,
       pageSize: this.projectTableData.pageSize,
     };
-    console.log('requestParams', requestParams);
 
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
@@ -63,13 +63,13 @@ export class ProjectsComponent implements OnInit {
   willBeEdited(event: number) {
     this._Router.navigate([`/dashboard/manager/projects/edit/${event}`]);
   }
+
   pageSize(event: number) {
-    console.log('pageSize', event);
     this.projectTableData.pageSize = event;
     this.getProject();
   }
+
   pageNumber(event: number) {
-    console.log('pageNumber', event);
     this.projectTableData.pageNumber = event;
     this.getProject();
   }

@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { HelperService } from './components/services/helper.service';
     SharedHeaderComponent,
     SharedTableComponent,
     NoDataComponent,
+    UpdateProfileComponent
   ],
+
   imports: [
     CommonModule,
     RouterModule,
@@ -46,9 +49,8 @@ import { HelperService } from './components/services/helper.service';
     MatMenuModule,
     MatCardModule,
     MatPaginatorModule,
-    MatCardModule,
-    MatCardModule
   ],
+
   exports: [
     CommonModule,
     RouterModule,
@@ -70,8 +72,9 @@ import { HelperService } from './components/services/helper.service';
     SharedTableComponent,
     MatCardModule,
     MatPaginatorModule,
-    MatCardModule
+    UpdateProfileComponent
   ],
+
   providers: [AuthService, HelperService],
 })
 export class SharedModule {}

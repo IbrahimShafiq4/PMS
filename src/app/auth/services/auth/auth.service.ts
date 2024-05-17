@@ -2,18 +2,17 @@ import {
   ILogin,
   ILoginResponse,
   IRegister,
+  IUpdateProfile,
   IUserDetails,
   IVerify,
+  IResetPassword,
+  IDecryptedToken,
+  IChangePassword,
 } from './../../models/auth';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
-import {
-  IResetPassword,
-  IDecryptedToken,
-  IChangePassword,
-} from '../../models/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -71,9 +70,7 @@ export class AuthService {
   }
 
   // Function to request password change
-  requestToChangePassword(
-    email: string
-  ): Observable<{ message: string }> {
+  requestToChangePassword(email: string): Observable<{ message: string }> {
     return this._HttpClient.post<{ message: string }>(
       'Users/Reset/Request',
       email
@@ -106,5 +103,21 @@ export class AuthService {
     ) {
       this.role = localStorage.getItem('role') ?? '';
     }
+  }
+
+  // Function to update the current user data
+  updateProfile(
+    profileUpdatingData: IUpdateProfile
+  ): Observable<{ message: string }> {
+    return this._HttpClient.put<{ message: string }>(
+      `Users`,
+      profileUpdatingData
+    );
+  }
+
+  welcomeVoice(message: string) {
+    const sp = new SpeechSynthesisUtterance(message);
+    [sp.voice] = speechSynthesis.getVoices();
+    speechSynthesis.speak(sp);
   }
 }

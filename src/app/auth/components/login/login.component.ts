@@ -40,7 +40,7 @@ export class LoginComponent {
         this._AuthService.currentUser().subscribe({
           next: (res) => this.userName = res.userName,
           error: (error: HttpErrorResponse) => this._ToastrService.error(error.error.message, "Error"),
-          complete: () => this._ToastrService.success(`Welcome Back ${this.userName}`, 'Success')
+          complete: () => this._AuthService.welcomeVoice(`Welcome back ${this.userName}`)
         })
         this._Router.navigate(['/dashboard']);
       }

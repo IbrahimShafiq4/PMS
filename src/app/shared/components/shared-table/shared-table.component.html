@@ -1,14 +1,13 @@
-
 <mat-card class="py-5">
 
   <mat-form-field class="w-25 mx-4" appearance="outline">
     <mat-label>Search By Title</mat-label>
-    <input matInput  [(ngModel)]="searchValue"  placeholder="Placeholder">
+    <input matInput (keyup.enter)="inputFilter()" [(ngModel)]="data" placeholder="Placeholder">
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
 
   <table class="table table-striped ">
-    <thead  class="bg-info">
+    <thead class="bg-info">
       <tr *ngIf="tableDefinitionText === 'projects'">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
@@ -17,10 +16,10 @@
       <ng-container *ngIf="tableDefinitionText === 'projects'">
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
-          <td>{{ tableBody.description }}</td>
+          <td>{{ tableBody.description.slice(0, 10) }}</td>
           <td>
-            <span class="badge bg-secondary">   {{ tableBody.task.length > 0 ? tableBody.task[0]?.title : 'No Tasks Yet' }}</span>
-
+            <span class="badge bg-secondary"> {{ tableBody.task.length > 0 ? tableBody.task[0]?.title : 'No Tasks Yet'
+              }}</span>
           </td>
           <td>{{ tableBody.creationDate | date : 'short' }}</td>
           <td>{{ tableBody.modificationDate | date : 'short' }}</td>
@@ -49,19 +48,9 @@
     </tbody>
   </table>
 
-  <mat-paginator
-  *ngIf="tableBodyContent.data"
-  #paginator
-  class="demo-paginator"
-  (page)="handlePageEvent($event)"
-  [length]="tableBodyContent.totalNumberOfRecords"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 25]"
-  [pageIndex]="pageIndex"
-  aria-label="Select page"
->
-</mat-paginator>
+  <mat-paginator *ngIf="tableBodyContent.data" #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+    [length]="tableBodyContent.totalNumberOfRecords" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]"
+    [pageIndex]="pageIndex" aria-label="Select page">
+  </mat-paginator>
 
 </mat-card>
-
-

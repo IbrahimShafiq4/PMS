@@ -1,0 +1,118 @@
+<section class="container">
+  <!-- Registration form -->
+  <div class="d-flex gap-3 justify-content-end">
+    <button class="fa-solid fa-list p-1 rounded-2 primary" (click)="updateView = false" role="button"></button>
+    <button class="fa-solid fa-table p-1 rounded-2 primary" (click)="updateView = true" role="button"></button>
+  </div>
+  <form class="my-4 d-flex flex-column gap-3 main-box-shadow bg-white p-5" [formGroup]="updateForm"
+    (ngSubmit)="onUpdate(updateForm)">
+    <div class="row" [ngClass]="updateView ? 'align-items-center' : ''">
+      <!-- Ngx-dropzone for image -->
+      <div class="d-flex justify-content-center my-1 main-transition" [ngClass]="updateView ? 'col-lg-2' : 'col-lg-12'">
+        <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+          <div class="overlay"></div>
+          <ngx-dropzone-label class="m-0">
+            <i class="fa-solid fa-camera main-green-color"></i>
+          </ngx-dropzone-label>
+          <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove(f)"
+            *ngFor="let f of files" [file]="f">
+            <ngx-dropzone-label></ngx-dropzone-label>
+          </ngx-dropzone-image-preview>
+        </ngx-dropzone>
+      </div>
+      <!-- End Ngx-dropzone for image -->
+
+      <div class="row col-lg-8 main-transition" [ngClass]="updateView ? 'col-lg-10' : 'col-lg-12'">
+        <!-- Username -->
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Username</mat-label>
+            <input formControlName="userName" type="text" placeholder="Enter your Name" matInput>
+            <!-- Error message for username field -->
+            <mat-error *ngIf="updateForm.get('userName')?.touched && updateForm.get('userName')?.invalid">
+              <!-- Error message for required validation -->
+              <span *ngIf="updateForm.get('userName')?.getError('required')"> Username is <strong>required</strong>
+              </span>
+              <!-- Error message for pattern validation -->
+              <span *ngIf="updateForm.get('userName')?.getError('pattern')"> Username must start with a letter, contain
+                only alphanumeric characters, and end up with a number. </span>
+              <!-- Error message for minlength validation -->
+              <span *ngIf="updateForm.get('userName')?.getError('minlength')"> Username must be at least 3 characters
+                long. </span>
+              <!-- Error message for maxlength validation -->
+              <span *ngIf="updateForm.get('userName')?.getError('maxlength')"> Username cannot be more than 15
+                characters long. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" placeholder="Enter your E-mail" matInput>
+            <!-- Error message for email field -->
+            <mat-error *ngIf="updateForm.get('email')?.touched && updateForm.get('email')?.invalid">
+              Please enter a valid email address.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Country -->
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Country</mat-label>
+            <input formControlName="country" type="text" placeholder="Enter your City" matInput>
+            <!-- Error message for country field -->
+            <mat-error *ngIf="updateForm.get('country')?.touched && updateForm.get('country')?.invalid">
+              Country is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Phone Number</mat-label>
+            <input formControlName="phoneNumber" type="text" placeholder="Phone Number" matInput>
+            <!-- Error message for phone number field -->
+            <mat-error *ngIf="updateForm.get('phoneNumber')?.touched && updateForm.get('phoneNumber')?.invalid">
+              Please enter a valid phone number starting with 01, and 11 digits long.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="col-12 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Confirm password</mat-label>
+            <input matInput [type]="hideTwo ? 'password' : 'text'" formControlName="confirmPassword"
+              placeholder="Confirm Password">
+            <!-- Error message for confirm password field -->
+            <mat-error *ngIf="updateForm.get('confirmPassword')?.touched && updateForm.get('confirmPassword')?.invalid">
+              Please confirm your password.
+            </mat-error>
+            <!-- Error message if passwords do not match -->
+            <mat-error *ngIf="updateForm.hasError('passwordMisMatch') && (updateForm.get('confirmPassword')?.touched)">
+              Passwords do not match.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="links d-flex justify-content-between">
+      <a class="text-white fs-6" routerLink="">Login Now ?</a>
+      <a class="text-white fs-6" routerLink="verify">Have Code ?</a>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- Submit Button -->
+      <button class="danger-outline px-3 rounded-2 py-2" routerLink="../">cancel</button>
+      <!-- Submit Button -->
+      <button class="primary px-3 rounded-2 py-2" [disabled]="updateForm.invalid">Register</button>
+    </div>
+
+  </form>
+</section>

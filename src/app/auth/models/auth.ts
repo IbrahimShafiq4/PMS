@@ -18,6 +18,10 @@ export interface IRegister {
   confirmPassword: string;
 }
 
+export type IUpdateProfile = Omit<IRegister, 'password'> & {
+  confirmPassword: string;
+};
+
 // Register Response { message: string }
 
 export interface IResetPassword {

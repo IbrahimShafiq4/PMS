@@ -1,5 +1,5 @@
 <!-- HTML structure for the shared header component -->
-<section class="bg-white d-flex justify-content-between align-items-center mb-5 px-4 py-5 rounded-4">
+<section class="bg-white main-box-shadow d-flex justify-content-between align-items-center mb-5 px-4 py-5 rounded-3">
   <!-- Left section of the header -->
   <div class="headerContent">
     <!-- Header link and text -->
@@ -24,7 +24,10 @@
   <!-- Right section of the header containing a button -->
   <div class="headerBtn">
     <!-- Button with optional router link -->
-    <button class="primary rounded-1" *ngIf="headerBtnVisibility" [routerLink]="headerBtnLink">
+    <button class="primary rounded-1"
+      *ngIf="headerBtnVisibility"
+      [routerLink]="headerBtnLink"
+    >
       <!-- Button text -->
       {{ '+ ' + headerBtnText }}
     </button>

@@ -1,5 +1,10 @@
-<app-shared-header [headerLinkText]="'View All Projects'" [headerLink]="navigationLink" [headerBtnVisibility]="false"
-  [headerText]=" addEditText" [headerBtnLink]="'add'"></app-shared-header>
+<app-shared-header
+  [headerLink]="navigationLink"
+  [headerBtnVisibility]="false"
+  [headerLinkText]="'Add new Project'"
+  [headerText]="addEditText"
+></app-shared-header>
+
 <div class="container p-0 mx-auto">
   <mat-card class="p-5">
     <form class="d-flex gap-5 flex-column" [formGroup]="projectForm" (ngSubmit)="sendData(projectForm)">

@@ -1,0 +1,2 @@
+export interface IShared {
+}

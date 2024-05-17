@@ -9,24 +9,24 @@ import { IProjectList } from 'src/app/manager/projects/models/projects';
 })
 export class SharedTableComponent {
 
-  @Output() pageSize: any = new EventEmitter();
+  @Output() pageSize: any = new EventEmitter<number | null>();
   @Output() pageNumber: EventEmitter<number> = new EventEmitter<number>();
   @Output() pageIndex = 0;
   @Input() tableHeaders: string[] = [];
   @Input() tableDefinitionText: string = '';
   @Input() tableBodyContent!: IProjectList;
   @Output() searchValue: EventEmitter<string> = new EventEmitter<string>();
-  @Output() editCategory: EventEmitter<number> = new EventEmitter();
+  @Output() editItem: EventEmitter<number> = new EventEmitter<number>();
+  @Output() deleteItem: EventEmitter<number> = new EventEmitter<number>();
+
   data: string = '';
 
-  ngOnInit(): void {}
-  ngOnChanges(): void {
+  inputFilter() {
     this.searchValue.emit(this.data);
-    console.log('searchValue', this.searchValue);
-    console.log(this.data);
   }
-  isEdited(rowData: any) {
-    this.editCategory.emit(rowData);
+
+  isEdited(rowId: number) {
+    this.editItem.emit(rowId);
   }
 
   handlePageEvent(e: any) {

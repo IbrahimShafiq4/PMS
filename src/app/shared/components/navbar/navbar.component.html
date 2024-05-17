@@ -1,4 +1,4 @@
-<nav class="d-flex justify-content-between align-items-center bg-white w-100 py-2 px-lg-5 px-md-3 px-sm-2 px-0">
+<nav class="d-flex justify-content-between main-box-shadow align-items-center bg-white w-100 py-2 px-lg-5 px-md-3 px-sm-2 px-0">
   <figure class="figure-image mb-0">
     <img src="../../../../assets/images/logo-dark.png" class="" alt="logo">
   </figure>
@@ -27,7 +27,7 @@
             <mat-icon class="main-green-color">lock</mat-icon>
             <span>Change Password</span>
           </button>
-          <button mat-menu-item type="button">
+          <button mat-menu-item type="button" [routerLink]="'/dashboard/update-profile'">
             <mat-icon class="main-green-color">update</mat-icon>
             <span>Update Profile</span>
           </button>
