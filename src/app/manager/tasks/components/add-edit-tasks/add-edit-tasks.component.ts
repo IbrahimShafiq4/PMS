@@ -20,6 +20,7 @@ export class AddEditTasksComponent implements OnInit {
   taskForm!: FormGroup;
   taskId!: number;
   ProjectList:IProjectData[]=[]
+  userList!: IProjectList
   constructor(
     private _ActivatedRoute: ActivatedRoute,
     private _TasksService: TasksService,
@@ -36,7 +37,7 @@ export class AddEditTasksComponent implements OnInit {
       projectId: new FormControl(null, [Validators.required]),
     });
 
-    this.getAllProject()
+    this.getAllProject();
 
     this._ActivatedRoute.params
       .pipe(
@@ -99,14 +100,13 @@ export class AddEditTasksComponent implements OnInit {
 
   private getAllProject() {
     let param:IProjectParamsRequest = {
-      pageSize: 10000,
+      pageSize: 1000,
       pageNumber: 1,
       title:''
     };
     this._ProjectsService.getAllProjects(param).subscribe({
 
       next: (res: IProjectList) => {
-        console.log('res', res);
         this.ProjectList = res.data;
       },
       error: (errRes) => {
@@ -119,15 +119,12 @@ export class AddEditTasksComponent implements OnInit {
 
   private getAllUsers() {
     let param:IProjectParamsRequest = {
-      pageSize: 10000,
+      pageSize: 1000,
       pageNumber: 1,
-      title:''
     };
     this._ProjectsService.getAllUsers(param).subscribe({
-
       next: (res: IProjectList) => {
-        console.log('res', res);
-        this.ProjectList = res.data;
+        this.userList = res;
       },
       error: (errRes:HttpErrorResponse) => {
         this._ToastrService.error(errRes.error.message,'Error');

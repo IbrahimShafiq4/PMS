@@ -7,7 +7,6 @@ export interface ILoginResponse {
   token: string;
   expiresIn: string;
 }
-
 export interface IRegister {
   userName: string;
   email: string;
