@@ -9,7 +9,7 @@ import { IProjectList } from 'src/app/manager/projects/models/projects';
 })
 export class SharedTableComponent {
 
-  @Output() pageSize: any = new EventEmitter();
+  @Output() pageSize: any = new EventEmitter<number | null>();
   @Output() pageNumber: EventEmitter<number> = new EventEmitter<number>();
   @Output() pageIndex = 0;
   @Input() tableHeaders: string[] = [];
@@ -23,6 +23,7 @@ export class SharedTableComponent {
 
   isEdited(rowData: any) {
     this.editCategory.emit(rowData);
+
   }
 
   handlePageEvent(e: any) {

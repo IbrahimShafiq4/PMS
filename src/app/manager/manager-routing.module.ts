@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ManagerComponent } from './manager.component';
 
 const routes: Routes = [
-  { path: '', component: ManagerComponent },
+  { path: '', redirectTo: 'projects', pathMatch: 'full' },
   {
     path: 'users',
     loadChildren: () =>

@@ -6,7 +6,8 @@ import { AddEditProjectComponent } from './components/add-edit-project/add-edit-
 const routes: Routes = [
   { path: '', component: ProjectsComponent },
   { path: 'add', component: AddEditProjectComponent, title: 'add' },
-  { path: 'edit/:id', component: AddEditProjectComponent, title: 'edit' }
+  { path: 'edit/:id', component: AddEditProjectComponent, title: 'edit' },
+  { path: 'view/:id/:mood', component: AddEditProjectComponent, title: 'edit' }
 ];
 
 @NgModule({

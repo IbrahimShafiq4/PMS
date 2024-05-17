@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectsService } from '../../services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IProjectData } from '../../models/projects';
-import { Observable } from 'rxjs';
-import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
+import { interval, Observable, of, Subscription } from 'rxjs';
+import { catchError, finalize, switchMap, take, tap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit-project',
@@ -36,27 +37,27 @@ export class AddEditProjectComponent implements OnInit {
     this._ActivatedRoute.params
       .pipe(
         tap((params: Params) => {
-          this.projectId = params['id']; // Extract project ID from route params
+          this.projectId = +params['id']; // Extract project ID from route params
         }),
-        switchMap(() => {
-          return this.projectId ? this.getProjectDetails() : []; // Fetch project details if project ID is available
+        switchMap((params: Params) => {
+          return this.projectId ? this.getProjectDetails() : of(null); // Fetch project details if project ID is available
         })
       )
       .subscribe(
         // Success callback when project details are fetched
-        (projectContentDetails: IProjectData) => {
+        (projectContentDetails: IProjectData | null) => {
           // Set header text indicating whether it's editing or adding a project
           this.addEditText = this.projectId
-            ? `Edit "${projectContentDetails.title.toUpperCase()}" Project Whose Manager is ${
-                projectContentDetails.manager?.userName
-              }`
+            ? `Edit "${projectContentDetails!.title.toUpperCase()}"`
             : 'Add New Project';
 
           // Populate form controls with project details
-          this.projectForm.patchValue({
-            title: projectContentDetails.title,
-            description: projectContentDetails.description,
-          });
+          if (projectContentDetails) {
+            this.projectForm.patchValue({
+              title: projectContentDetails.title,
+              description: projectContentDetails.description,
+            });
+          }
         },
         // Error callback if there's an error fetching project details
         (error) => {
@@ -72,11 +73,10 @@ export class AddEditProjectComponent implements OnInit {
       ? this._ProjectsService.updateProject(this.projectId, projectData) // If project ID exists, update project
       : this._ProjectsService.onAddProject(projectData); // Otherwise, add new project
 
-    // Send request to update or add project
     request
       .pipe(
         // Handle errors if any occur during API request
-        catchError((error) => {
+        catchError((error: HttpErrorResponse) => {
           this._ToastrService.error(error.error.message, 'Error'); // Display error message in toast notification
           throw error; // Throw error to be caught by finalize operator
         }),
@@ -89,7 +89,6 @@ export class AddEditProjectComponent implements OnInit {
               : 'Project Has Been Added Successfully',
             'Success'
           );
-
           // Redirect user to projects dashboard after successful form submission
           this._Router.navigate([this.navigationLink]);
         })
@@ -98,7 +97,7 @@ export class AddEditProjectComponent implements OnInit {
   }
 
   // Function to fetch project details from the API
-  private getProjectDetails(): Observable<IProjectData> {
+  private getProjectDetails(): Observable<any> {
     return this._ProjectsService.getSingleProject(this.projectId); // Return observable to fetch project details
   }
 }
