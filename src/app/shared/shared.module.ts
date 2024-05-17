@@ -38,7 +38,8 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
     UpdateProfileComponent,
     FirstTenWordsPipe,
     ViewComponent,
-    DeleteComponent
+    DeleteComponent,
+    FirstTenWordsPipe
   ],
 
   imports: [
@@ -79,7 +80,8 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
     SharedTableComponent,
     MatCardModule,
     MatPaginatorModule,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    FirstTenWordsPipe
   ],
 
   providers: [AuthService, HelperService, ProjectsService],
