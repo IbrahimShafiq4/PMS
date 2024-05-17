@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { IProjectList } from 'src/app/manager/projects/models/projects';
+import {  ITaskListResponse } from 'src/app/manager/tasks/models/tasks';
 
 @Component({
   selector: 'app-shared-table',
@@ -14,7 +15,7 @@ export class SharedTableComponent {
   @Output() pageIndex = 0;
   @Input() tableHeaders: string[] = [];
   @Input() tableDefinitionText: string = '';
-  @Input() tableBodyContent!: IProjectList;
+  @Input() tableBodyContent!: IProjectList|ITaskListResponse;
   @Output() searchValueEntered: EventEmitter<string> = new EventEmitter<string>();
   @Output() editCategory: EventEmitter<number> = new EventEmitter();
   @Output() view: EventEmitter<number> = new EventEmitter<number>();
@@ -22,7 +23,10 @@ export class SharedTableComponent {
 
   searchValue:string=''
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.tableBodyContent.data);
+
+  }
 
   isEdited(rowData: any) {
     this.editCategory.emit(rowData);
@@ -35,6 +39,13 @@ export class SharedTableComponent {
 
   sendSearchValue() {
     this.searchValueEntered.emit(this.searchValue);
+  }
+
+  isProject(content:any):content is IProjectList{
+    return content&&content.data.task &&content.data!=undefined
+  }
+  isTask(content:any):content is ITaskListResponse{
+   return content &&content.data!=undefined
   }
 
   viewItem(rowId: number) {

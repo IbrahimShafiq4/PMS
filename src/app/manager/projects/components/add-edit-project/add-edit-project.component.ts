@@ -38,6 +38,8 @@ export class AddEditProjectComponent implements OnInit {
     this._ActivatedRoute.params
       .pipe(
         tap((params: Params) => {
+          console.log(params);
+
           this.projectId = +params['id']; // Extract project ID from route params
         }),
         switchMap((params: Params) => {

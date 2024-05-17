@@ -22,6 +22,13 @@ export class ProjectsService {
     });
   }
 
+
+  getAllUsers(params: IProjectParamsRequest): Observable<IProjectList> {
+    return this._HttpClient.get<IProjectList>('Project/employee', {
+      params: params,
+    });
+  }
+
   //add new project
   onAddProject(data: IAdd): Observable<IAddResponse> {
     return this._HttpClient.post<IAddResponse>('Project', data);

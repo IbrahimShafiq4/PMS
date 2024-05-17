@@ -4,7 +4,6 @@ import { ProjectsService } from './services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { exhaustMap, fromEvent, interval, reduce, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -50,14 +49,12 @@ export class ProjectsComponent implements OnInit {
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
         this.projectTableData = res;
+        console.log(res.data);
+
       },
       error: (error: HttpErrorResponse) =>
         this._toastrService.error(error.error.message, 'Error'),
-      complete: () =>
-        this._toastrService.success(
-          'Data Has been Retrieved Successfully',
-          'Success'
-        ),
+      complete: () =>{}
     });
   }
 
