@@ -84,8 +84,8 @@ export class TasksComponent {
     console.log(event);
     const dialogRef = this._dialog.open(DeletePopUpComponent, {
       data:{itemId:event},
-      width: '700px',
-      height: '500px'
+      height: 'auto',
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe((result) => {

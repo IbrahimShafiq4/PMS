@@ -31,19 +31,6 @@
       <div class="row">
 
         <div class="col-md-6">
-          <mat-label class="mb-3 d-block fs-5 text-secondary">Project</mat-label>
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-select formControlName="projectId" placeholder="Projects">
-              <mat-option *ngFor="let proj of ProjectList"  [value]="proj.id">{{proj.title}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="projectId?.hasError('required')">
-              project is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-
-        <div class="col-md-6">
           <mat-label class="mb-3 d-block fs-5 text-secondary">User</mat-label>
           <mat-form-field class="w-100" appearance="outline">
             <mat-select formControlName="employeeId" placeholder="User">
@@ -54,6 +41,20 @@
             </mat-error>
           </mat-form-field>
         </div>
+        
+        <div class="col-md-6">
+          <mat-label class="mb-3 d-block fs-5 text-secondary">Project</mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="projectId" placeholder="Projects">
+              <mat-option *ngFor="let proj of projectList"  [value]="proj.id">{{proj.title}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="projectId?.hasError('required')">
+              project is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
       </div>
 
       <mat-card-actions class="d-flex justify-content-between">

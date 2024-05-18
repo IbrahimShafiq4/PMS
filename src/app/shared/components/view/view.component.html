@@ -13,26 +13,40 @@
 </div> -->
 
 
-<div class="card mx-auto py-5 w-100">
+<div class="card mx-auto px-5 py-3 w-75">
   <h2></h2>
-  <div *ngIf="navigatedFrom == 'projects'" class="card-body">
+  <div *ngIf="navigatedFrom == 'projects'" class="card-body d-flex flex-column gap-3">
     <h3 class="card-title "><span class="fw-bolder">Title: </span>{{ viewedItemDetails.title }}</h3>
-    <h3 class="card-text w-50"> <span class="fw-bolder ">Description: </span> {{ viewedItemDetails.description }} </h3>
+    <p class="card-text w-50"> <span class="fw-bolder ">Description: </span> {{ viewedItemDetails.description }} </p>
 
-      <h3 class="card-text-time fw-bolder"> Creation Date:  <span>{{ viewedItemDetails.creationDate | date : 'short' }}</span> </h3>
-      <h3 class="card-text-tim fw-bolder"> Modification Date:  <span>{{ viewedItemDetails.modificationDate | date : 'short' }}</span> </h3>
+    <p class="card-text-time fw-bolder"> Creation Date: <span>{{ viewedItemDetails.creationDate | date : 'short'
+        }}</span> </p>
+    <p class="card-text-time fw-bolder"> Modification Date: <span>{{ viewedItemDetails.modificationDate | date : 'short'
+        }}</span> </p>
 
-    <button  [routerLink]="backTo" class="card-link dark-outline fs-6 py-1 px-2 rounded-1 mt-4">Go Back</button>
+    <button [routerLink]="backTo" class="card-link dark-outline fs-6 py-1 px-2 rounded-1 mt-4">Go Back</button>
   </div>
 
-  <div *ngIf="navigatedFrom == 'tasks'" class="card-body">
+  <div *ngIf="navigatedFrom == 'tasks'" class="card-body d-flex flex-column gap-3">
     <h3 class="card-title "><span class="fw-bolder">Title: </span>{{ viewTaskDetails?.title }}</h3>
-    <h3 class="card-text w-50"> <span class="fw-bolder ">Description: </span> {{ viewTaskDetails.description }} </h3>
+    <p class="card-text w-50"> <span class="fw-bolder ">Description: </span> {{ viewTaskDetails.description }} </p>
+    <p class="card-text w-50"> <span class="fw-bolder ">Status: </span> <span
+        class="status"
+        [ngClass]="{'toDo': viewTaskDetails.status == 'ToDo', 'inProgress': viewTaskDetails.status == 'InProgress', 'done': viewTaskDetails.status == 'Done'}">{{
+        viewTaskDetails.status }}</span> </p>
+    <p class="card-text w-50"> <span class="fw-bolder ">User: </span> {{ viewTaskDetails.employee.userName }} </p>
+    <p class="card-text w-50"> <span class="fw-bolder ">Project: </span> {{ viewTaskDetails.project.title }} </p>
 
-      <h3 class="card-text-time fw-bolder"> Creation Date:  <span>{{ viewTaskDetails?.creationDate | date : 'short' }}</span> </h3>
-      <h3 class="card-text-tim fw-bolder"> Modification Date:  <span>{{ viewTaskDetails.modificationDate | date : 'short' }}</span> </h3>
+    <p class="card-text-time fw-bolder"> Creation Date: <span class="fw-normal">{{ viewTaskDetails?.creationDate |
+        date : 'short'
+        }}</span> </p>
+    <p class="card-text-time fw-bolder"> Modification Date: <span class="fw-normal">{{
+        viewTaskDetails.modificationDate | date : 'short'
+        }}</span> </p>
 
-    <button  [routerLink]="backTo" class="card-link dark-outline fs-6 py-1 px-2 rounded-1 mt-4">Go Back</button>
+    <div>
+      <button [routerLink]="backTo" class="card-link dark-outline fs-6 py-1 px-2 rounded-1 mt-4">Go Back</button>
+    </div>
   </div>
 
 </div>
