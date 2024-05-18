@@ -13,20 +13,27 @@
         <mat-label class="mb-3 d-block fs-5 text-secondary">Title</mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <input formControlName="title" matInput placeholder="Enter the Project Title">
+          <mat-error *ngIf="title?.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-label class="mb-3 d-block fs-5 text-secondary">Description</mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <textarea formControlName="description" matInput placeholder="Enter the Project Description"> </textarea>
+          <mat-error *ngIf="description?.hasError('required')">
+            Description is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
 
       <div class="row">
 
         <div class="col-md-6">
+          <mat-label class="mb-3 d-block fs-5 text-secondary">Project</mat-label>
           <mat-form-field class="w-100" appearance="outline">
-            <mat-select formControlName="projectId" placeholder="Tag">
+            <mat-select formControlName="projectId" placeholder="Projects">
               <mat-option *ngFor="let proj of ProjectList"  [value]="proj.id">{{proj.title}}</mat-option>
             </mat-select>
             <mat-error *ngIf="projectId?.hasError('required')">
@@ -37,12 +44,13 @@
 
 
         <div class="col-md-6">
+          <mat-label class="mb-3 d-block fs-5 text-secondary">User</mat-label>
           <mat-form-field class="w-100" appearance="outline">
-            <mat-select formControlName="projectId" placeholder="Tag">
-              <mat-option *ngFor="let proj of ProjectList"  [value]="proj.id">{{proj.title}}</mat-option>
+            <mat-select formControlName="employeeId" placeholder="User">
+              <mat-option *ngFor="let user of userList"  [value]="user.id">{{user.userName}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="projectId?.hasError('required')">
-              project is <strong>required</strong>
+            <mat-error *ngIf="employeeId?.hasError('required')">
+              User is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -50,7 +58,7 @@
 
       <mat-card-actions class="d-flex justify-content-between">
         <button type="button" [routerLink]="navigationLink" class="dark-outline">Cancel</button>
-        <button type="submit" class="primary">Save</button>
+        <button [disabled]="taskForm.invalid" type="submit" class="primary">Save</button>
       </mat-card-actions>
 
     </form>

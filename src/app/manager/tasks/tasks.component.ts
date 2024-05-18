@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { TasksService } from './services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DeletePopUpComponent } from 'src/app/shared/components/delete-pop-up/delete-pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -15,6 +17,7 @@ export class TasksComponent {
   tableHeaders: string[] = [
     'Title',
     'Status',
+    'Description',
     'User',
     'Projects',
     'Creation Date',
@@ -31,7 +34,9 @@ export class TasksComponent {
   constructor(
     private _Router: Router,
     private _TasksService: TasksService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    public _dialog: MatDialog,
+    private _ToastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -69,9 +74,52 @@ export class TasksComponent {
     this.taskTableData.pageNumber = event;
     this.getTasks();
   }
-  
+
   pageSize(event: number) {
     this.taskTableData.pageSize = event;
     this.getTasks();
+  }
+
+  willBeDeleted(event: number) {
+    console.log(event);
+    const dialogRef = this._dialog.open(DeletePopUpComponent, {
+      data:{itemId:event},
+      width: '700px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result', result);
+      if (result) {
+        this.onDeleteItem(result)
+      }
+    });
+
+  }
+
+  onDeleteItem(id:number){
+    this._TasksService.deleteSingleTask(id).subscribe({
+      next: (res) => {
+        console.log('res', res);
+      },
+      error: (errRes:HttpErrorResponse) => {
+
+          this._ToastrService.error(errRes.error.message, 'Error')
+      },
+      complete:()=> {
+        setTimeout(() => {
+          this._ToastrService.success(
+            'Item has been deleted',
+            'Success'
+          );
+        }, 1500);
+
+        this.getTasks();
+      },
+    });
+  }
+
+  willBeViewed(event: number) {
+    this._Router.navigate([`/dashboard/view/${event}/tasks`]);
   }
 }

@@ -1,5 +1,5 @@
 import { ProjectsService } from './../../../projects/services/projects.service';
-import { ITask } from './../../models/tasks';
+import { ITask, IUserList, IUserParamsRequest, IuserData } from './../../models/tasks';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class AddEditTasksComponent implements OnInit {
   taskForm!: FormGroup;
   taskId!: number;
   ProjectList:IProjectData[]=[]
-  userList!: IProjectList
+  userList: IuserData[]=[]
   constructor(
     private _ActivatedRoute: ActivatedRoute,
     private _TasksService: TasksService,
@@ -38,7 +38,7 @@ export class AddEditTasksComponent implements OnInit {
     });
 
     this.getAllProject();
-
+    this.getAllUsers()
     this._ActivatedRoute.params
       .pipe(
         tap((params) => {
@@ -118,13 +118,15 @@ export class AddEditTasksComponent implements OnInit {
   }
 
   private getAllUsers() {
-    let param:IProjectParamsRequest = {
+    let param:IUserParamsRequest = {
       pageSize: 1000,
       pageNumber: 1,
     };
     this._ProjectsService.getAllUsers(param).subscribe({
-      next: (res: IProjectList) => {
-        this.userList = res;
+      next: (res: IUserList) => {
+        console.log(res);
+
+        this.userList = res.data;
       },
       error: (errRes:HttpErrorResponse) => {
         this._ToastrService.error(errRes.error.message,'Error');
@@ -133,7 +135,16 @@ export class AddEditTasksComponent implements OnInit {
     });
   }
 
+  get title() {
+    return this.taskForm.get('title');
+  }
+  get description(){
+    return this.taskForm.get('description')
+  }
   get projectId() {
     return this.taskForm.get('projectId');
+  }
+  get employeeId(){
+    return this.taskForm.get('employeeId')
   }
 }
