@@ -8,7 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GlobalInterceptor } from './core/Interceptors/Global/global.interceptor';
 import { LoadingInterceptor } from './core/Interceptors/loading/loading.interceptor';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -16,6 +16,7 @@ import { LoadingInterceptor } from './core/Interceptors/loading/loading.intercep
     AppRoutingModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
