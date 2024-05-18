@@ -4,6 +4,8 @@ import { ProjectsService } from './services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DeletePopUpComponent } from 'src/app/shared/components/delete-pop-up/delete-pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-projects',
@@ -32,7 +34,9 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private _ProjectsService: ProjectsService,
     private _toastrService: ToastrService,
-    private _Router: Router
+    private _Router: Router,
+    public _dialog: MatDialog,
+    private _ToastrService:ToastrService
   ) {}
 
   ngOnInit() {
@@ -76,10 +80,43 @@ export class ProjectsComponent implements OnInit {
   }
 
   willBeDeleted(event: number) {
-    this._Router.navigate([`/dashboard/delete/${event}/projects`]);
+    console.log(event);
+    const dialogRef = this._dialog.open(DeletePopUpComponent, {
+      data:{itemId:event},
+      width: '700px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result', result);
+      if (result) {
+        this.onDeleteItem(result)
+      }
+    });
+    // this._Router.navigate([`/dashboard/delete/${event}/projects`]);
+  }
+
+  onDeleteItem(id:number){
+    this._ProjectsService.deleteProject(id).subscribe({
+      next: (res) => {
+        console.log('res', res);
+      },
+      error: (errRes:HttpErrorResponse) => {
+
+          this._ToastrService.error(errRes.error.message, 'Error')
+      },
+      complete:()=> {
+        this._ToastrService.success(
+          'Item has been deleted',
+          'Success'
+        );
+        this.getProject();
+      },
+    });
   }
 
   willBeViewed(event: number) {
+
     this._Router.navigate([`/dashboard/view/${event}/projects`]);
   }
 }

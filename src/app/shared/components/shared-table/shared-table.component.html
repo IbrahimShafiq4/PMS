@@ -59,12 +59,13 @@
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
           <td>
-            <span class="status d-flex align-items-center justify-content-center w-50" [ngClass]="{'toDo': tableBody.status == 'ToDo', 'inProgress': tableBody.status == 'InProgress', 'done': tableBody.status == 'Done'}">
+            <span class="status  text-center w-50" [ngClass]="{'toDo': tableBody.status == 'ToDo', 'inProgress': tableBody.status == 'InProgress', 'done': tableBody.status == 'Done'}">
               {{ tableBody.status }}
             </span>
           </td>
-          <td>{{ tableBody.project?.title }}</td>
+          <td>{{ tableBody.description }}</td>
           <td>{{ tableBody.employee?.userName }}</td>
+          <td>{{ tableBody.project?.title }}</td>
           <td>{{ tableBody.creationDate | date: 'short' }}</td>
           <td>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3" aria-label="Example icon-button with a menu">

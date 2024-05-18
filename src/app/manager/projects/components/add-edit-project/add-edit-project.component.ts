@@ -103,4 +103,11 @@ export class AddEditProjectComponent implements OnInit {
   private getProjectDetails(): Observable<any> {
     return this._ProjectsService.getSingleProject(this.projectId); // Return observable to fetch project details
   }
+
+  get title() {
+    return this.projectForm.get('title');
+  }
+  get description(){
+    return this.projectForm.get('description')
+  }
 }

@@ -26,6 +26,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { ViewComponent } from './components/view/view.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import { ProjectsService } from '../manager/projects/services/projects.service';
+import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TasksService } from '../manager/tasks/services/tasks.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
     FirstTenWordsPipe,
     ViewComponent,
     DeleteComponent,
-    FirstTenWordsPipe
+    FirstTenWordsPipe,
+    DeletePopUpComponent
   ],
 
   imports: [
@@ -58,7 +62,8 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
     MatMenuModule,
     MatCardModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
 
   exports: [
@@ -84,9 +89,11 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
     MatPaginatorModule,
     UpdateProfileComponent,
     FirstTenWordsPipe,
-    MatSelectModule
+    MatSelectModule,
+    ViewComponent,
+    MatDialogModule
   ],
 
-  providers: [AuthService, HelperService, ProjectsService],
+  providers: [AuthService, HelperService, ProjectsService,TasksService],
 })
 export class SharedModule {}

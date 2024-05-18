@@ -46,12 +46,7 @@ export interface IProjectParamsRequest {
   pageNumber: number;
   [key: string]: any;
 }
-export interface IUserParamsRequest {
-  title: string;
-  pageSize: number;
-  pageNumber: number;
-  [key: string]: any;
-}
+
 //interface for add project request
 export interface IAdd {
   title: string;

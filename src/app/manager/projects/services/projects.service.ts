@@ -9,6 +9,7 @@ import {
   IAdd,
 } from '../models/projects';
 import { Observable } from 'rxjs';
+import {  IUserList, IUserParamsRequest } from '../../tasks/models/tasks';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class ProjectsService {
   }
 
 
-  getAllUsers(params: IProjectParamsRequest): Observable<IProjectList> {
-    return this._HttpClient.get<IProjectList>('Project/employee', {
+  getAllUsers(params: IUserParamsRequest): Observable<IUserList> {
+    return this._HttpClient.get<IUserList>('Users', {
       params: params,
     });
   }

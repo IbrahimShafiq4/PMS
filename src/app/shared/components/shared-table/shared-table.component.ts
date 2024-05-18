@@ -56,6 +56,8 @@ export class SharedTableComponent {
   }
 
   deleteItem(rowId: number) {
-    this.delete.emit(rowId);
+  this.delete.emit(rowId);
+    console.log(rowId);
+
   }
 }

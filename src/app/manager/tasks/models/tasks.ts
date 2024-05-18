@@ -43,6 +43,32 @@ export interface IUser {
   modificationDate: string;
 }
 
+export interface IUserList {
+  pageNumber:number;
+  pageSize:number;
+  data:IuserData[];
+  totalNumberOfRecords:number;
+  totalNumberOfPages: number;
+}
+
+export interface IuserData {
+  id: number;
+  userName: string;
+  email:string;
+  country:string;
+  phoneNumber:string;
+  imagePath:string;
+  isActivated:boolean;
+  creationDate: Date;
+  modificationDate: Date;
+}
+
+export interface IUserParamsRequest {
+  pageSize: number;
+  pageNumber: number;
+  [key: string]: any;
+}
+
 export interface IProject {
   id: number;
   title: string;

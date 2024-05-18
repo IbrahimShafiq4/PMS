@@ -12,18 +12,24 @@
         <mat-label class="mb-3 d-block fs-5 text-secondary">Title</mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <input formControlName="title" matInput placeholder="Enter the Project Title">
+          <mat-error *ngIf="title?.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-label class="mb-3 d-block fs-5 text-secondary">Description</mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <textarea formControlName="description" matInput placeholder="Enter the Project Description"> </textarea>
+          <mat-error *ngIf="description?.hasError('required')">
+            Description is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
 
       <mat-card-actions class="d-flex justify-content-between">
         <button type="button" [routerLink]="navigationLink" class="dark-outline">Cancel</button>
-        <button type="submit" class="primary">Save</button>
+        <button [disabled]="projectForm.invalid" type="submit" class="primary">Save</button>
       </mat-card-actions>
 
     </form>
