@@ -132,3 +132,21 @@
     }
   }
 }
+
+.status {
+  border-radius: 16px;
+  padding: 6px 14px;
+  color: #fff;
+
+  &.toDo {
+    background-color: rgb(182, 173, 236);
+  }
+
+  &.inProgress {
+    background-color: rgba(239, 155, 40, 0.64);
+  }
+
+  &.done {
+    background-color: rgba(0, 146, 71, 1);
+  }
+}

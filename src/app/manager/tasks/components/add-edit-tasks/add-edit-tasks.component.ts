@@ -19,7 +19,7 @@ export class AddEditTasksComponent implements OnInit {
   navigationLink: string = '/dashboard/manager/tasks';
   taskForm!: FormGroup;
   taskId!: number;
-  ProjectList:IProjectData[]=[]
+  projectList:IProjectData[]=[]
   userList: IuserData[]=[]
   constructor(
     private _ActivatedRoute: ActivatedRoute,
@@ -42,9 +42,7 @@ export class AddEditTasksComponent implements OnInit {
     this._ActivatedRoute.params
       .pipe(
         tap((params) => {
-          console.log(params);
           this.taskId = +params['id'];
-          console.log(this.taskId);
         }),
         switchMap((param: Params) => {
           return this.taskId ? this.getTaskData() : of(null);
@@ -68,6 +66,10 @@ export class AddEditTasksComponent implements OnInit {
           this._ToastrService.error(err.message, 'Error');
         }
       );
+
+      if (this.taskId) {
+        this.taskForm.get('projectId')?.disable()
+      }
   }
 
     // Function to handle form submission
@@ -76,6 +78,8 @@ export class AddEditTasksComponent implements OnInit {
       const request =this.taskId
       ?this._TasksService.updateTask(this.taskId,taskData)
       :this._TasksService.createTask(taskData);
+
+      console.log(data.value);
 
       request.pipe(
         catchError((error:HttpErrorResponse)=>{
@@ -102,12 +106,11 @@ export class AddEditTasksComponent implements OnInit {
     let param:IProjectParamsRequest = {
       pageSize: 1000,
       pageNumber: 1,
-      title:''
     };
     this._ProjectsService.getAllProjects(param).subscribe({
 
       next: (res: IProjectList) => {
-        this.ProjectList = res.data;
+        this.projectList = res.data;
       },
       error: (errRes) => {
         const errMes = errRes.error.message;
@@ -124,8 +127,6 @@ export class AddEditTasksComponent implements OnInit {
     };
     this._ProjectsService.getAllUsers(param).subscribe({
       next: (res: IUserList) => {
-        console.log(res);
-
         this.userList = res.data;
       },
       error: (errRes:HttpErrorResponse) => {

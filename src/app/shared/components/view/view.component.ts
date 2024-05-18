@@ -29,8 +29,49 @@ export class ViewComponent {
     task: [],
   };
 
-  viewTaskDetails!: ITask
-
+  viewTaskDetails: ITask = {
+    id: 0,
+    title: '',
+    description: '',
+    status: '',
+    creationDate: '',
+    modificationDate: '',
+    project: {
+      id: 0,
+      title: '',
+      description: '',
+      creationDate: '',
+      modificationDate: '',
+      manager: {
+        id: 0,
+        userName: '',
+        imagePath: '',
+        email: '',
+        password: '',
+        country: '',
+        phoneNumber: '',
+        verificationCode: '',
+        isVerified: false,
+        isActivated: false,
+        creationDate: '',
+        modificationDate: '',
+      },
+    },
+    employee: {
+      id: 0,
+      userName: '',
+      imagePath: '',
+      email: '',
+      password: '',
+      country: '',
+      phoneNumber: '',
+      verificationCode: '',
+      isVerified: false,
+      isActivated: false,
+      creationDate: '',
+      modificationDate: '',
+    },
+  };
 
   itemId: number = 0;
   navigatedFrom: string = '';

@@ -83,8 +83,8 @@ export class ProjectsComponent implements OnInit {
     console.log(event);
     const dialogRef = this._dialog.open(DeletePopUpComponent, {
       data:{itemId:event},
-      width: '700px',
-      height: '500px'
+      width: '500px',
+      height: 'auto'
     });
 
     dialogRef.afterClosed().subscribe((result) => {
