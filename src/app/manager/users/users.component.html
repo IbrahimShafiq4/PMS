@@ -1,1 +1,13 @@
-<p>users works!</p>
+<app-shared-header  [headerBtnVisibility]="false" [headerMainText]="'Users'"></app-shared-header>
+
+<app-shared-table
+  [tableHeaders]="tableHeaders"
+  [tableDefinitionText]="'Users'"
+  [tableBodyContent]="userTableData"
+  (pageIndexChanged)="pageNumber($event)"
+  (pageSizeChanged)="pageSize($event)"
+  (block)="onToggleitem($event)"
+ 
+  
+></app-shared-table>
+
