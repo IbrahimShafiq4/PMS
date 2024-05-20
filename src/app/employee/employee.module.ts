@@ -12,7 +12,6 @@ import { TasksComponent } from './components/tasks/tasks.component';
   declarations: [
     EmployeeComponent,
     ProjectComponent,
-    TasksComponent
   ],
   imports: [
     CommonModule,
