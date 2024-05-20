@@ -17,12 +17,20 @@ export class SharedTableComponent {
   @Input() tableDefinitionText: string = '';
   @Input() tableBodyContent!: IProjectList | ITaskListResponse | IUsersResponse;
   @Output() searchValueEntered: EventEmitter<string> = new EventEmitter<string>();
+  @Output() filterValueEnterd: EventEmitter<string> = new EventEmitter<string>();
+  @Output() groupValueEnterd: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchValueEnteredTasks: EventEmitter<string> = new EventEmitter<string>();
+  @Output() groupValueEnterdTasks: EventEmitter<string> = new EventEmitter<string>();
   @Output() editCategory: EventEmitter<number> = new EventEmitter<number>();
   @Output() view: EventEmitter<number> = new EventEmitter<number>();
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
   @Output() block: EventEmitter<number> = new EventEmitter<number>();
 
   searchValue: string = '';
+  filterValue: string = '';
+  searchValueTasks: string = '';
+  roleIdsTasks: string = '';
+  roleIds:string='';
   pageSize: number = 5; // Default page size
   pageIndex: number = 0; // Default page index
 
@@ -43,6 +51,22 @@ export class SharedTableComponent {
 
   sendSearchValue() {
     this.searchValueEntered.emit(this.searchValue);
+  }
+
+  sendFilterValue(){
+    this.filterValueEnterd.emit(this.filterValue);
+  }
+
+  sendGroupValue(){
+    this.groupValueEnterd.emit(this.roleIds);
+  }
+
+  sendSearchValueTasks(){
+    this.searchValueEnteredTasks.emit(this.searchValueTasks)
+  }
+
+  sendGroupValueTasks(){
+    this.groupValueEnterdTasks.emit(this.roleIdsTasks)
   }
 
   isUsers(content: any): content is IUsersResponse {

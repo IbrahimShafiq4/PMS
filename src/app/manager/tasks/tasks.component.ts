@@ -120,6 +120,9 @@ export class TasksComponent {
   }
 
   willBeViewed(event: number) {
-    this._Router.navigate([`/dashboard/view/${event}/tasks`]);
+    debugger
+    console.log(event);
+    
+    this._Router.navigate([`/dashboard/manager/tasks/view/${event}`]); //dashboard/manager/tasks view/:id
   }
 }
