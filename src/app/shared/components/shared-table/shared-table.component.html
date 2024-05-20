@@ -25,7 +25,7 @@
           <td>{{ tableBody.description?.slice(0, 15) }}</td>
           <td>
             <span *ngIf="tableBody.task.length">
-              <ng-container *ngFor="let task of tableBody.task; let last = last">
+              <ng-container *ngFor="let task of tableBody.task.slice(0, 3); let last = last">
                 {{ task.title }}
                 <span *ngIf="!last">,</span>
               </ng-container>

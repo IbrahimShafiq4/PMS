@@ -1,22 +1,17 @@
 ngx-dropzone {
-  height: auto;
   position: relative;
   margin-bottom: 2rem;
-  width: 80px;
-  height: 80px;
+  width: 150px !important;
+  height: 150px;
   border-radius: 50%;
   padding: 0.4rem;
-  background-image: url(../../../../assets/images/profile.jpeg);
-  background-position: center center;
-  background-size: 100% 100%;;
-  background-color: transparent !important;
   border: none;
   display: flex;
   justify-content: center;
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -30,14 +25,6 @@ ngx-dropzone {
     font-size: 1.2rem;
   }
 
-  ngx-dropzone-image-preview {
-    position: relative !important;
-    z-index: 99999999999999;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-  }
-
   @media screen and (max-width: 767px) {
     ngx-dropzone-label {
       font-size: 1rem;
@@ -49,4 +36,8 @@ ngx-dropzone {
       font-size: 0.8rem;
     }
   }
+}
+
+::ng-deep ngx-dropzone img {
+  border-radius: 50% !important;
 }
