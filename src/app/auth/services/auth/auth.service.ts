@@ -12,7 +12,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +24,22 @@ export class AuthService {
   // Used to store the role of the User
   role: string = '';
 
+  private userDataChange: Subject<IUserDetails> = new Subject<IUserDetails>();
+
   constructor(private _HttpClient: HttpClient) {
     // Check if userToken exists in localStorage, if yes, get user profile
     if (localStorage.getItem('userToken') !== null) {
       this.getProfile();
       this.userToken = localStorage.getItem('userToken') ?? '';
     }
+  }
+
+  // Observable to allow components to subscribe to user data changes
+  userDataChange$ = this.userDataChange.asObservable();
+
+  // Function to notify about user data changes
+  notifyUserDataChange(userData: IUserDetails) {
+    this.userDataChange.next(userData);
   }
 
   // Function To handle user login
@@ -107,7 +117,7 @@ export class AuthService {
 
   // Function to update the current user data
   updateProfile(
-    profileUpdatingData: IUpdateProfile
+    profileUpdatingData: FormData
   ): Observable<{ message: string }> {
     return this._HttpClient.put<{ message: string }>(
       `Users`,

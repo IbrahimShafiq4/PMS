@@ -9,11 +9,11 @@
     <div class="row" [ngClass]="updateView ? 'align-items-center' : ''">
       <!-- Ngx-dropzone for image -->
       <div class="d-flex justify-content-center my-1 main-transition" [ngClass]="updateView ? 'col-lg-2' : 'col-lg-12'">
-        <ngx-dropzone [class]="files.length?'border-0':'border-1'" (change)="onSelect($event)">
+        <ngx-dropzone [class]="files.length?'border-0':'border-1'"  class="w-100" (change)="onSelect($event)">
           <ngx-dropzone-label *ngIf="!imgSrc"> <i class="fa-upload fa-solid"></i></ngx-dropzone-label>
           <ngx-dropzone-label *ngIf="imgSrc"> <img [src]="imgSrc" alt="" class="w-100"></ngx-dropzone-label>
           <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
-            class=" m-auto overflow-auto w-25">
+            class=" m-auto overflow-auto w-100 object-fit-cover">
           </ngx-dropzone-image-preview>
 
           </ngx-dropzone>
@@ -99,17 +99,11 @@
       </div>
     </div>
 
-    <!-- Links -->
-    <div class="links d-flex justify-content-between">
-      <a class="text-white fs-6" routerLink="">Login Now ?</a>
-      <a class="text-white fs-6" routerLink="verify">Have Code ?</a>
-    </div>
-
     <div class="d-flex align-items-center justify-content-between">
       <!-- Submit Button -->
       <button class="danger-outline px-3 rounded-2 py-2" routerLink="../">cancel</button>
       <!-- Submit Button -->
-      <button class="primary px-3 rounded-2 py-2" [disabled]="updateForm.invalid">Register</button>
+      <button class="primary px-3 rounded-2 py-2" [disabled]="updateForm.invalid">Update</button>
     </div>
 
   </form>
