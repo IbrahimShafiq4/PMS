@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from '../shared/components/home/home.component';
 import { UpdateProfileComponent } from '../shared/components/update-profile/update-profile.component';
 import { ViewComponent } from '../shared/components/view/view.component';
 import { DeleteComponent } from '../shared/components/delete/delete.component';
+import { managerGuard } from '../core/Guards/manager/manager.guard';
+import { employeeGuard } from '../core/Guards/employee/employee.guard';
 
 const routes: Routes = [
   {
@@ -14,12 +16,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title: 'home' },
       {
-        path: 'manager',
+        path: 'manager',canActivate:[managerGuard],
         loadChildren: () =>
           import('../manager/manager.module').then((m) => m.ManagerModule),
       },
       {
-        path: 'employee',
+        path: 'employee',canActivate:[employeeGuard],
         loadChildren: () =>
           import('../employee/employee.module').then((m) => m.EmployeeModule),
       },

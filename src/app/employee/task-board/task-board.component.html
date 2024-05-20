@@ -1,0 +1,43 @@
+<div class="container ">
+    <div class="bg-light py-4 px-4 ">
+        <h1 class="m-0 p-0">Task Board</h1>
+    </div>
+
+    <div class="row  p-5" cdkDropListGroup>
+        <!-- All lists in here will be connected. -->
+        <div class="col-md-4  px-1">
+            <h2 class="px-3"> To do</h2>
+            <div class="example-container px-1  ">
+                <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box my-3 mx-2 " *ngFor="let item of todo" cdkDrag>
+                        <span> {{item.title}}</span>
+                        <mat-icon> edit_square </mat-icon>
+                    </div>
+                </div>
+                <div class="add-task ">
+                    <mat-icon >add</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 px-1">
+            <h2 class="px-3">In Prograss</h2>
+            <div class="example-container px-1 ">
+
+                <div cdkDropList [cdkDropListData]="inPrograss" class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box my-3 mx-2" *ngFor="let item of inPrograss" cdkDrag>{{item.title}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 px-1">
+            <h2 class="px-3">Done</h2>
+            <div class="example-container px-1 ">
+                <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box my-3 mx-2" *ngFor="let item of done" cdkDrag>{{item.title}}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

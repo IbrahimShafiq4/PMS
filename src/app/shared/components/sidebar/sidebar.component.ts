@@ -81,7 +81,7 @@ export class SidebarComponent {
       },
       {
         text: 'Tasks',
-        link: '/dashboard/employee/tasks',
+        link: '/dashboard/employee/task-board',
         icon: 'fa-solid fa-heart',
         isActive: this.isEmployee(),
       },

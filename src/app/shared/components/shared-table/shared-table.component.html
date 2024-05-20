@@ -75,7 +75,6 @@
       <tr *ngIf="tableDefinitionText === 'Users'">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
-
     </thead>
     
     <tbody>
@@ -181,8 +180,10 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item type="button" (click)="blockItem(tableBody.id)">
-                <mat-icon class="main-green-color">block</mat-icon>
-                <span>Block</span>
+                <mat-icon class="main-green-color" *ngIf="!tableBody.isActivated">notifications</mat-icon>
+                <mat-icon class="main-green-color" *ngIf="tableBody.isActivated">notifications_off</mat-icon>
+                <span *ngIf="tableBody.isActivated">Not Active</span>
+                <span *ngIf="!tableBody.isActivated">Active</span>
               </button>
               <button mat-menu-item type="button" (click)="viewItem(tableBody.id)">
                 <mat-icon class="main-green-color">visibility</mat-icon>

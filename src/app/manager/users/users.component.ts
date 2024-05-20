@@ -5,7 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+
 import { ToggleComponent } from './components/toggle/toggle.component';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -13,8 +15,10 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 })
 export class UsersComponent implements OnInit {
   searchValue: string = '';
+
   filterValue: string = '';
   roleIds: string = '';
+
   tableHeaders: string[] = [
     'User Name',
     'Statues',
@@ -44,27 +48,15 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    console.log(this.filterValue);
-    console.log(this.searchValue);
-    console.log(this.roleIds);
-    
     let requestParams: IUsersParamsRequest = {
-      [this.filterValue]: this.searchValue,
-      groups:this.roleIds,
+      title: this.searchValue,
       pageNumber: this.userTableData.pageNumber,
-      pageSize: this.userTableData.pageSize,
-
-      
+      pageSize: this.userTableData.pageSize
     };
-
     this._UsersService.getAllUsers(requestParams).subscribe({
-
-      
       next: (res) => {
         //console.log(res);
         this.userTableData = res;
-    
-
       },
       error: (error: HttpErrorResponse) => {
         this._toastrService.error(error.error.message, 'Error')
@@ -75,22 +67,7 @@ export class UsersComponent implements OnInit {
 
 
   getSearchVal(event: string) {
-    
     this.searchValue = event;
-    console.log(this.searchValue);
-    this.getUsers();
-  }
-
-  getFilterValue(event:string){
-    this.filterValue = event;
-    this.getUsers();
-  }
-
-  getGroupValue(event:string){
-
-    this.roleIds = event;
-    console.log(this.roleIds);
-    
     this.getUsers();
   }
 
@@ -136,6 +113,5 @@ export class UsersComponent implements OnInit {
       },
     });
   }
-
 
 }

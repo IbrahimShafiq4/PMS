@@ -72,6 +72,7 @@ export class SharedTableComponent {
   isUsers(content: any): content is IUsersResponse {
     return content && Array.isArray(content.data) && content.data.length > 0 && 'isActivated' in content.data[0] && 'task' in content.data[0];
   }
+
   isProject(content: any): content is IProjectList {
     return content && Array.isArray(content.data) && content.data.length > 0 && 'task' in content.data[0] && 'description' in content.data[0] ;
   }
@@ -88,6 +89,12 @@ export class SharedTableComponent {
   deleteItem(rowId: number) {
     this.delete.emit(rowId);
     console.log(rowId);
+  }
+
+  blockItem(rowId: number){
+    this.block.emit(rowId);
+    console.log(rowId);
+
   }
 
   blockItem(rowId: number){
