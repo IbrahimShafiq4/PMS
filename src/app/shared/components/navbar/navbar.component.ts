@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/services/auth/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
+
 export class NavbarComponent implements OnInit {
   currentUserData: IUserDetails = {
     imagePath: '',
