@@ -60,9 +60,15 @@ export class UpdateProfileComponent {
     ]),
   });
 
-  onUpdate(registrationForm: FormGroup) {
-    this._AuthService.updateProfile(registrationForm.value).subscribe({
-      next: (res) => (this.userName = registrationForm.value.userName),
+  onUpdate(updateForm: FormGroup) {
+    const updateData = new FormData();
+    Object.entries<string>(updateForm.value).forEach(([key, value]) => {
+      updateData.append(key, value)
+    })
+    updateData.append('profileImage', this.imgSrc)
+
+    this._AuthService.updateProfile(updateData).subscribe({
+      next: (res) => (this.userName = updateForm.value.userName),
       error: (error: HttpErrorResponse) =>
         this._ToastrService.error(error.error.message, 'Error'),
       complete: () => {
@@ -70,6 +76,8 @@ export class UpdateProfileComponent {
           `Account updated Successfully`,
           'Success'
         );
+        this.getCurrentUser();
+        this._Router.navigate(['/dashboard'])
       },
     });
   }
@@ -88,9 +96,13 @@ export class UpdateProfileComponent {
   getCurrentUser() {
     let userData!: IUserDetails;
     this._AuthService.currentUser().subscribe({
-      next: (res) => userData = res,
+      next: (res) => {
+        userData = res
+        this._AuthService.notifyUserDataChange(res); // Notify user data change
+      },
       error: (error: HttpErrorResponse) => this._ToastrService.error(error.error.message, 'Error'),
       complete: () => {
+
         this.imgSrc =  this.imgUrl + userData.imagePath;
         this.updateForm.patchValue({
           userName: userData.userName,

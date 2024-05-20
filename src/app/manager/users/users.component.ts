@@ -6,6 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
+import { ToggleComponent } from './components/toggle/toggle.component';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -13,6 +15,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class UsersComponent implements OnInit {
   searchValue: string = '';
+
+  filterValue: string = '';
+  roleIds: string = '';
+
   tableHeaders: string[] = [
     'User Name',
     'Statues',
@@ -107,6 +113,5 @@ export class UsersComponent implements OnInit {
       },
     });
   }
-
 
 }

@@ -1,10 +1,68 @@
 <mat-card class="py-5">
+  <div *ngIf="tableDefinitionText === 'Users'" class="d-flex justify-content-between">
+    <mat-form-field appearance="outline">
+      <mat-label>Search By</mat-label>
+      <mat-select  [(ngModel)]="filterValue"  (selectionChange)="sendFilterValue()"   multiple>
+        <mat-option  value="0">All</mat-option>
+          
+          <mat-option value="userName">Name</mat-option>
+          <mat-option value="email">Email</mat-option>
+          <mat-option value="country">Country</mat-option>
+       
+       
+   
+      
+      
+      </mat-select>
+    </mat-form-field>
+  
+  
+  
+    <mat-form-field class="w-25 mx-4" appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="searchValue" (keyup.enter)="sendSearchValue()" placeholder="Placeholder">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  
+   
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Group</mat-label>
+      <mat-select [(ngModel)]="roleIds" (selectionChange)="sendGroupValue()"  multiple  >
+        <mat-option  value="0">All</mat-option>
+        <mat-option  value="1">group manager</mat-option>
+        <mat-option  value="2">system employee</mat-option>
+  
+     
+      
+      
+      </mat-select>
+    </mat-form-field>
+   </div>
 
-  <mat-form-field class="w-25 mx-4" appearance="outline">
-    <mat-label>Search By Title</mat-label>
-    <input matInput [(ngModel)]="searchValue" (keyup.enter)="sendSearchValue()" placeholder="Placeholder">
-    <mat-icon matPrefix>search</mat-icon>
-  </mat-form-field>
+   <div *ngIf="tableDefinitionText === 'Tasks'" class="d-flex justify-content-between">
+    <mat-form-field class="w-25 mx-4" appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="searchValueTasks" (keyup.enter)="sendSearchValueTasks()" placeholder="Placeholder">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Group</mat-label>
+      <mat-select [(ngModel)]="roleIdsTasks" (selectionChange)="sendGroupValueTasks()"  multiple  >
+        <mat-option  value="ToDo">To Do</mat-option>
+        <mat-option  value="InProgress">group manager</mat-option>
+        <mat-option  value="Done">system employee</mat-option>
+  
+     
+      
+      
+      </mat-select>
+    </mat-form-field>
+   </div>
+  
+  
 
   <table class="table table-striped">
     <thead class="bg-info">
@@ -18,6 +76,7 @@
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
     </thead>
+    
     <tbody>
       <ng-container *ngIf="isProject(tableBodyContent)">
         <tr *ngFor="let tableBody of tableBodyContent.data">
@@ -25,7 +84,7 @@
           <td>{{ tableBody.description?.slice(0, 15) }}</td>
           <td>
             <span *ngIf="tableBody.task.length">
-              <ng-container *ngFor="let task of tableBody.task; let last = last">
+              <ng-container *ngFor="let task of tableBody.task.slice(0, 3); let last = last">
                 {{ task.title }}
                 <span *ngIf="!last">,</span>
               </ng-container>
@@ -60,6 +119,10 @@
       </ng-container>
 
       <ng-container *ngIf="isTask(tableBodyContent)">
+       
+
+        
+        
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
           <td>

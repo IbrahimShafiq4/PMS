@@ -7,7 +7,9 @@
   (pageIndexChanged)="pageNumber($event)"
   (pageSizeChanged)="pageSize($event)"
   (block)="onToggleitem($event)"
- 
+  (filterValueEnterd)="this.getFilterValue($event)"
+  (searchValueEntered)="this.getSearchVal($event)"
+  (groupValueEnterd)="this.getGroupValue($event)"
   
 ></app-shared-table>
 
