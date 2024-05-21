@@ -1,3 +1,4 @@
+import { TasksService } from './../manager/tasks/services/tasks.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,14 +11,14 @@ import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
-    EmployeeComponent,
-    ProjectComponent,
-    TasksComponent
+    EmployeeComponent
   ],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+
+  ],
+  providers:[TasksService]
 })
 export class EmployeeModule { }
