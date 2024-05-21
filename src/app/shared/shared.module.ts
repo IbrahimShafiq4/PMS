@@ -94,7 +94,8 @@ import { UsersService } from '../manager/users/services/users.service';
     FirstTenWordsPipe,
     MatSelectModule,
     ViewComponent,
-    MatDialogModule
+    MatDialogModule,
+    NoDataComponent
   ],
 
   providers: [AuthService, HelperService, ProjectsService,TasksService,UsersService],
