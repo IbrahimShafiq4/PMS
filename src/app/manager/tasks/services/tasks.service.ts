@@ -45,8 +45,8 @@ export class TasksService {
   }
 
   // change status for task by employee
-  changeStatusOfTask(taskId: number, taskStatus: string): Observable<{ status: string }> {
-    return this._HttpClient.put<{ status: string }>(`Task/${taskId}/change-status`, taskStatus)
+  changeStatusOfTask(taskId: number, status: string): Observable<{ status: string }> {
+    return this._HttpClient.put<{ status: string }>(`Task/${taskId}/change-status`, {status})
   }
 
   // get all task in project

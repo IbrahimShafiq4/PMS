@@ -4,15 +4,17 @@
   margin: 0 25px 25px 0;
   display: inline-block;
   vertical-align: top;
+
 }
 
 .example-list {
   border: solid 1px #ccc;
   min-height: 60px;
-  background: white;
+  background: rgba(49, 89, 81, 0.9);
   border-radius: 4px;
   overflow: hidden;
   display: block;
+  padding: 2rem .3rem;
 }
 
 .example-box {
@@ -24,8 +26,9 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  border-radius: 8px;
   cursor: move;
-  background: white;
+  background: rgba(239, 155, 40, 1);
   font-size: 14px;
 }
 
