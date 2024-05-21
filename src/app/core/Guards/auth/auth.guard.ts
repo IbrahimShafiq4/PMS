@@ -17,5 +17,11 @@ export const authGuard: CanActivateFn = (
   | UrlTree
   | boolean => {
   const _Router = inject(Router);
-  return true;
+  if(localStorage.getItem('userToken')!==null){
+    return true;
+  }else{
+    _Router.navigate(['/auth']);
+     return false;
+  }
+ 
 };

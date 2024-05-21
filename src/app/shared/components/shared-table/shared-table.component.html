@@ -14,12 +14,15 @@
       <tr *ngIf="tableDefinitionText === 'Tasks'">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
+      <tr *ngIf="tableDefinitionText === 'Users'">
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
     </thead>
     <tbody>
       <ng-container *ngIf="isProject(tableBodyContent)">
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
-          <td>{{ tableBody.description.slice(0, 15) }}</td>
+          <td>{{ tableBody.description?.slice(0, 15) }}</td>
           <td>
             <span *ngIf="tableBody.task.length">
               <ng-container *ngFor="let task of tableBody.task; let last = last">
@@ -34,7 +37,8 @@
           <td>{{ tableBody.creationDate | date: 'short' }}</td>
           <td>{{ tableBody.modificationDate | date: 'short' }}</td>
           <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3" aria-label="Example icon-button with a menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+              aria-label="Example icon-button with a menu">
               <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -59,7 +63,8 @@
         <tr *ngFor="let tableBody of tableBodyContent.data">
           <td>{{ tableBody.title }}</td>
           <td>
-            <span class="status  text-center w-50" [ngClass]="{'toDo': tableBody.status == 'ToDo', 'inProgress': tableBody.status == 'InProgress', 'done': tableBody.status == 'Done'}">
+            <span class="status  text-center w-50"
+              [ngClass]="{'toDo': tableBody.status == 'ToDo', 'inProgress': tableBody.status == 'InProgress', 'done': tableBody.status == 'Done'}">
               {{ tableBody.status }}
             </span>
           </td>
@@ -68,7 +73,8 @@
           <td>{{ tableBody.project?.title }}</td>
           <td>{{ tableBody.creationDate | date: 'short' }}</td>
           <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3" aria-label="Example icon-button with a menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+              aria-label="Example icon-button with a menu">
               <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -79,6 +85,42 @@
               <button mat-menu-item type="button" (click)="deleteItem(tableBody.id)">
                 <mat-icon class="main-green-color">delete</mat-icon>
                 <span>Delete</span>
+              </button>
+              <button mat-menu-item type="button" (click)="viewItem(tableBody.id)">
+                <mat-icon class="main-green-color">visibility</mat-icon>
+                <span>View</span>
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngIf="isUsers(tableBodyContent)">
+        <tr *ngFor="let tableBody of tableBodyContent.data">
+          <td>{{tableBody.userName }}</td>
+          <!-- <td>{{tableBody.isActivated}}</td> -->
+          <td>
+            <span class="status  text-center w-50 isActivated" *ngIf="tableBody.isActivated">
+              Active
+            </span>
+            <span class="status  text-center w-50 notActivated" *ngIf="!tableBody.isActivated">
+              Not Active
+            </span>
+          </td>
+          <td>{{tableBody.phoneNumber}}</td>
+          <td>{{tableBody.email}}</td>
+
+          <td>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+              aria-label="Example icon-button with a menu">
+              <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item type="button" (click)="blockItem(tableBody.id)">
+                <mat-icon class="main-green-color" *ngIf="!tableBody.isActivated">notifications</mat-icon>
+                <mat-icon class="main-green-color" *ngIf="tableBody.isActivated">notifications_off</mat-icon>
+                <span *ngIf="tableBody.isActivated">Not Active</span>
+                <span *ngIf="!tableBody.isActivated">Active</span>
               </button>
               <button mat-menu-item type="button" (click)="viewItem(tableBody.id)">
                 <mat-icon class="main-green-color">visibility</mat-icon>

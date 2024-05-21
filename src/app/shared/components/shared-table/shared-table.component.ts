@@ -1,3 +1,4 @@
+import { IUsersResponse } from './../../../manager/users/models/users';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { IProjectList } from 'src/app/manager/projects/models/projects';
@@ -14,11 +15,12 @@ export class SharedTableComponent {
   @Output() pageIndexChanged: EventEmitter<number> = new EventEmitter<number>();
   @Input() tableHeaders: string[] = [];
   @Input() tableDefinitionText: string = '';
-  @Input() tableBodyContent!: IProjectList | ITaskListResponse;
+  @Input() tableBodyContent!: IProjectList | ITaskListResponse | IUsersResponse;
   @Output() searchValueEntered: EventEmitter<string> = new EventEmitter<string>();
   @Output() editCategory: EventEmitter<number> = new EventEmitter<number>();
   @Output() view: EventEmitter<number> = new EventEmitter<number>();
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
+  @Output() block: EventEmitter<number> = new EventEmitter<number>();
 
   searchValue: string = '';
   pageSize: number = 5; // Default page size
@@ -43,8 +45,11 @@ export class SharedTableComponent {
     this.searchValueEntered.emit(this.searchValue);
   }
 
+  isUsers(content: any): content is IUsersResponse {
+    return content && Array.isArray(content.data) && content.data.length > 0 && 'isActivated' in content.data[0] && 'task' in content.data[0];
+  }
   isProject(content: any): content is IProjectList {
-    return content && Array.isArray(content.data) && content.data.length > 0 && 'task' in content.data[0];
+    return content && Array.isArray(content.data) && content.data.length > 0 && 'task' in content.data[0] && 'description' in content.data[0] ;
   }
 
   isTask(content: any): content is ITaskListResponse {
@@ -53,10 +58,17 @@ export class SharedTableComponent {
 
   viewItem(rowId: number) {
     this.view.emit(rowId);
+    console.log('shared'+rowId);
   }
 
   deleteItem(rowId: number) {
-  this.delete.emit(rowId);
+    this.delete.emit(rowId);
     console.log(rowId);
+  }
+
+  blockItem(rowId: number){
+    this.block.emit(rowId);
+    console.log(rowId);
+
   }
 }

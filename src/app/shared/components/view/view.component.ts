@@ -1,3 +1,4 @@
+import { IToglleResponse } from './../../../manager/users/models/users';
 import { IProject, IUser } from './../../../manager/tasks/models/tasks';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -7,6 +8,7 @@ import { IProjectData } from 'src/app/manager/projects/models/projects';
 import { ProjectsService } from 'src/app/manager/projects/services/projects.service';
 import { ITask } from 'src/app/manager/tasks/models/tasks';
 import { TasksService } from 'src/app/manager/tasks/services/tasks.service';
+import { UsersService } from 'src/app/manager/users/services/users.service';
 
 @Component({
   selector: 'app-view',
@@ -18,8 +20,9 @@ export class ViewComponent {
     private _ActivatedRoute: ActivatedRoute,
     private _ProjectsService: ProjectsService,
     private _ToastrService: ToastrService,
-    private _TasksService: TasksService
-  ) {}
+    private _TasksService: TasksService,
+    private _UsersService: UsersService
+  ) { }
   viewedItemDetails: IProjectData = {
     id: 0,
     title: '',
@@ -73,6 +76,8 @@ export class ViewComponent {
     },
   };
 
+ 
+
   itemId: number = 0;
   navigatedFrom: string = '';
   backTo: string = '';
@@ -113,4 +118,6 @@ export class ViewComponent {
       // complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
     });
   }
+
+
 }

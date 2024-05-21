@@ -52,6 +52,7 @@ export class ProjectsComponent implements OnInit {
 
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
+        console.log(res);
         this.projectTableData = res;
       },
       error: (error: HttpErrorResponse) =>
