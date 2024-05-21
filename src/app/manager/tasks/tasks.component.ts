@@ -128,7 +128,7 @@ export class TasksComponent {
     debugger
     console.log(event);
 
-    this._Router.navigate([`/dashboard/manager/tasks/view/${event}`]); //dashboard/manager/tasks view/:id
+    this._Router.navigate([`/dashboard/manager/tasks/view/${event}/tasks`]);
   }
 
   @HostListener('window:resize', ['$event'])

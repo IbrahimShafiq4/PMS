@@ -118,7 +118,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   willBeViewed(event: number) {
-    this._Router.navigate([`/dashboard/view/${event}/projects`]);
+    this._Router.navigate([`/dashboard/manager/projects/view/${event}/projects`]);
   }
 
   @HostListener('window:resize', ['$event'])
