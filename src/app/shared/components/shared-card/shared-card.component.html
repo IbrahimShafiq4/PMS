@@ -16,7 +16,29 @@
             </svg>
           </span>
           <div class="d-flex flex-column gap-2">
-            <h4>{{ tableBody.title }}</h4>
+            <div class="d-flex justify-content-between align-items-center">
+              <h4>{{ tableBody.title }}</h4>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="text-black position-relative z-3"
+                  aria-label="Example icon-button with a menu">
+                  <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editCategory.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">edit_square</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item type="button" (click)="delete.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                  <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">visibility</mat-icon>
+                    <span>View</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
             <p class="m-0">
               {{ tableBody.description.slice(0, 15) }}
             </p>
@@ -71,7 +93,29 @@
             </svg>
           </span>
           <div class="d-flex flex-column gap-2">
-            <h4>{{ tableBody.title }}</h4>
+            <div class="d-flex justify-content-between align-items-center">
+              <h4>{{ tableBody.title }}</h4>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="text-black position-relative z-3"
+                  aria-label="Example icon-button with a menu">
+                  <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editCategory.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">edit_square</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item type="button" (click)="delete.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                  <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">visibility</mat-icon>
+                    <span>View</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
             <p class="m-0">
               <span class="status text-center w-50" [ngClass]="{
                 'toDo': tableBody.status == 'ToDo',
@@ -127,7 +171,29 @@
             </svg>
           </span>
           <div class="d-flex flex-column gap-2">
-            <h4>{{ tableBody.userName }}</h4>
+            <div class="d-flex justify-content-between align-items-center">
+              <h4>{{ tableBody.userName }}</h4>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="text-black position-relative z-3"
+                  aria-label="Example icon-button with a menu">
+                  <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editCategory.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">edit_square</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item type="button" (click)="delete.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                  <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
+                    <mat-icon class="main-green-color">visibility</mat-icon>
+                    <span>View</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
             <p class="m-0">
               <span class="status isActivated text-center w-50" *ngIf="tableBody.isActivated">Active</span>
               <span class="status notActivated text-center w-50" *ngIf="!tableBody.isActivated">Not Active</span>
@@ -160,7 +226,7 @@
       </ng-container>
     </ng-container>
   </div>
-  
+
   <mat-paginator *ngIf="totalRecords" #paginator class="demo-paginator" (page)="handlePageEvent($event)"
     [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" [pageIndex]="pageIndex"
     aria-label="Select page">
