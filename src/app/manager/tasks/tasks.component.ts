@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ITaskListResponse, ITasksParameters } from './models/tasks';
 import { Router } from '@angular/router';
 import { TasksService } from './services/tasks.service';
@@ -23,6 +23,7 @@ export class TasksComponent {
     'Creation date',
     'Actions',
   ];
+
   taskTableData: ITaskListResponse = {
     pageNumber: 0,
     pageSize: 0,
@@ -30,6 +31,10 @@ export class TasksComponent {
     totalNumberOfRecords: 0,
     totalNumberOfPages: 0,
   };
+
+  toggleViewControls: boolean = false;
+
+  disableTableButton: boolean = false;
 
   constructor(
     private _Router: Router,
@@ -124,5 +129,16 @@ export class TasksComponent {
     console.log(event);
 
     this._Router.navigate([`/dashboard/manager/tasks/view/${event}`]); //dashboard/manager/tasks view/:id
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
   }
 }

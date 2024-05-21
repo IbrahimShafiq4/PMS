@@ -1,12 +1,10 @@
 import { IUsersResponse, IUsersParamsRequest } from './models/users';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-
-import { ToggleComponent } from './components/toggle/toggle.component';
 
 @Component({
   selector: 'app-users',
@@ -36,12 +34,16 @@ export class UsersComponent implements OnInit {
   };
 
   isActivated: boolean = false;
+  toggleViewControls: boolean = false;
+
+  disableTableButton: boolean = false;
 
   constructor(private _UsersService: UsersService,
     private _toastrService: ToastrService,
     private _Router: Router,
     public _dialog: MatDialog,
     private _ToastrService: ToastrService) { }
+
   ngOnInit() {
     this.getUsers();
   }
@@ -116,6 +118,17 @@ export class UsersComponent implements OnInit {
         this.getUsers();
       },
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
   }
 
 }
