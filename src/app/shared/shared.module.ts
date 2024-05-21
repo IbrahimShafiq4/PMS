@@ -22,7 +22,7 @@ import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { ViewComponent } from './components/view/view.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import { ProjectsService } from '../manager/projects/services/projects.service';
@@ -30,6 +30,7 @@ import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.c
 import { MatDialogModule } from '@angular/material/dialog';
 import { TasksService } from '../manager/tasks/services/tasks.service';
 import { SharedCardComponent } from './components/shared-card/shared-card.component';
+import { UsersService } from '../manager/users/services/users.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { SharedCardComponent } from './components/shared-card/shared-card.compon
     DeleteComponent,
     FirstTenWordsPipe,
     DeletePopUpComponent,
-    SharedCardComponent
+    SharedCardComponent,
   ],
 
   imports: [
@@ -65,7 +66,7 @@ import { SharedCardComponent } from './components/shared-card/shared-card.compon
     MatCardModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
   ],
 
   exports: [
@@ -94,9 +95,16 @@ import { SharedCardComponent } from './components/shared-card/shared-card.compon
     MatSelectModule,
     ViewComponent,
     MatDialogModule,
-    SharedCardComponent
+    SharedCardComponent,
   ],
 
-  providers: [AuthService, HelperService, ProjectsService,TasksService],
+  providers: [
+    AuthService,
+    HelperService,
+    ProjectsService,
+    TasksService,
+    UsersService,
+  ],
 })
+
 export class SharedModule {}
