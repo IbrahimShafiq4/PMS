@@ -18,8 +18,8 @@ export class ProjectsComponent implements OnInit {
     'Title',
     'Description',
     'Task',
-    'Creation Date',
-    'Modification Date',
+    'Creation date',
+    'Modification date',
     'Actions',
   ];
 

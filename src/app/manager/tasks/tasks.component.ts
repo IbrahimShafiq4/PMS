@@ -20,7 +20,7 @@ export class TasksComponent {
     'Description',
     'User',
     'Projects',
-    'Creation Date',
+    'Creation date',
     'Actions',
   ];
   taskTableData: ITaskListResponse = {
@@ -122,7 +122,7 @@ export class TasksComponent {
   willBeViewed(event: number) {
     debugger
     console.log(event);
-    
+
     this._Router.navigate([`/dashboard/manager/tasks/view/${event}`]); //dashboard/manager/tasks view/:id
   }
 }

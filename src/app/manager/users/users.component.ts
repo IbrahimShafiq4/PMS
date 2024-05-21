@@ -20,11 +20,10 @@ export class UsersComponent implements OnInit {
   roleIds: string = '';
 
   tableHeaders: string[] = [
-    'User Name',
+    'User name',
     'Statues',
-    'Phone Number',
+    'Phone number',
     'Email',
-    // 'Date Created',
     'Actions',
   ];
 
