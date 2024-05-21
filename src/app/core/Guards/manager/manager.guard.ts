@@ -16,11 +16,12 @@ export const managerGuard: CanActivateFn = (
   | Promise<UrlTree | boolean>
   | UrlTree
   | boolean => {
-  const _Router = inject(Router);
-  if (localStorage.getItem('userToken')!==null && localStorage.getItem('role') == 'Manager') {
-    return true;
-  } else {
-    _Router.navigate(['/auth']);
-    return false;
-  }
+  // const _Router = inject(Router);
+  // if (localStorage.getItem('userToken')!==null && localStorage.getItem('role') == 'Manager') {
+  //   return true;
+  // } else {
+  //   _Router.navigate(['/auth']);
+  //   return false;
+  // }
+  return true
 };

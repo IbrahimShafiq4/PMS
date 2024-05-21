@@ -9,7 +9,6 @@ import { TaskBoardComponent } from './task-board/task-board.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { TaskBoardService } from './services/task-board.service';
 
-import { SharedModule } from '../shared/shared.module';
 import { ProjectComponent } from './components/project/project.component';
 
 @NgModule({

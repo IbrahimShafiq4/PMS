@@ -81,7 +81,12 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
+  getFilterValue(event: any) {
 
+  }
+  getGroupValue(event: any) {
+
+  }
 
 
   // function for active and not active user

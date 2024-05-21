@@ -1,6 +1,8 @@
 <app-shared-header [headerBtnText]="'Add New Project'" [headerBtnVisibility]="true" [headerMainText]="'Projects'"
   [headerBtnLink]="'add'"></app-shared-header>
 
+  <app-shared-card></app-shared-card>
+
 <app-shared-table
   [tableHeaders]="tableHeaders"
   [tableDefinitionText]="'projects'"
@@ -12,3 +14,4 @@
   (view)="willBeViewed($event)"
   (delete)="willBeDeleted($event)"
 ></app-shared-table>
+

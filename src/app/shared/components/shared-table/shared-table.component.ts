@@ -32,7 +32,7 @@ export class SharedTableComponent {
   roleIdsTasks: string = '';
   roleIds:string='';
   pageSize: number = 5; // Default page size
-  pageIndex: number = 0; // Default page index
+  pageIndex: number = 1; // Default page index
 
   ngOnInit(): void {
     console.log(this.tableBodyContent.data);
@@ -83,23 +83,13 @@ export class SharedTableComponent {
 
   viewItem(rowId: number) {
     this.view.emit(rowId);
-    console.log('shared'+rowId);
   }
 
   deleteItem(rowId: number) {
     this.delete.emit(rowId);
-    console.log(rowId);
   }
 
   blockItem(rowId: number){
     this.block.emit(rowId);
-    console.log(rowId);
-
-  }
-
-  blockItem(rowId: number){
-    this.block.emit(rowId);
-    console.log(rowId);
-
   }
 }

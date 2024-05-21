@@ -29,6 +29,7 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TasksService } from '../manager/tasks/services/tasks.service';
+import { SharedCardComponent } from './components/shared-card/shared-card.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TasksService } from '../manager/tasks/services/tasks.service';
     ViewComponent,
     DeleteComponent,
     FirstTenWordsPipe,
-    DeletePopUpComponent
+    DeletePopUpComponent,
+    SharedCardComponent
   ],
 
   imports: [
@@ -91,7 +93,8 @@ import { TasksService } from '../manager/tasks/services/tasks.service';
     FirstTenWordsPipe,
     MatSelectModule,
     ViewComponent,
-    MatDialogModule
+    MatDialogModule,
+    SharedCardComponent
   ],
 
   providers: [AuthService, HelperService, ProjectsService,TasksService],
