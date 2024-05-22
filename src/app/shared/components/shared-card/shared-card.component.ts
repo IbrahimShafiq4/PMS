@@ -15,6 +15,7 @@ export class SharedCardComponent {
   @Input() tableBodyContentOfProjects?: IProjectList;
   @Input() tableBodyContentOfTasks?: ITaskListResponse;
   @Input() tableBodyContentOfUsers?: IUsersResponse;
+  @Input() tableBodyEmployeeProject?: IProjectList;
   @Output() pageSizeChanged = new EventEmitter<number>();
   @Output() pageIndexChanged = new EventEmitter<number>();
   @Output() editCategory = new EventEmitter<number>();
@@ -30,6 +31,7 @@ export class SharedCardComponent {
       this.tableBodyContentOfProjects?.totalNumberOfRecords ||
       this.tableBodyContentOfTasks?.totalNumberOfRecords ||
       this.tableBodyContentOfUsers?.totalNumberOfRecords ||
+      this.tableBodyEmployeeProject?.totalNumberOfPages ||
       0
     );
   }

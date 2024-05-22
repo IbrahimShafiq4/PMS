@@ -53,8 +53,9 @@
       </div>
 
       <mat-card-actions class="d-flex justify-content-between">
-        <button type="button" [routerLink]="navigationLink" class="dark-outline"> {{ (taskId && viewMode) ? 'Go Back' : 'cancel' }} </button>
-        <button [disabled]="taskForm.invalid" type="submit" class="primary" *ngIf="taskId && !viewMode">Save</button>
+        <button type="button" [routerLink]="navigationLink" class="dark-outline"> {{ (taskId && viewMode) ? 'Go Back' :
+          'cancel' }} </button>
+        <button [disabled]="taskForm.invalid" type="submit" class="primary" *ngIf="(taskId && !viewMode) || (!taskId && !viewMode)">Save</button>
       </mat-card-actions>
 
     </form>

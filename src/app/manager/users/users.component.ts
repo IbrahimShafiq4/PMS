@@ -9,14 +9,14 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   searchValue: string = '';
 
   filterValue: string = '';
   roleIds: string = '';
-  noData:boolean=false
+  noData: boolean = false;
   tableHeaders: string[] = [
     'User name',
     'Statues',
@@ -38,10 +38,19 @@ export class UsersComponent implements OnInit {
 
   disableTableButton: boolean = false;
 
+  constructor(
+    private _UsersService: UsersService,
+    private _toastrService: ToastrService,
+    private _Router: Router,
+    public _dialog: MatDialog,
+    private _ToastrService: ToastrService
+  ) {}
+  ngOnInit() {
+    this.getUsers();
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-
     if (window.innerWidth <= 991) {
       this.toggleViewControls = true;
       this.disableTableButton = true;
@@ -50,52 +59,36 @@ export class UsersComponent implements OnInit {
     }
   }
 
-
-  userTableData: IUsersResponse = {
-    data: [],
-    pageNumber: 0,
-    pageSize: 5,
-    totalNumberOfRecords: 0,
-    totalNumberOfPages: 0,
-  };
-
-  isActivated: boolean = false;
-
-  constructor(private _UsersService: UsersService,
-    private _toastrService: ToastrService,
-    private _Router: Router,
-    public _dialog: MatDialog,
-    private _ToastrService: ToastrService) { }
-  ngOnInit() {
-    this.getUsers();
-  }
-
   getUsers() {
     let requestParams: IUsersParamsRequest = {
       [this.filterValue]: this.searchValue,
-      groups:this.roleIds,
+      groups: this.roleIds,
       pageNumber: this.userTableData.pageNumber,
-      pageSize: this.userTableData.pageSize
+      pageSize: this.userTableData.pageSize,
     };
     this._UsersService.getAllUsers(requestParams).subscribe({
       next: (res) => {
         this.userTableData = res;
-        this.userTableData.data.length==0?this.noData=true:this.noData=false
+        this.userTableData.data.length == 0
+          ? (this.noData = true)
+          : (this.noData = false);
       },
       error: (error: HttpErrorResponse) => {
-        this._toastrService.error(error.error.message, 'Error')
+        this._toastrService.error(error.error.message, 'Error');
         // console.log(error)
-      }, complete: () => { }
-    })
+      },
+      complete: () => {},
+    });
   }
 
-
-  pageSize(event: number) { // Ensure it accepts number
+  pageSize(event: number) {
+    // Ensure it accepts number
     this.userTableData.pageSize = event;
     this.getUsers();
   }
 
-  pageNumber(event: number) { // Ensure it accepts number
+  pageNumber(event: number) {
+    // Ensure it accepts number
     this.userTableData.pageNumber = event;
     this.getUsers();
   }
@@ -108,8 +101,7 @@ export class UsersComponent implements OnInit {
         this.isActivated = res.isActivated;
       },
       error: (errRes: HttpErrorResponse) => {
-
-        this._ToastrService.error(errRes.error.message, 'Error')
+        this._ToastrService.error(errRes.error.message, 'Error');
       },
       complete: () => {
         if (this.isActivated == true) {
@@ -118,11 +110,7 @@ export class UsersComponent implements OnInit {
             'Success'
           );
         } else if (this.isActivated == false) {
-          this._ToastrService.success(
-            'Acouunt Not Activated',
-            'Success'
-          );
-
+          this._ToastrService.success('Acouunt Not Activated', 'Success');
         }
 
         this.getUsers();
@@ -130,9 +118,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-
   willBeViewed(event: number) {
     this._Router.navigate([`/dashboard/view/${event}/users`]);
   }
-
 }

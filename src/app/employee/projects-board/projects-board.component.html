@@ -3,9 +3,7 @@
 <app-shared-table
   [tableHeaders]="tableHeaders"
   [tableDefinitionText]="'projectsEmployee'"
-  [tableBodyContent]="projectTableData"
-  [projectEmployee]="true"
-  (searchValueEntered)="getSearchVal($event)"
+  [tableBodyEmployeeProject]="projectTableData"
   (pageIndexChanged)="pageNumber($event)"
   (pageSizeChanged)="pageSize($event)"
 ></app-shared-table>
