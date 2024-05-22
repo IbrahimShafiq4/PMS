@@ -1,4 +1,6 @@
+
 <app-shared-header [headerBtnVisibility]="false" [headerMainText]="'Users'"></app-shared-header>
+
 
 <div class="view-controls d-flex justify-content-end align-items-center gap-3 my-3">
   <button class="p-1 green rounded-1" (click)="toggleViewControls = true" type="button"> <i
@@ -57,6 +59,7 @@
       (pageIndexChanged)="pageNumber($event)"
       (pageSizeChanged)="pageSize($event)"
       (block)="onToggleitem($event)"
+      (view)="willBeViewed($event)"
     >
 
     </app-shared-table>

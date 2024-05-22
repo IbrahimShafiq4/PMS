@@ -72,24 +72,13 @@
                 aria-label="Example icon-button with a menu">
                 <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
               </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editCategory.emit(tableBody.id)">
-                  <mat-icon class="main-green-color">edit_square</mat-icon>
-                  <span>Edit</span>
-                </button>
-                <button mat-menu-item type="button" (click)="delete.emit(tableBody.id)">
-                  <mat-icon class="main-green-color">delete</mat-icon>
-                  <span>Delete</span>
-                </button>
-                <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
-                  <mat-icon class="main-green-color">visibility</mat-icon>
-                  <span>View</span>
-                </button>
-              </mat-menu>
-            </td>
-          </tr>
-        </ng-container>
 
+            </mat-menu>
+          </td>
+        </tr>
+      </ng-container>
+
+   
         <ng-container *ngSwitchCase="'Users'">
           <tr *ngFor="let tableBody of tableBodyContentOfUsers?.data">
             <td>{{ tableBody.userName }}</td>
@@ -119,6 +108,7 @@
             </td>
           </tr>
         </ng-container>
+
       </ng-container>
      
     </tbody>

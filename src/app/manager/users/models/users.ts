@@ -13,6 +13,19 @@ export interface IUsersResponse{
     totalNumberOfRecords:number;
     totalNumberOfPages:number;
 }
+export interface ISingleUser{
+    id:number;
+    userName:string;
+    imagePath?:string;
+    email:string;
+    country:string;
+    phoneNumber:string;
+    isActivated:boolean;
+    creationDate:string;
+    modificationDate:string;
+
+}
+
 
 
 export interface IUsersResponseData{
