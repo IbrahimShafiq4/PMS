@@ -34,6 +34,7 @@ export class ProjectsComponent implements OnInit {
   toggleViewControls: boolean = false;
 
   disableTableButton: boolean = false;
+  noData:boolean=false;
 
   constructor(
     private _ProjectsService: ProjectsService,
@@ -57,6 +58,7 @@ export class ProjectsComponent implements OnInit {
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
         this.projectTableData = res;
+        this.projectTableData.data.length==0?this.noData=true:this.noData=false
       },
       error: (error: HttpErrorResponse) =>
         this._toastrService.error(error.error.message, 'Error'),

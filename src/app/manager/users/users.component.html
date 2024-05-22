@@ -12,8 +12,8 @@
     <div class="col-md-3">
       <mat-form-field class="w-100 rounded-3" appearance="outline">
         <mat-label>Search By</mat-label>
-        <mat-select [(ngModel)]="filterValue" multiple>
-          <mat-option value="0">All</mat-option>
+        <mat-select [(ngModel)]="filterValue" >
+          <mat-option value="">All</mat-option>
 
           <mat-option value="userName">Name</mat-option>
           <mat-option value="email">Email</mat-option>
@@ -24,23 +24,22 @@
     <div class="col-md-6">
       <mat-form-field class="w-100 rounded-3" appearance="outline">
         <mat-label>Search</mat-label>
-        <input matInput [(ngModel)]="searchValue" placeholder="Placeholder" />
+        <input matInput [(ngModel)]="searchValue" (keyup.enter)="getUsers()" placeholder="Placeholder" />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100 rounded-3" appearance="outline">
         <mat-label>Group</mat-label>
-        <mat-select [(ngModel)]="roleIds" multiple>
-          <mat-option value="0">All</mat-option>
-          <mat-option value="1">group manager</mat-option>
-          <mat-option value="2">system employee</mat-option>
+        <mat-select [(ngModel)]="roleIds" multiple (selectionChange)="getUsers()">
+          <mat-option value="1">Manager</mat-option>
+          <mat-option value="2">Employee</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </div>
 
-    <app-shared-card *ngIf="toggleViewControls"
+    <app-shared-card *ngIf="toggleViewControls&&!noData"
       [tableHeaders]="tableHeaders"
       [tableDefinitionText]="'Users'"
       [tableBodyContentOfUsers]="userTableData"
@@ -51,7 +50,7 @@
 
     </app-shared-card>
 
-    <app-shared-table *ngIf="!toggleViewControls"
+    <app-shared-table *ngIf="!toggleViewControls&&!noData"
       [tableHeaders]="tableHeaders"
       [tableDefinitionText]="'Users'"
       [tableBodyContentOfUsers]="userTableData"
@@ -61,4 +60,5 @@
     >
 
     </app-shared-table>
+    <app-no-data *ngIf="noData"></app-no-data>
 </mat-card>

@@ -96,6 +96,7 @@ import { UsersService } from '../manager/users/services/users.service';
     ViewComponent,
     MatDialogModule,
     SharedCardComponent,
+    NoDataComponent
   ],
 
   providers: [

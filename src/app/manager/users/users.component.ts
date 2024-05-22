@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit {
 
   filterValue: string = '';
   roleIds: string = '';
-
+  noData:boolean=false
   tableHeaders: string[] = [
     'User name',
     'Statues',
@@ -50,14 +50,15 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     let requestParams: IUsersParamsRequest = {
-      title: this.searchValue,
+      [this.filterValue]: this.searchValue,
+      groups:this.roleIds,
       pageNumber: this.userTableData.pageNumber,
       pageSize: this.userTableData.pageSize
     };
     this._UsersService.getAllUsers(requestParams).subscribe({
       next: (res) => {
-        //console.log(res);
         this.userTableData = res;
+        this.userTableData.data.length==0?this.noData=true:this.noData=false
       },
       error: (error: HttpErrorResponse) => {
         this._toastrService.error(error.error.message, 'Error')
@@ -66,11 +67,6 @@ export class UsersComponent implements OnInit {
     })
   }
 
-
-  getSearchVal(event: string) {
-    this.searchValue = event;
-    this.getUsers();
-  }
 
   pageSize(event: number) { // Ensure it accepts number
     this.userTableData.pageSize = event;
