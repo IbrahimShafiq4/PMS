@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TasksComponent {
   searchValue: string = '';
+  status:string=''
   tableHeaders: string[] = [
     'Title',
     'Status',
@@ -35,7 +36,7 @@ export class TasksComponent {
   toggleViewControls: boolean = false;
 
   disableTableButton: boolean = false;
-
+  noData:boolean=false
   constructor(
     private _Router: Router,
     private _TasksService: TasksService,
@@ -51,13 +52,14 @@ export class TasksComponent {
   getTasks() {
     let requestParam: ITasksParameters = {
       title: this.searchValue,
-      status: '',
+      status: this.status,
       pageSize: this.taskTableData.pageSize,
       pageNumber: this.taskTableData.pageNumber,
     };
     this._TasksService.getAllMyTasksForManager(requestParam).subscribe({
       next: (res) => {
         this.taskTableData = res;
+        this.taskTableData.data.length==0?this.noData=true:this.noData=false
       },
       error: (err: HttpErrorResponse) => {
         this._toastrService.error(err.error.message, 'Error');
@@ -66,10 +68,10 @@ export class TasksComponent {
     });
   }
 
-  getSearchVal(event: string) {
-    this.searchValue = event;
-    this.getTasks();
-  }
+  // getSearchVal(event: string) {
+  //   this.searchValue = event;
+  //   this.getTasks();
+  // }
 
   willBeEdited(event: number) {
     this._Router.navigateByUrl(`dashboard/manager/tasks/edit/${event}`);
@@ -131,8 +133,7 @@ export class TasksComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-
+  onResiz(event: Event) {
     if (window.innerWidth <= 991) {
       this.toggleViewControls = true;
       this.disableTableButton = true;

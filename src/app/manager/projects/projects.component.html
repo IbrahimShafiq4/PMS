@@ -15,13 +15,13 @@
     <div class="col-md-4">
       <mat-form-field class="w-100 rounded-3" appearance="outline">
         <mat-label>Search</mat-label>
-        <input matInput [(ngModel)]="searchValue" (keyup.enter)="getProject()" placeholder="Placeholder" />
+        <input matInput [(ngModel)]="searchValue" (keyup.enter)="getProject()" placeholder="Search" />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
   </div>
 
-  <ng-container *ngIf="toggleViewControls">
+  <ng-container *ngIf="toggleViewControls&&!noData">
     <app-shared-card [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
       [tableBodyContentOfProjects]="projectTableData" (editCategory)="willBeEdited($event)"
       (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)" (view)="willBeViewed($event)"
@@ -30,7 +30,7 @@
   </ng-container>
 
 
-  <ng-container *ngIf="!toggleViewControls">
+  <ng-container *ngIf="!toggleViewControls&&!noData">
     <app-shared-table [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
       [tableBodyContentOfProjects]="projectTableData" (editCategory)="willBeEdited($event)"
       (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)" (view)="willBeViewed($event)"
@@ -38,5 +38,7 @@
     </app-shared-table>
 
   </ng-container>
+
+  <app-no-data *ngIf="noData"></app-no-data>
 
 </mat-card>

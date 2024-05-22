@@ -13,31 +13,34 @@
     <div class="col-md-6">
       <mat-form-field class="w-100 rounded-3" appearance="outline">
         <mat-label>Search</mat-label>
-        <input matInput placeholder="Placeholder" />
+        <input matInput placeholder="Placeholder" [(ngModel)]="searchValue" (keyup.enter)="this.getTasks()" />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
     <div class="col-md-6">
       <mat-form-field class="w-100 rounded-3" appearance="outline">
         <mat-label>Group</mat-label>
-        <mat-select multiple>
+        <mat-select   [(ngModel)]="status"  (keyup.enter)="this.getTasks()">
           <mat-option value="ToDo">To Do</mat-option>
-          <mat-option value="InProgress">group manager</mat-option>
-          <mat-option value="Done">system employee</mat-option>
+          <mat-option value="InProgress">In progress</mat-option>
+          <mat-option value="Done">Done</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </div>
 
-  <app-shared-card *ngIf="toggleViewControls"
+  <app-shared-card *ngIf="toggleViewControls &&!noData"
     [tableHeaders]="tableHeaders" [tableDefinitionText]="'Tasks'"
     [tableBodyContentOfTasks]="taskTableData" (editCategory)="willBeEdited($event)" (delete)="willBeDeleted($event)"
     (view)="willBeViewed($event)" (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)">
   </app-shared-card>
 
-  <app-shared-table *ngIf="!toggleViewControls"
+  <app-shared-table *ngIf="!toggleViewControls&&!noData"
     [tableHeaders]="tableHeaders" [tableDefinitionText]="'Tasks'"
     [tableBodyContentOfTasks]="taskTableData" (editCategory)="willBeEdited($event)" (delete)="willBeDeleted($event)"
     (view)="willBeViewed($event)" (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)">
   </app-shared-table>
+  <app-no-data *ngIf="noData"></app-no-data>
 </mat-card>
+
+

@@ -12,7 +12,7 @@ export class UsersService {
 
   //get all users by manager
   getAllUsers(params: IUsersParamsRequest): Observable<IUsersResponse> {
-    return this._HttpClient.get<IUsersResponse>('Users/Manager', { params: params, });
+    return this._HttpClient.get<IUsersResponse>('Users', { params: params, });
   }
 
   // toggle activated employee
