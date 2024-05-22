@@ -4,12 +4,16 @@ table {
     color: #fff;
     padding: 1rem 0;
     vertical-align: middle!important;
+
   }
 
   th,
   td {
     text-align: center;
-    vertical-align: middle!important;
+    vertical-align: middle !important;
+    &:not(:last-of-type) {
+      border-right: 1px solid rgba($color: #000000, $alpha: 0.3);
+    }
   }
 
   .status {
@@ -38,6 +42,4 @@ table {
   .notActivated{
     background-color: #922E25B2;
     color: white;
-
-  }
 }

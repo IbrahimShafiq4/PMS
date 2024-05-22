@@ -6,6 +6,7 @@ export interface IGetAllTaskRequest {
     [key:string]:any;
 }
 
+
 export interface IGetAllTaskResponse {
     pageNumber:number;
     pageSize:number;
@@ -45,6 +46,7 @@ export interface IGetAllTaskResponseDataProjectEmployee{
     creationDate:string;
     modificationDate:string;
 }
+
 
 export interface IChangeStatusRequest {
     id:number;

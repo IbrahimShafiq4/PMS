@@ -1,18 +1,15 @@
-import { IUsersResponse } from './../../../manager/users/models/users';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { IProjectList } from 'src/app/manager/projects/models/projects';
 import { ITaskListResponse } from 'src/app/manager/tasks/models/tasks';
-import { IUsersResponse } from './../../../manager/users/models/users';
-
+import { IUsersResponse } from 'src/app/manager/users/models/users';
 
 @Component({
-  selector: 'app-shared-table',
-  templateUrl: './shared-table.component.html',
-  styleUrls: ['./shared-table.component.scss'],
+  selector: 'app-shared-card',
+  templateUrl: './shared-card.component.html',
+  styleUrls: ['./shared-card.component.scss'],
 })
-export class SharedTableComponent {
-
+export class SharedCardComponent {
   @Input() tableHeaders: string[] = [];
   @Input() tableDefinitionText: string = '';
   @Input() tableBodyContentOfProjects?: IProjectList;

@@ -23,7 +23,7 @@ You can view the demo of this project [here](#) (Replace "#" with the actual lin
    ```
 2. Navigate to the project directory:
    ```bash
-   cd project-manager
+   cd PMS
    ```
 3. Install dependencies using npm:
    ```bash

@@ -1,5 +1,10 @@
 import { ProjectsService } from './../../../projects/services/projects.service';
-import { ITask, IUserList, IUserParamsRequest, IuserData } from './../../models/tasks';
+import {
+  ITask,
+  IUserList,
+  IUserParamsRequest,
+  IuserData,
+} from './../../models/tasks';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -7,7 +12,11 @@ import { Observable, catchError, finalize, of, switchMap, tap } from 'rxjs';
 import { TasksService } from '../../services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IProjectData, IProjectList, IProjectParamsRequest } from 'src/app/manager/projects/models/projects';
+import {
+  IProjectData,
+  IProjectList,
+  IProjectParamsRequest,
+} from 'src/app/manager/projects/models/projects';
 
 @Component({
   selector: 'app-add-edit-tasks',
@@ -19,14 +28,16 @@ export class AddEditTasksComponent implements OnInit {
   navigationLink: string = '/dashboard/manager/tasks';
   taskForm!: FormGroup;
   taskId!: number;
-  projectList:IProjectData[]=[]
-  userList: IuserData[]=[]
+  projectList: IProjectData[] = [];
+  userList: IuserData[] = [];
+  viewMode: string = '';
+
   constructor(
     private _ActivatedRoute: ActivatedRoute,
     private _TasksService: TasksService,
     private _ToastrService: ToastrService,
-    private _Router:Router,
-    private _ProjectsService:ProjectsService
+    private _Router: Router,
+    private _ProjectsService: ProjectsService
   ) {}
 
   ngOnInit() {
@@ -38,11 +49,12 @@ export class AddEditTasksComponent implements OnInit {
     });
 
     this.getAllProject();
-    this.getAllUsers()
+    this.getAllUsers();
     this._ActivatedRoute.params
       .pipe(
         tap((params) => {
           this.taskId = +params['id'];
+          this.viewMode = params['mood'];
         }),
         switchMap((param: Params) => {
           return this.taskId ? this.getTaskData() : of(null);
@@ -50,9 +62,12 @@ export class AddEditTasksComponent implements OnInit {
       )
       .subscribe(
         (taskDetails: ITask | null) => {
-          this.addEditText = this.taskId
-            ? `Edit${taskDetails?.title.toLocaleUpperCase()}`
-            : 'Add New Task';
+          this.addEditText =
+            this.taskId && this.viewMode
+              ? `view ${taskDetails?.title.toLocaleUpperCase()}`
+              : this.taskId
+              ? `Edit "${taskDetails?.title.toLocaleUpperCase()}"`
+              : 'Add New Task';
           if (taskDetails) {
             this.taskForm.patchValue({
               title: taskDetails.title,
@@ -67,61 +82,64 @@ export class AddEditTasksComponent implements OnInit {
         }
       );
 
-      if (this.taskId) {
-        this.taskForm.get('projectId')?.disable()
-      }
+    if (this.taskId && this.viewMode) {
+      this.taskForm.disable()
+    } else if (this.taskId) {
+      this.taskForm.get('projectId')?.disable();
+    }
   }
 
-    // Function to handle form submission
-    sendData(data:FormGroup){
-      const taskData =data.value;
-      const request =this.taskId
-      ?this._TasksService.updateTask(this.taskId,taskData)
-      :this._TasksService.createTask(taskData);
+  // Function to handle form submission
+  sendData(data: FormGroup) {
+    const taskData = data.value;
+    const request = this.taskId
+      ? this._TasksService.updateTask(this.taskId, taskData)
+      : this._TasksService.createTask(taskData);
 
-      console.log(data.value);
+    console.log(data.value);
 
-      request.pipe(
-        catchError((error:HttpErrorResponse)=>{
-          this._ToastrService.error(error.error.message,'Error');
-          throw error
+    request
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this._ToastrService.error(error.error.message, 'Error');
+          throw error;
         }),
-        finalize(()=>{
+        finalize(() => {
           this._ToastrService.success(
-            this.taskId?
-            'Tasked Updated Successfully'
-            :'Tasked Created successFully',
+            this.taskId
+              ? 'Tasked Updated Successfully'
+              : 'Tasked Created successFully',
             'Success'
           );
-          this._Router.navigateByUrl(this.navigationLink)
+          this._Router.navigateByUrl(this.navigationLink);
         })
-      ).subscribe()
-    }
+      )
+      .subscribe();
+  }
 
   private getTaskData(): Observable<ITask> {
     return this._TasksService.getSingleTask(this.taskId);
   }
 
   private getAllProject() {
-    let param:IProjectParamsRequest = {
+    let param: IProjectParamsRequest = {
       pageSize: 1000,
       pageNumber: 1,
     };
     this._ProjectsService.getAllProjects(param).subscribe({
-
       next: (res: IProjectList) => {
         this.projectList = res.data;
       },
       error: (errRes) => {
         const errMes = errRes.error.message;
-        this._ToastrService.error(errMes.error.message,'Error');
+        this._ToastrService.error(errMes.error.message, 'Error');
       },
       complete: () => {},
     });
   }
 
   private getAllUsers() {
-    let param:IUserParamsRequest = {
+    let param: IUserParamsRequest = {
       pageSize: 1000,
       pageNumber: 1,
     };
@@ -129,8 +147,8 @@ export class AddEditTasksComponent implements OnInit {
       next: (res: IUserList) => {
         this.userList = res.data;
       },
-      error: (errRes:HttpErrorResponse) => {
-        this._ToastrService.error(errRes.error.message,'Error');
+      error: (errRes: HttpErrorResponse) => {
+        this._ToastrService.error(errRes.error.message, 'Error');
       },
       complete: () => {},
     });
@@ -139,13 +157,13 @@ export class AddEditTasksComponent implements OnInit {
   get title() {
     return this.taskForm.get('title');
   }
-  get description(){
-    return this.taskForm.get('description')
+  get description() {
+    return this.taskForm.get('description');
   }
   get projectId() {
     return this.taskForm.get('projectId');
   }
-  get employeeId(){
-    return this.taskForm.get('employeeId')
+  get employeeId() {
+    return this.taskForm.get('employeeId');
   }
 }

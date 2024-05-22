@@ -22,59 +22,12 @@ export class ViewComponent {
     private _ToastrService: ToastrService,
     private _TasksService: TasksService,
     private _UsersService: UsersService
-  ) { }
-  viewedItemDetails: IProjectData = {
-    id: 0,
-    title: '',
-    description: '',
-    creationDate: '',
-    modificationDate: '',
-    task: [],
-  };
 
-  viewTaskDetails: ITask = {
-    id: 0,
-    title: '',
-    description: '',
-    status: '',
-    creationDate: '',
-    modificationDate: '',
-    project: {
-      id: 0,
-      title: '',
-      description: '',
-      creationDate: '',
-      modificationDate: '',
-      manager: {
-        id: 0,
-        userName: '',
-        imagePath: '',
-        email: '',
-        password: '',
-        country: '',
-        phoneNumber: '',
-        verificationCode: '',
-        isVerified: false,
-        isActivated: false,
-        creationDate: '',
-        modificationDate: '',
-      },
-    },
-    employee: {
-      id: 0,
-      userName: '',
-      imagePath: '',
-      email: '',
-      password: '',
-      country: '',
-      phoneNumber: '',
-      verificationCode: '',
-      isVerified: false,
-      isActivated: false,
-      creationDate: '',
-      modificationDate: '',
-    },
-  };
+  ) { }
+
+  viewedItemDetails!: IProjectData;
+
+  viewTaskDetails!: ITask
 
  
 
@@ -106,7 +59,7 @@ export class ViewComponent {
       next: (res) => (this.viewedItemDetails = res),
       error: (error: HttpErrorResponse) =>
         this._ToastrService.error(error.error.message, 'Error'),
-      // complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
+      complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
     });
   }
 
@@ -115,7 +68,7 @@ export class ViewComponent {
       next: (res) => (this.viewTaskDetails = res),
       error: (error: HttpErrorResponse) =>
         this._ToastrService.error(error.error.message, 'Error'),
-      // complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
+      complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
     });
   }
 

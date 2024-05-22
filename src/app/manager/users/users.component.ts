@@ -1,5 +1,5 @@
 import { IUsersResponse, IUsersParamsRequest } from './models/users';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,14 +13,43 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class UsersComponent implements OnInit {
   searchValue: string = '';
+
+  filterValue: string = '';
+  roleIds: string = '';
+
   tableHeaders: string[] = [
-    'User Name',
+    'User name',
     'Statues',
-    'Phone Number',
+    'Phone number',
     'Email',
-    // 'Date Created',
     'Actions',
   ];
+
+  userTableData: IUsersResponse = {
+    data: [],
+    pageNumber: 0,
+    pageSize: 5,
+    totalNumberOfRecords: 0,
+    totalNumberOfPages: 0,
+  };
+
+  isActivated: boolean = false;
+  toggleViewControls: boolean = false;
+
+  disableTableButton: boolean = false;
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
+  }
+
 
   userTableData: IUsersResponse = {
     data: [],
@@ -74,9 +103,6 @@ export class UsersComponent implements OnInit {
     this.userTableData.pageNumber = event;
     this.getUsers();
   }
-
-
-
 
   // function for active and not active user
   onToggleitem(id: number) {

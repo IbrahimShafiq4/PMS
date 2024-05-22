@@ -1,13 +1,43 @@
 <app-shared-header [headerBtnText]="'Add New Task'" [headerBtnVisibility]="true" [headerMainText]="'Tasks'"
   [headerBtnLink]="'add'"></app-shared-header>
 
-<app-shared-table
-  [tableHeaders]="tableHeaders"
-  [tableDefinitionText]="'Tasks'"
-  [tableBodyContent]="taskTableData"
-  (editCategory)="willBeEdited($event)"
-  (delete)="willBeDeleted($event)"
-  (view)="willBeViewed($event)"
-  (searchValueEntered)="this.getSearchVal($event)"
-  (pageIndexChanged)="pageNumber($event)"
-  (pageSizeChanged)="pageSize($event)"></app-shared-table>
+<div class="view-controls d-flex justify-content-end align-items-center gap-3 my-3">
+  <button class="p-1 green rounded-1" (click)="toggleViewControls = true" type="button"> <i
+      class="m-0 fs-4 bi bi-grid"></i></button>
+  <button class="p-1 green rounded-1" (click)="!toggleViewControls = false" type="button"
+    [disabled]="disableTableButton"><i class="m-0 fs-4 bi bi-list-task"></i></button>
+</div>
+
+<mat-card class="py-5 main-box-shadow">
+  <div class="row px-3">
+    <div class="col-md-6">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Placeholder" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Group</mat-label>
+        <mat-select multiple>
+          <mat-option value="ToDo">To Do</mat-option>
+          <mat-option value="InProgress">group manager</mat-option>
+          <mat-option value="Done">system employee</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <app-shared-card *ngIf="toggleViewControls"
+    [tableHeaders]="tableHeaders" [tableDefinitionText]="'Tasks'"
+    [tableBodyContentOfTasks]="taskTableData" (editCategory)="willBeEdited($event)" (delete)="willBeDeleted($event)"
+    (view)="willBeViewed($event)" (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)">
+  </app-shared-card>
+
+  <app-shared-table *ngIf="!toggleViewControls"
+    [tableHeaders]="tableHeaders" [tableDefinitionText]="'Tasks'"
+    [tableBodyContentOfTasks]="taskTableData" (editCategory)="willBeEdited($event)" (delete)="willBeDeleted($event)"
+    (view)="willBeViewed($event)" (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)">
+  </app-shared-table>
+</mat-card>

@@ -81,6 +81,7 @@ export class RegisterComponent {
   }
 
   onRegister(registrationForm: FormGroup) {
+    
     this._AuthService.register(registrationForm.value).subscribe({
       next: (res) => (this.userName = registrationForm.value.userName),
       error: (error: HttpErrorResponse) =>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { IProjectList, IProjectParamsRequest ,} from './models/projects';
+
+import { Component, HostListener, OnInit } from '@angular/core';
+import { IProjectList, IProjectParamsRequest } from './models/projects';
 import { ProjectsService } from './services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,8 +19,8 @@ export class ProjectsComponent implements OnInit {
     'Title',
     'Description',
     'Task',
-    'Creation Date',
-    'Modification Date',
+    'Creation date',
+    'Modification date',
     'Actions',
   ];
 
@@ -31,12 +32,16 @@ export class ProjectsComponent implements OnInit {
     totalNumberOfPages: 0,
   };
 
+  toggleViewControls: boolean = false;
+
+  disableTableButton: boolean = false;
+
   constructor(
     private _ProjectsService: ProjectsService,
     private _toastrService: ToastrService,
     private _Router: Router,
     public _dialog: MatDialog,
-    private _ToastrService:ToastrService
+    private _ToastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -57,7 +62,7 @@ export class ProjectsComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) =>
         this._toastrService.error(error.error.message, 'Error'),
-      complete: () => {}
+      complete: () => {},
     });
   }
 
@@ -70,12 +75,14 @@ export class ProjectsComponent implements OnInit {
     this._Router.navigate([`/dashboard/manager/projects/edit/${event}`]);
   }
 
-  pageSize(event: number) { // Ensure it accepts number
+  pageSize(event: number) {
+    // Ensure it accepts number
     this.projectTableData.pageSize = event;
     this.getProject();
   }
 
-  pageNumber(event: number) { // Ensure it accepts number
+  pageNumber(event: number) {
+    // Ensure it accepts number
     this.projectTableData.pageNumber = event;
     this.getProject();
   }
@@ -83,41 +90,47 @@ export class ProjectsComponent implements OnInit {
   willBeDeleted(event: number) {
     console.log(event);
     const dialogRef = this._dialog.open(DeletePopUpComponent, {
-      data:{itemId:event},
+      data: { itemId: event },
       width: '500px',
-      height: 'auto'
+      height: 'auto',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('result', result);
       if (result) {
-        this.onDeleteItem(result)
+        this.onDeleteItem(result);
       }
     });
     // this._Router.navigate([`/dashboard/delete/${event}/projects`]);
   }
 
-  onDeleteItem(id:number){
+  onDeleteItem(id: number) {
     this._ProjectsService.deleteProject(id).subscribe({
       next: (res) => {
         console.log('res', res);
       },
-      error: (errRes:HttpErrorResponse) => {
-
-          this._ToastrService.error(errRes.error.message, 'Error')
+      error: (errRes: HttpErrorResponse) => {
+        this._ToastrService.error(errRes.error.message, 'Error');
       },
-      complete:()=> {
-        this._ToastrService.success(
-          'Item has been deleted',
-          'Success'
-        );
+      complete: () => {
+        this._ToastrService.success('Item has been deleted', 'Success');
         this.getProject();
       },
     });
   }
 
   willBeViewed(event: number) {
+    this._Router.navigate([`/dashboard/manager/projects/view/${event}/projects`]);
+  }
 
-    this._Router.navigate([`/dashboard/view/${event}/projects`]);
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
   }
 }

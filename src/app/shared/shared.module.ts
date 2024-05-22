@@ -22,13 +22,14 @@ import { NoDataComponent } from './components/no-data/no-data.component';
 import { HelperService } from './components/services/helper.service';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { ViewComponent } from './components/view/view.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import { ProjectsService } from '../manager/projects/services/projects.service';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TasksService } from '../manager/tasks/services/tasks.service';
+import { SharedCardComponent } from './components/shared-card/shared-card.component';
 import { UsersService } from '../manager/users/services/users.service';
 
 @NgModule({
@@ -45,7 +46,8 @@ import { UsersService } from '../manager/users/services/users.service';
     ViewComponent,
     DeleteComponent,
     FirstTenWordsPipe,
-    DeletePopUpComponent
+    DeletePopUpComponent,
+    SharedCardComponent,
   ],
 
   imports: [
@@ -64,7 +66,7 @@ import { UsersService } from '../manager/users/services/users.service';
     MatCardModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
   ],
 
   exports: [
@@ -92,9 +94,17 @@ import { UsersService } from '../manager/users/services/users.service';
     FirstTenWordsPipe,
     MatSelectModule,
     ViewComponent,
-    MatDialogModule
+    MatDialogModule,
+    SharedCardComponent,
   ],
 
-  providers: [AuthService, HelperService, ProjectsService,TasksService ,UsersService],
+  providers: [
+    AuthService,
+    HelperService,
+    ProjectsService,
+    TasksService,
+    UsersService,
+  ],
 })
+
 export class SharedModule {}
