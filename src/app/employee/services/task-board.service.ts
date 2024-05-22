@@ -1,4 +1,4 @@
-import { IGetAllTaskRequest, IChangeStatusRequest ,IChangeStatus ,IChangeStatusResponse} from './../models/task-board';
+import { IGetAllTaskRequest, IChangeStatusRequest ,IChangeStatus ,IChangeStatusResponse ,IGetAllTaskResponse} from './../models/task-board';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,8 +11,8 @@ export class TaskBoardService {
   constructor(private _HttpClient: HttpClient) { }
 
   // get all employee tasks
-  getAllEmplyeeTasks(params:IGetAllTaskRequest):Observable<any> {
-    return this._HttpClient.get('Task', { params:params , })
+  getAllEmplyeeTasks(params:IGetAllTaskRequest):Observable<IGetAllTaskResponse> {
+    return this._HttpClient.get<IGetAllTaskResponse>('Task', { params:params , })
   }
 
   // change status for task

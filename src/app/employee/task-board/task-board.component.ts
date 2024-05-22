@@ -1,7 +1,8 @@
-import { IGetAllTaskRequest, IChangeStatus } from './../models/task-board';
+import { IGetAllTaskRequest, IChangeStatus ,IGetAllTaskResponseData } from './../models/task-board';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { TaskBoardService } from '../services/task-board.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-task-board',
@@ -20,7 +21,7 @@ export class TaskBoardComponent {
     status: ''
   }
 
-  data: any[] = [];
+  data: IGetAllTaskResponseData[] = [];
   todo: any[] = [];
   inPrograss: any[] = [];
   done: any[] = [];
@@ -41,14 +42,15 @@ export class TaskBoardComponent {
   getAllTasks() {
     this._TaskBoardService.getAllEmplyeeTasks(this.taskRequest).subscribe({
       next: (res) => {
-        console.log(res);
+        //console.log(res);
         this.data = res.data;
+       // console.log(res.data);
         this.todo = this.data.filter(x => x.status == 'ToDo');
         this.inPrograss = this.data.filter(x => x.status == 'InProgress');
         this.done = this.data.filter(x => x.status == 'Done');
         // console.log(this.data.filter(x => x.status == 'ToDo'))
       },
-      error: (err) => { console.log(err) }
+      error: (err: HttpErrorResponse) => { console.log(err) }
     })
   }
 
@@ -58,7 +60,7 @@ export class TaskBoardComponent {
       next: (res) => {
         console.log(res);
       },
-      error: (err) => {
+      error: (err:HttpErrorResponse) => {
         console.log(err);
       }
     })
