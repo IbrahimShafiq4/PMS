@@ -2,6 +2,8 @@ import { IProjectList } from 'src/app/manager/projects/models/projects';
 import { IGetAllProjectsRequest  } from './../models/projects-board';
 import { Component ,OnInit} from '@angular/core';
 import { ProjectsBoardService } from '../services/projects-board.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -11,11 +13,12 @@ import { ProjectsBoardService } from '../services/projects-board.service';
 })
 export class ProjectsBoardComponent implements OnInit {
   searchValue: string = '';
-  projectsRequest:IGetAllProjectsRequest={
-    title:this.searchValue,
-    pageNumber:1,
-    pageSize:10,
-  }
+  noData:boolean=false;
+  // projectsRequest:IGetAllProjectsRequest={
+  //   title:this.searchValue,
+  //   pageNumber:1,
+  //   pageSize:10,
+  // }
   tableHeaders: string[] = [
     'Title',
     'Description',
@@ -32,7 +35,7 @@ export class ProjectsBoardComponent implements OnInit {
     totalNumberOfPages: 0,
   };
 
-  constructor(private _ProjectsBoardService:ProjectsBoardService){ }
+  constructor(private _ProjectsBoardService:ProjectsBoardService,private _toastrService:ToastrService){ }
   ngOnInit() {
     this.getAllProjects();
   }
@@ -40,12 +43,18 @@ export class ProjectsBoardComponent implements OnInit {
 
   // get all projects for employee
   getAllProjects(){
-    this._ProjectsBoardService.getAllEmplyeeProjects(this.projectsRequest).subscribe({
+    let requestParams: IGetAllProjectsRequest = {
+      title: this.searchValue,
+      pageNumber: this.projectTableData.pageNumber,
+      pageSize: this.projectTableData.pageSize,
+    };
+    this._ProjectsBoardService.getAllEmplyeeProjects(requestParams).subscribe({
       next:(res)=>{
         console.log(res);
         this.projectTableData=res;
-      },error:(err)=>{
-        console.log(err)
+        this.projectTableData.data.length==0?this.noData=true:this.noData=false
+      },error:(err:HttpErrorResponse)=>{
+        this._toastrService.error(err.error.message, 'Error')
       }
     })
   }
@@ -57,11 +66,6 @@ export class ProjectsBoardComponent implements OnInit {
 
   pageNumber(event: number) { // Ensure it accepts number
     this.projectTableData.pageNumber = event;
-    this.getAllProjects();
-  }
-
-  getSearchVal(event: string) {
-    this.searchValue = event;
     this.getAllProjects();
   }
 

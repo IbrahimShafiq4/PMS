@@ -1,9 +1,24 @@
 <app-shared-header  [headerBtnVisibility]="false" [headerMainText]="'Projects'"></app-shared-header>
 
-<app-shared-table
-  [tableHeaders]="tableHeaders"
-  [tableDefinitionText]="'projectsEmployee'"
-  [tableBodyEmployeeProject]="projectTableData"
-  (pageIndexChanged)="pageNumber($event)"
-  (pageSizeChanged)="pageSize($event)"
-></app-shared-table>
+<mat-card class="py-5 main-box-shadow">
+  <div class="row px-3">
+    <div class="col-md-4">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchValue" (keyup.enter)="getAllProjects()" placeholder="Search" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <app-shared-table *ngIf="!noData"
+    [tableHeaders]="tableHeaders"
+    [tableDefinitionText]="'projectsEmployee'"
+    [tableBodyEmployeeProject]="projectTableData"
+    (pageIndexChanged)="pageNumber($event)"
+    (pageSizeChanged)="pageSize($event)"
+  ></app-shared-table>
+
+  <app-no-data *ngIf="noData"></app-no-data>
+</mat-card>
+
