@@ -2,18 +2,24 @@
   <table class="table table-striped">
     <thead class="bg-info">
       <tr [ngSwitch]="tableDefinitionText">
-        <th *ngFor="let header of tableHeaders">{{ header }}</th>
-      </tr>
-      <tr *ngIf="tableDefinitionText === 'Users'">
-        <th *ngFor="let header of tableHeaders">{{ header }}</th>
-      </tr>
-      <tr *ngIf="tableDefinitionText === 'projectsEmployee'">
-        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        <ng-container *ngSwitchCase="'projects'">
+          <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Users'">
+          <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Tasks'">
+          <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        </ng-container>
+        <ng-container *ngSwitchCase="'projectsEmployee'">
+          <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        </ng-container>
       </tr>
     </thead>
 
     <tbody>
       <ng-container [ngSwitch]="tableDefinitionText">
+
         <ng-container *ngSwitchCase="'projects'">
           <tr *ngFor="let tableBody of tableBodyContentOfProjects?.data">
             <td>{{ tableBody.title }}</td>
@@ -72,13 +78,25 @@
                 aria-label="Example icon-button with a menu">
                 <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
               </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editCategory.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">edit_square</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button mat-menu-item type="button" (click)="delete.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+                <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">visibility</mat-icon>
+                  <span>View</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </ng-container>
 
-            </mat-menu>
-          </td>
-        </tr>
-      </ng-container>
 
-   
         <ng-container *ngSwitchCase="'Users'">
           <tr *ngFor="let tableBody of tableBodyContentOfUsers?.data">
             <td>{{ tableBody.userName }}</td>
@@ -109,8 +127,28 @@
           </tr>
         </ng-container>
 
+        <ng-container *ngSwitchCase="'projectsEmployee'">
+          <tr *ngFor="let tableBody of tableBodyEmployeeProject?.data">
+            <td>{{ tableBody.title }}</td>
+            <td>{{ tableBody.description.slice(0, 15) }}</td>
+            <td>
+
+              <span *ngIf="tableBody.task.length">
+                {{tableBody.task.length}}
+              </span>
+              <span class="badge bg-secondary" *ngIf="!tableBody.task.length">
+                No Tasks Yet
+              </span>
+            </td>
+            <td>{{ tableBody.creationDate | date: 'short' }}</td>
+            <td>{{ tableBody.modificationDate | date: 'short' }}</td>
+
+          </tr>
+        </ng-container>
+
+
       </ng-container>
-     
+
     </tbody>
   </table>
 

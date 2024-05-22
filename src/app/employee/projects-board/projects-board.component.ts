@@ -15,7 +15,6 @@ export class ProjectsBoardComponent implements OnInit {
     title:this.searchValue,
     pageNumber:1,
     pageSize:10,
-   
   }
   tableHeaders: string[] = [
     'Title',

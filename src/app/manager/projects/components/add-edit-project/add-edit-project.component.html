@@ -1,9 +1,5 @@
-<app-shared-header
-  [headerLink]="navigationLink"
-  [headerBtnVisibility]="false"
-  [headerLinkText]="'Add new Project'"
-  [headerText]="addEditText"
-></app-shared-header>
+<app-shared-header [headerLink]="navigationLink" [headerBtnVisibility]="false" [headerLinkText]="'Add new Project'"
+  [headerText]="addEditText"></app-shared-header>
 
 <div class="container p-0 mx-auto">
   <mat-card class="p-5">
@@ -28,8 +24,10 @@
       </div>
 
       <mat-card-actions class="d-flex justify-content-between">
-        <button type="button" [routerLink]="navigationLink" class="dark-outline"> {{ (projectId && viewMode) ? 'Go Back' : 'cancel' }} </button>
-        <button [disabled]="projectForm.invalid" type="submit" class="primary" *ngIf="projectId && !viewMode" >Save</button>
+        <button type="button" [routerLink]="navigationLink" class="dark-outline"> {{ (projectId && viewMode) ? 'Go Back'
+          : 'cancel' }} </button>
+        <button [disabled]="projectForm.invalid" type="submit" class="primary"
+          *ngIf="(projectId && !viewMode) || (!projectId && !viewMode)">Save</button>
       </mat-card-actions>
 
     </form>

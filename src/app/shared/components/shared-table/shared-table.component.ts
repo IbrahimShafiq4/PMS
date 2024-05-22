@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { IProjectList } from 'src/app/manager/projects/models/projects';
 import { ITaskListResponse } from 'src/app/manager/tasks/models/tasks';
-import { IUsersResponse } from './../../../manager/users/models/users';
 
 
 @Component({
@@ -18,6 +17,7 @@ export class SharedTableComponent {
   @Input() tableBodyContentOfProjects?: IProjectList;
   @Input() tableBodyContentOfTasks?: ITaskListResponse;
   @Input() tableBodyContentOfUsers?: IUsersResponse;
+  @Input() tableBodyEmployeeProject?: IProjectList;
   @Output() pageSizeChanged = new EventEmitter<number>();
   @Output() pageIndexChanged = new EventEmitter<number>();
   @Output() editCategory = new EventEmitter<number>();
@@ -33,6 +33,7 @@ export class SharedTableComponent {
       this.tableBodyContentOfProjects?.totalNumberOfRecords ||
       this.tableBodyContentOfTasks?.totalNumberOfRecords ||
       this.tableBodyContentOfUsers?.totalNumberOfRecords ||
+      this.tableBodyEmployeeProject?.totalNumberOfPages ||
       0
     );
   }
