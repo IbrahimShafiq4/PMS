@@ -1,273 +1,122 @@
-<mat-card class="py-5 main-box-shadow">
-
-  <div *ngIf="tableDefinitionText === 'projects'">
-    <div class="row px-3">
-      <div class="col-md-6">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Search</mat-label>
-          <input
-            matInput
-            [(ngModel)]="searchValue"
-            (keyup.enter)="sendSearchValue()"
-            placeholder="Placeholder"
-          />
-          <mat-icon matPrefix>search</mat-icon>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="tableDefinitionText === 'Users'" class="">
-    <div class="row px-3">
-      <div class="col-md-3">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Search By</mat-label>
-          <mat-select
-            [(ngModel)]="filterValue"
-            (selectionChange)="sendFilterValue()"
-            multiple
-          >
-            <mat-option value="0">All</mat-option>
-
-            <mat-option value="userName">Name</mat-option>
-            <mat-option value="email">Email</mat-option>
-            <mat-option value="country">Country</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Search</mat-label>
-          <input
-            matInput
-            [(ngModel)]="searchValue"
-            (keyup.enter)="sendSearchValue()"
-            placeholder="Placeholder"
-          />
-          <mat-icon matPrefix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="col-md-3">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Group</mat-label>
-          <mat-select
-            [(ngModel)]="roleIds"
-            (selectionChange)="sendGroupValue()"
-            multiple
-          >
-            <mat-option value="0">All</mat-option>
-            <mat-option value="1">group manager</mat-option>
-            <mat-option value="2">system employee</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="tableDefinitionText === 'Tasks'">
-    <div class="row px-3">
-      <div class="col-md-6">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Search</mat-label>
-          <input
-            matInput
-            [(ngModel)]="searchValueTasks"
-            (keyup.enter)="sendSearchValueTasks()"
-            placeholder="Placeholder"
-          />
-          <mat-icon matPrefix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Group</mat-label>
-          <mat-select
-            [(ngModel)]="roleIdsTasks"
-            (selectionChange)="sendGroupValueTasks()"
-            multiple
-          >
-            <mat-option value="ToDo">To Do</mat-option>
-            <mat-option value="InProgress">group manager</mat-option>
-            <mat-option value="Done">system employee</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
-
+<section>
   <table class="table table-striped">
     <thead class="bg-info">
-      <tr *ngIf="tableDefinitionText === 'projects'">
-        <th *ngFor="let header of tableHeaders">{{ header }}</th>
-      </tr>
-      <tr *ngIf="tableDefinitionText === 'Tasks'">
+      <tr [ngSwitch]="tableDefinitionText">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
       <tr *ngIf="tableDefinitionText === 'Users'">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
+      <tr *ngIf="tableDefinitionText === 'projectsEmployee'">
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
     </thead>
 
     <tbody>
-      <ng-container *ngIf="isProject(tableBodyContent)">
-        <tr *ngFor="let tableBody of tableBodyContent.data">
-          <td>{{ tableBody.title }}</td>
-          <td>{{ tableBody.description?.slice(0, 15) }}</td>
-          <td>
-            <span *ngIf="tableBody.task.length">
-              <ng-container
-                *ngFor="let task of tableBody.task.slice(0, 3); let last = last"
-              >
-                {{ task.title }}
-                <span *ngIf="!last">,</span>
-              </ng-container>
-            </span>
-            <span class="badge bg-secondary" *ngIf="!tableBody.task.length">
-              No Tasks Yet
-            </span>
-          </td>
-          <td>{{ tableBody.creationDate | date : "short" }}</td>
-          <td>{{ tableBody.modificationDate | date : "short" }}</td>
-          <td>
-            <button
-              mat-icon-button
-              [matMenuTriggerFor]="menu"
-              class="text-white position-relative z-3"
-              aria-label="Example icon-button with a menu"
-            >
-              <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="isEdited(tableBody.id)">
-                <mat-icon class="main-green-color">edit_square</mat-icon>
-                <span>Edit</span>
+      <ng-container [ngSwitch]="tableDefinitionText">
+        <ng-container *ngSwitchCase="'projects'">
+          <tr *ngFor="let tableBody of tableBodyContentOfProjects?.data">
+            <td>{{ tableBody.title }}</td>
+            <td>{{ tableBody.description.slice(0, 15) }}</td>
+            <td>
+              <span *ngIf="tableBody.task.length">
+                <ng-container *ngFor="let task of tableBody.task.slice(0, 3); let last = last">
+                  {{ task.title }}<span *ngIf="!last">,</span>
+                </ng-container>
+              </span>
+              <span class="badge bg-secondary" *ngIf="!tableBody.task.length">No Tasks Yet</span>
+            </td>
+            <td>{{ tableBody.creationDate | date: 'short' }}</td>
+            <td>{{ tableBody.modificationDate | date: 'short' }}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+                aria-label="Example icon-button with a menu">
+                <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
               </button>
-              <button
-                mat-menu-item
-                type="button"
-                (click)="deleteItem(tableBody.id)"
-              >
-                <mat-icon class="main-green-color">delete</mat-icon>
-                <span>Delete</span>
-              </button>
-              <button
-                mat-menu-item
-                type="button"
-                (click)="viewItem(tableBody.id)"
-              >
-                <mat-icon class="main-green-color">visibility</mat-icon>
-                <span>View</span>
-              </button>
-            </mat-menu>
-          </td>
-        </tr>
-      </ng-container>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editCategory.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">edit_square</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button mat-menu-item type="button" (click)="delete.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+                <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">visibility</mat-icon>
+                  <span>View</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </ng-container>
 
-      <ng-container *ngIf="isTask(tableBodyContent)">
-        <tr *ngFor="let tableBody of tableBodyContent.data">
-          <td>{{ tableBody.title }}</td>
-          <td>
-            <span
-              class="status text-center w-50"
-              [ngClass]="{
-                toDo: tableBody.status == 'ToDo',
-                inProgress: tableBody.status == 'InProgress',
-                done: tableBody.status == 'Done'
-              }"
-            >
-              {{ tableBody.status }}
-            </span>
-          </td>
-          <td>{{ tableBody.description }}</td>
-          <td>{{ tableBody.employee?.userName }}</td>
-          <td>{{ tableBody.project?.title }}</td>
-          <td>{{ tableBody.creationDate | date : "short" }}</td>
-          <td>
-            <button
-              mat-icon-button
-              [matMenuTriggerFor]="menu"
-              class="text-white position-relative z-3"
-              aria-label="Example icon-button with a menu"
-            >
-              <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="isEdited(tableBody.id)">
-                <mat-icon class="main-green-color">edit_square</mat-icon>
-                <span>Edit</span>
+        <ng-container *ngSwitchCase="'Tasks'">
+          <tr *ngFor="let tableBody of tableBodyContentOfTasks?.data">
+            <td>{{ tableBody.title }}</td>
+            <td>
+              <span class="status text-center w-50" [ngClass]="{
+                'toDo': tableBody.status == 'ToDo',
+                'inProgress': tableBody.status == 'InProgress',
+                'done': tableBody.status == 'Done'
+              }">
+                {{ tableBody.status }}
+              </span>
+            </td>
+            <td>{{ tableBody.description }}</td>
+            <td>{{ tableBody.employee.userName }}</td>
+            <td>{{ tableBody.project.title }}</td>
+            <td>{{ tableBody.creationDate | date: 'short' }}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+                aria-label="Example icon-button with a menu">
+                <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
               </button>
-              <button
-                mat-menu-item
-                type="button"
-                (click)="deleteItem(tableBody.id)"
-              >
-                <mat-icon class="main-green-color">delete</mat-icon>
-                <span>Delete</span>
-              </button>
-              <button
-                mat-menu-item
-                type="button"
-                (click)="viewItem(tableBody.id)"
-              >
-                <mat-icon class="main-green-color">visibility</mat-icon>
-                <span>View</span>
-              </button>
+
             </mat-menu>
           </td>
         </tr>
       </ng-container>
 
    
-
-
-      <ng-container *ngIf="isUsers(tableBodyContent)">
-        <tr *ngFor="let tableBody of tableBodyContent.data">
-          <td>{{tableBody.userName }}</td>
-          <!-- <td>{{tableBody.isActivated}}</td> -->
-          <td>
-            <span class="status  text-center w-50 isActivated" *ngIf="tableBody.isActivated">
-              Active
-            </span>
-            <span class="status  text-center w-50 notActivated" *ngIf="!tableBody.isActivated">
-              Not Active
-            </span>
-          </td>
-          <td>{{tableBody.phoneNumber}}</td>
-          <td>{{tableBody.email}}</td>
-
-          
-
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
-              aria-label="Example icon-button with a menu">
-              <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item type="button" (click)="blockItem(tableBody.id)">
-                <mat-icon class="main-green-color">block</mat-icon>
-                <span>Block</span>
+        <ng-container *ngSwitchCase="'Users'">
+          <tr *ngFor="let tableBody of tableBodyContentOfUsers?.data">
+            <td>{{ tableBody.userName }}</td>
+            <td>
+              <span class="status isActivated text-center w-50" *ngIf="tableBody.isActivated">Active</span>
+              <span class="status notActivated text-center w-50" *ngIf="!tableBody.isActivated">Not Active</span>
+            </td>
+            <td>{{ tableBody.phoneNumber }}</td>
+            <td>{{ tableBody.email }}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+                aria-label="Example icon-button with a menu">
+                <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
               </button>
-              <button mat-menu-item type="button" (click)="viewItem(tableBody.id)">
-                <mat-icon class="main-green-color">visibility</mat-icon>
-                <span>View</span>
-              </button>
-            </mat-menu>
-          </td>
-        </tr>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="block.emit(tableBody.id)">
+                  <mat-icon class="main-green-color" *ngIf="!tableBody.isActivated">notifications</mat-icon>
+                  <mat-icon class="main-green-color" *ngIf="tableBody.isActivated">notifications_off</mat-icon>
+                  <span *ngIf="tableBody.isActivated">unBlock</span>
+                  <span *ngIf="!tableBody.isActivated">Block</span>
+                </button>
+                <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
+                  <mat-icon class="main-green-color">visibility</mat-icon>
+                  <span>View</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </ng-container>
+
       </ng-container>
+     
     </tbody>
   </table>
 
-  <mat-paginator
-    *ngIf="tableBodyContent.data"
-    #paginator
-    class="demo-paginator"
-    (page)="handlePageEvent($event)"
-    [length]="tableBodyContent.totalNumberOfRecords"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[5, 10, 25]"
-    [pageIndex]="pageIndex"
-    aria-label="Select page"
-  >
+  <mat-paginator *ngIf="totalRecords" #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+    [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" [pageIndex]="pageIndex"
+    aria-label="Select page">
   </mat-paginator>
-</mat-card>
+
+</section>

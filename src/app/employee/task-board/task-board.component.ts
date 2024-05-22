@@ -1,11 +1,14 @@
-import { IGetAllTaskRequest, IChangeStatus } from './../models/task-board';
+import { IGetAllTaskRequest, IChangeStatus ,IGetAllTaskResponseData } from './../models/task-board';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { TaskBoardService } from '../services/task-board.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-task-board',
   templateUrl: './task-board.component.html',
+
   styleUrls: ['./task-board.component.scss']
 })
 
@@ -16,104 +19,69 @@ export class TaskBoardComponent {
     pageSize: 10,
   }
 
+
   status: IChangeStatus = {
-    status: ''
-  }
+    status: '',
+  };
 
   data: any[] = [];
   todo: any[] = [];
   inPrograss: any[] = [];
   done: any[] = [];
-  statusChange: string = '';
-  idOfStutsInNewList: number = 0;
-  // current elemet that i drag and drop it --> all information of this element(object)
-  curentElemet: any;
-  //to get id (where exists in db) of status 
-  curentElemetId: number = 0;
 
-
-  constructor(private _TaskBoardService: TaskBoardService) {
+  constructor(private _TaskBoardService: TaskBoardService, private _ToastrService: ToastrService) {
     this.getAllTasks();
   }
 
-  //get all tasks
+  // Get all tasks
   getAllTasks() {
     this._TaskBoardService.getAllEmplyeeTasks(this.taskRequest).subscribe({
       next: (res) => {
-        console.log(res);
         this.data = res.data;
-        this.todo = this.data.filter(x => x.status == 'ToDo');
-        this.inPrograss = this.data.filter(x => x.status == 'InProgress');
-        this.done = this.data.filter(x => x.status == 'Done');
-        // console.log(this.data.filter(x => x.status == 'ToDo'))
+        this.todo = this.data.filter((x) => x.status === 'ToDo');
+        this.inPrograss = this.data.filter((x) => x.status === 'InProgress');
+        this.done = this.data.filter((x) => x.status === 'Done');
       },
-      error: (err) => { console.log(err) }
-    })
+      error: (err: HttpErrorResponse) => { this._ToastrService.error(err.error.message, 'Error') },
+      complete: () => {
+        
+      }
+    });
   }
 
-  // change task status
+  // Change task status
   changeStatus(id: number, status: IChangeStatus) {
     this._TaskBoardService.changeStatus(id, status).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+      next: (res) => {  },
+      error: (err: HttpErrorResponse) => { this._ToastrService.error(err.error.message, 'Error') },
+      complete: () => {  }
+    });
   }
 
-
-  newStatus: string = '';
-
-  //change name of list
-  changeListName(listname: string) {
-    if (listname == 'cdk-drop-list-0') {
-      this.newStatus = 'ToDo'
-    } else if (listname == 'cdk-drop-list-1') {
-      this.newStatus = 'InProgress'
-    } else if (listname == 'cdk-drop-list-2') {
-      this.newStatus = 'Done'
+  // Get new status based on the container id
+  getNewStatus(containerId: string): string {
+    switch (containerId) {
+      case 'cdk-drop-list-0':
+        return 'ToDo';
+      case 'cdk-drop-list-1':
+        return 'InProgress';
+      case 'cdk-drop-list-2':
+        return 'Done';
+      default:
+        return '';
     }
   }
 
-
-
-
-
-
-  //function for drag and drop
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(event);
-    // to get id of status in new list
-    this.idOfStutsInNewList = event.currentIndex;
-
-    if (event.container.data.length > 0) {
-      this.curentElemet = event.container.data[event.currentIndex];
-      this.curentElemetId = this.curentElemet.id;
-      // to get name of new status
-      this.changeListName(event.container.id);
-      this.changeStatus(this.curentElemetId, { status: this.newStatus })
-    } else {
-      setTimeout(() => {
-        this.curentElemet = event.container.data[event.currentIndex];
-        this.curentElemetId = this.curentElemet.id;
-        // to get name of new status
-        this.changeListName(event.container.id);
-        this.changeStatus(this.curentElemetId, { status: this.newStatus })
-      }, 1000);
-    }
-
+  // Function for drag and drop
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
+      const item = event.container.data[event.currentIndex];
+      const newStatus = this.getNewStatus(event.container.id);
+      this.changeStatus(item.id, { status: newStatus });
     }
   }
-
 }

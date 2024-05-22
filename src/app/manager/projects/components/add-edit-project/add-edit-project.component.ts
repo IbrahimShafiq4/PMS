@@ -13,13 +13,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './add-edit-project.component.html',
   styleUrls: ['./add-edit-project.component.scss'],
 })
-
 export class AddEditProjectComponent implements OnInit {
   navigationLink: string = '/dashboard/manager/projects/'; // Navigation link for redirection after form submission
   projectId: number = 0; // ID of the project being edited, initialized to 0 for new project
   addEditText: string = ''; // Text for the header indicating whether it's adding or editing a project
   projectForm!: FormGroup; // Form group to manage project data entry
-
+  viewMode: string = '';
   constructor(
     private _ProjectsService: ProjectsService, // Service for handling project-related operations
     private _ToastrService: ToastrService, // Service for displaying toast notifications
@@ -41,6 +40,7 @@ export class AddEditProjectComponent implements OnInit {
           console.log(params);
 
           this.projectId = +params['id']; // Extract project ID from route params
+          this.viewMode = params['mood'];
         }),
         switchMap((params: Params) => {
           return this.projectId ? this.getProjectDetails() : of(null); // Fetch project details if project ID is available
@@ -50,7 +50,11 @@ export class AddEditProjectComponent implements OnInit {
         // Success callback when project details are fetched
         (projectContentDetails: IProjectData | null) => {
           // Set header text indicating whether it's editing or adding a project
-          this.addEditText = this.projectId
+          this.addEditText =
+
+            (this.projectId && this.viewMode)
+            ? `View " ${projectContentDetails!.title.toUpperCase()}"` :
+            this.projectId
             ? `Edit "${projectContentDetails!.title.toUpperCase()}"`
             : 'Add New Project';
 
@@ -67,6 +71,10 @@ export class AddEditProjectComponent implements OnInit {
           this._ToastrService.error(error.message, 'Error'); // Display error message in toast notification
         }
       );
+
+    if (this.projectId && this.viewMode) {
+      this.projectForm.disable();
+    }
   }
 
   // Function to handle form submission
@@ -107,7 +115,7 @@ export class AddEditProjectComponent implements OnInit {
   get title() {
     return this.projectForm.get('title');
   }
-  get description(){
-    return this.projectForm.get('description')
+  get description() {
+    return this.projectForm.get('description');
   }
 }

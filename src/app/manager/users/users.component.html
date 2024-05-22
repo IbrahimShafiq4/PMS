@@ -1,17 +1,67 @@
-<app-shared-header  [headerBtnVisibility]="false" [headerMainText]="'Users'"></app-shared-header>
 
-<app-shared-table
-  [tableHeaders]="tableHeaders"
-  [tableDefinitionText]="'Users'"
-  [tableBodyContent]="userTableData"
-  (pageIndexChanged)="pageNumber($event)"
-  (pageSizeChanged)="pageSize($event)"
-  (view)="willBeViewed($event)"
+<app-shared-header [headerBtnVisibility]="false" [headerMainText]="'Users'"></app-shared-header>
 
-  (block)="onToggleitem($event)"
-  (filterValueEnterd)="this.getFilterValue($event)"
-  (searchValueEntered)="this.getSearchVal($event)"
-  (groupValueEnterd)="this.getGroupValue($event)"
-  
-></app-shared-table>
 
+<div class="view-controls d-flex justify-content-end align-items-center gap-3 my-3">
+  <button class="p-1 green rounded-1" (click)="toggleViewControls = true" type="button"> <i
+      class="m-0 fs-4 bi bi-grid"></i></button>
+  <button class="p-1 green rounded-1" (click)="!toggleViewControls = false" type="button"
+    [disabled]="disableTableButton"><i class="m-0 fs-4 bi bi-list-task"></i></button>
+</div>
+
+<mat-card class="py-5 main-box-shadow">
+  <div class="row px-3">
+    <div class="col-md-3">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Search By</mat-label>
+        <mat-select [(ngModel)]="filterValue" >
+          <mat-option value="">All</mat-option>
+
+          <mat-option value="userName">Name</mat-option>
+          <mat-option value="email">Email</mat-option>
+          <mat-option value="country">Country</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchValue" (keyup.enter)="getUsers()" placeholder="Placeholder" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Group</mat-label>
+        <mat-select [(ngModel)]="roleIds" multiple (selectionChange)="getUsers()">
+          <mat-option value="1">Manager</mat-option>
+          <mat-option value="2">Employee</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+    <app-shared-card *ngIf="toggleViewControls&&!noData"
+      [tableHeaders]="tableHeaders"
+      [tableDefinitionText]="'Users'"
+      [tableBodyContentOfUsers]="userTableData"
+      (pageIndexChanged)="pageNumber($event)"
+      (pageSizeChanged)="pageSize($event)"
+      (block)="onToggleitem($event)"
+    >
+
+    </app-shared-card>
+
+    <app-shared-table *ngIf="!toggleViewControls&&!noData"
+      [tableHeaders]="tableHeaders"
+      [tableDefinitionText]="'Users'"
+      [tableBodyContentOfUsers]="userTableData"
+      (pageIndexChanged)="pageNumber($event)"
+      (pageSizeChanged)="pageSize($event)"
+      (block)="onToggleitem($event)"
+      (view)="willBeViewed($event)"
+    >
+
+    </app-shared-table>
+    <app-no-data *ngIf="noData"></app-no-data>
+</mat-card>

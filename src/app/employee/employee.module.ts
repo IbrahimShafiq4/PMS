@@ -8,12 +8,16 @@ import { EmployeeComponent } from './employee.component';
 import { TaskBoardComponent } from './task-board/task-board.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { TaskBoardService } from './services/task-board.service';
+import { ProjectsBoardComponent } from './projects-board/projects-board.component';
+import { ProjectsBoardService } from './services/projects-board.service';
 
-import { ProjectComponent } from './components/project/project.component';
 
 @NgModule({
   declarations: [
     EmployeeComponent,
+
+    TaskBoardComponent,
+    ProjectsBoardComponent,
 
     TaskBoardComponent,
 
@@ -26,7 +30,7 @@ import { ProjectComponent } from './components/project/project.component';
 
     DragDropModule,
     SharedModule
-  ],providers:[TaskBoardService]
+  ],providers:[TaskBoardService , ProjectsBoardService]
 
 })
 export class EmployeeModule { }

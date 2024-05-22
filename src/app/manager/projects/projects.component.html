@@ -1,17 +1,44 @@
 <app-shared-header [headerBtnText]="'Add New Project'" [headerBtnVisibility]="true" [headerMainText]="'Projects'"
   [headerBtnLink]="'add'"></app-shared-header>
 
-  <app-shared-card></app-shared-card>
+<app-shared-card></app-shared-card>
 
-<app-shared-table
-  [tableHeaders]="tableHeaders"
-  [tableDefinitionText]="'projects'"
-  [tableBodyContent]="projectTableData"
-  (editCategory)="willBeEdited($event)"
-  (searchValueEntered)="getSearchVal($event)"
-  (pageIndexChanged)="pageNumber($event)"
-  (pageSizeChanged)="pageSize($event)"
-  (view)="willBeViewed($event)"
-  (delete)="willBeDeleted($event)"
-></app-shared-table>
+<div class="view-controls d-flex justify-content-end align-items-center gap-3 my-3">
+  <button class="p-1 green rounded-1" (click)="toggleViewControls = true" type="button"> <i
+      class="m-0 fs-4 bi bi-grid"></i></button>
+  <button class="p-1 green rounded-1" (click)="!toggleViewControls = false" type="button"
+    [disabled]="disableTableButton"><i class="m-0 fs-4 bi bi-list-task"></i></button>
+</div>
 
+<mat-card class="py-5 main-box-shadow">
+  <div class="row px-3">
+    <div class="col-md-4">
+      <mat-form-field class="w-100 rounded-3" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchValue" (keyup.enter)="getProject()" placeholder="Search" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <ng-container *ngIf="toggleViewControls&&!noData">
+    <app-shared-card [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
+      [tableBodyContentOfProjects]="projectTableData" (editCategory)="willBeEdited($event)"
+      (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)" (view)="willBeViewed($event)"
+      (delete)="willBeDeleted($event)">
+    </app-shared-card>
+  </ng-container>
+
+
+  <ng-container *ngIf="!toggleViewControls&&!noData">
+    <app-shared-table [tableHeaders]="tableHeaders" [tableDefinitionText]="'projects'"
+      [tableBodyContentOfProjects]="projectTableData" (editCategory)="willBeEdited($event)"
+      (pageIndexChanged)="pageNumber($event)" (pageSizeChanged)="pageSize($event)" (view)="willBeViewed($event)"
+      (delete)="willBeDeleted($event)">
+    </app-shared-table>
+
+  </ng-container>
+
+  <app-no-data *ngIf="noData"></app-no-data>
+
+</mat-card>

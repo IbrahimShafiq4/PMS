@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ITaskListResponse, ITasksParameters } from './models/tasks';
 import { Router } from '@angular/router';
 import { TasksService } from './services/tasks.service';
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TasksComponent {
   searchValue: string = '';
+  status:string=''
   tableHeaders: string[] = [
     'Title',
     'Status',
@@ -23,6 +24,7 @@ export class TasksComponent {
     'Creation date',
     'Actions',
   ];
+
   taskTableData: ITaskListResponse = {
     pageNumber: 0,
     pageSize: 0,
@@ -31,6 +33,10 @@ export class TasksComponent {
     totalNumberOfPages: 0,
   };
 
+  toggleViewControls: boolean = false;
+
+  disableTableButton: boolean = false;
+  noData:boolean=false
   constructor(
     private _Router: Router,
     private _TasksService: TasksService,
@@ -46,13 +52,14 @@ export class TasksComponent {
   getTasks() {
     let requestParam: ITasksParameters = {
       title: this.searchValue,
-      status: '',
+      status: this.status,
       pageSize: this.taskTableData.pageSize,
       pageNumber: this.taskTableData.pageNumber,
     };
     this._TasksService.getAllMyTasksForManager(requestParam).subscribe({
       next: (res) => {
         this.taskTableData = res;
+        this.taskTableData.data.length==0?this.noData=true:this.noData=false
       },
       error: (err: HttpErrorResponse) => {
         this._toastrService.error(err.error.message, 'Error');
@@ -61,10 +68,10 @@ export class TasksComponent {
     });
   }
 
-  getSearchVal(event: string) {
-    this.searchValue = event;
-    this.getTasks();
-  }
+  // getSearchVal(event: string) {
+  //   this.searchValue = event;
+  //   this.getTasks();
+  // }
 
   willBeEdited(event: number) {
     this._Router.navigateByUrl(`dashboard/manager/tasks/edit/${event}`);
@@ -120,9 +127,18 @@ export class TasksComponent {
   }
 
   willBeViewed(event: number) {
-    debugger
     console.log(event);
 
-    this._Router.navigate([`/dashboard/manager/tasks/view/${event}`]); //dashboard/manager/tasks view/:id
+    this._Router.navigate([`/dashboard/manager/tasks/view/${event}/tasks`]);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResiz(event: Event) {
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
   }
 }
