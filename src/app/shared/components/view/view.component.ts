@@ -21,9 +21,7 @@ import { UsersService } from 'src/app/manager/users/services/users.service';
 export class ViewComponent {
   constructor(
     private _ActivatedRoute: ActivatedRoute,
-    private _ProjectsService: ProjectsService,
     private _ToastrService: ToastrService,
-    private _TasksService: TasksService,
     private _UsersService: UsersService
   ) {}
 
@@ -35,10 +33,16 @@ export class ViewComponent {
     country: '',
     phoneNumber: '',
     isActivated: false,
-
     creationDate: '',
     modificationDate: '',
   };
+
+  toggleViewControls: boolean = false;
+
+  disableTableButton: boolean = false;
+
+  imagePort: string = 'https://upskilling-egypt.com:3003/';
+  emptyUserSrc: string = '../../../../assets/images/projects.svg';
 
   itemId: number = 0;
   navigatedFrom: string = '';
@@ -46,8 +50,6 @@ export class ViewComponent {
 
   ngOnInit(): void {
     this._ActivatedRoute.params.subscribe((params: Params) => {
-      console.log(params);
-
       this.itemId = +params['id'];
       this.navigatedFrom = params['navigatedFrom'];
     });
@@ -64,6 +66,15 @@ export class ViewComponent {
   getSingleUsers(userId: number) {
     this._UsersService.getSingleUser(userId).subscribe({
       next: (res) => (this.viewUserDetails = res),
+      error: (error: HttpErrorResponse) =>
+        this._ToastrService.error(error.error.message, 'Error'),
+      complete: () => {  }
+    });
+  }
+
+  toggleUserStatusActivatedOrNot(userId: number) {
+    this._UsersService.toggleActivatedEmployee(userId, this.viewUserDetails).subscribe({
+      next: (res) => { this.viewUserDetails = res },
       error: (error: HttpErrorResponse) =>
         this._ToastrService.error(error.error.message, 'Error'),
       complete: () => {  }

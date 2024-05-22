@@ -97,7 +97,6 @@ export class UsersComponent implements OnInit {
   onToggleitem(id: number) {
     this._UsersService.toggleActivatedEmployee(id, 'ww').subscribe({
       next: (res) => {
-        console.log('res', res);
         this.isActivated = res.isActivated;
       },
       error: (errRes: HttpErrorResponse) => {

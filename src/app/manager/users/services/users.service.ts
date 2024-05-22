@@ -20,12 +20,8 @@ export class UsersService {
     return this._HttpClient.put<IToglleResponse>(`Users/${id}`, data);
   }
 
-
-
   getSingleUser(userId: number): Observable<any> {
     return this._HttpClient.get(`Users/${userId}`);
   }
-
-
 
 }

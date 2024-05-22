@@ -35,6 +35,7 @@ export class ProjectsComponent implements OnInit {
   toggleViewControls: boolean = false;
 
   disableTableButton: boolean = false;
+
   noData:boolean=false;
 
   constructor(
@@ -58,7 +59,6 @@ export class ProjectsComponent implements OnInit {
 
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
-        console.log(res);
         this.projectTableData = res;
         this.projectTableData.data.length==0?this.noData=true:this.noData=false
       },
