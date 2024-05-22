@@ -38,12 +38,34 @@ export class UsersComponent implements OnInit {
 
   disableTableButton: boolean = false;
 
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
+  }
+
+
+  userTableData: IUsersResponse = {
+    data: [],
+    pageNumber: 0,
+    pageSize: 5,
+    totalNumberOfRecords: 0,
+    totalNumberOfPages: 0,
+  };
+
+  isActivated: boolean = false;
+
   constructor(private _UsersService: UsersService,
     private _toastrService: ToastrService,
     private _Router: Router,
     public _dialog: MatDialog,
     private _ToastrService: ToastrService) { }
-
   ngOnInit() {
     this.getUsers();
   }
@@ -82,14 +104,6 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
-  getFilterValue(event: any) {
-
-  }
-  getGroupValue(event: any) {
-
-  }
-
-
   // function for active and not active user
   onToggleitem(id: number) {
     this._UsersService.toggleActivatedEmployee(id, 'ww').subscribe({
@@ -120,15 +134,5 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-
-    if (window.innerWidth <= 991) {
-      this.toggleViewControls = true;
-      this.disableTableButton = true;
-    } else {
-      this.disableTableButton = false;
-    }
-  }
 
 }

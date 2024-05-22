@@ -1,9 +1,5 @@
-import { IGetAllTaskRequest, IChangeStatus } from './../models/task-board';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { IGetAllTaskRequest, IChangeStatus ,IGetAllTaskResponseData } from './../models/task-board';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { TaskBoardService } from '../services/task-board.service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,14 +8,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-task-board',
   templateUrl: './task-board.component.html',
-  styleUrls: ['./task-board.component.scss'],
+
+  styleUrls: ['./task-board.component.scss']
 })
+
 export class TaskBoardComponent {
   taskRequest: IGetAllTaskRequest = {
     title: '',
     pageNumber: 1,
     pageSize: 10,
-  };
+  }
+
 
   status: IChangeStatus = {
     status: '',

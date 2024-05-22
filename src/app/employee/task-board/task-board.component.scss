@@ -1,3 +1,4 @@
+
 h2 {
   color: #4f4f4f;
   font-weight: 500;
@@ -22,10 +23,47 @@ mat-icon {
   right: 7%;
 }
 
+
 .example-container {
   width: 400px;
   max-width: 100%;
   height: 400px;
+
+  //height:  auto;
+  overflow: auto;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+  background-color: rgba(49, 89, 81, 0.898);
+  border-radius: 15px;
+}
+
+.todo{
+  background-color: #3f9b7f
+
+}
+
+.done{
+  background-color: #4ccea7
+}
+
+.inprograss{
+  background-color:#29aa83
+}
+
+
+
+
+
+
+
+
+.example-list {
+  // border: solid 1px #ccc;
+  min-height: 60px;
+  background-color: transparent;
+  // border-radius: 4px;
+
   max-height: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
@@ -38,13 +76,16 @@ mat-icon {
 .example-list {
   min-height: 60px;
   background-color: transparent;
+
   overflow: hidden;
   display: block;
 }
 
 .example-box {
   padding: 20px 10px;
+
   margin: 5px;
+
   color: white;
   display: flex;
   flex-direction: row;
@@ -52,6 +93,7 @@ mat-icon {
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
+
   background-color: #ef9b28;
   border-radius: 8px;
   font-size: 18px;
@@ -61,8 +103,9 @@ mat-icon {
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  box-shadow: 
     0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
 }
 
 .cdk-drag-placeholder {

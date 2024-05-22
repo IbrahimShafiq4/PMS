@@ -22,10 +22,14 @@ export class ViewComponent {
     private _ToastrService: ToastrService,
     private _TasksService: TasksService,
     private _UsersService: UsersService
-  ) {}
+
+  ) { }
+
   viewedItemDetails!: IProjectData;
 
   viewTaskDetails!: ITask
+
+ 
 
   itemId: number = 0;
   navigatedFrom: string = '';
@@ -67,4 +71,6 @@ export class ViewComponent {
       complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
     });
   }
+
+
 }

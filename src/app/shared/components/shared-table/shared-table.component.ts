@@ -1,8 +1,10 @@
+import { IUsersResponse } from './../../../manager/users/models/users';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { IProjectList } from 'src/app/manager/projects/models/projects';
 import { ITaskListResponse } from 'src/app/manager/tasks/models/tasks';
 import { IUsersResponse } from './../../../manager/users/models/users';
+
 
 @Component({
   selector: 'app-shared-table',
@@ -10,6 +12,7 @@ import { IUsersResponse } from './../../../manager/users/models/users';
   styleUrls: ['./shared-table.component.scss'],
 })
 export class SharedTableComponent {
+
   @Input() tableHeaders: string[] = [];
   @Input() tableDefinitionText: string = '';
   @Input() tableBodyContentOfProjects?: IProjectList;

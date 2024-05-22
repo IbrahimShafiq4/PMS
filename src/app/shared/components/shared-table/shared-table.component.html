@@ -4,6 +4,12 @@
       <tr [ngSwitch]="tableDefinitionText">
         <th *ngFor="let header of tableHeaders">{{ header }}</th>
       </tr>
+      <tr *ngIf="tableDefinitionText === 'Users'">
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
+      <tr *ngIf="tableDefinitionText === 'projectsEmployee'">
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
     </thead>
 
     <tbody>
@@ -114,6 +120,7 @@
           </tr>
         </ng-container>
       </ng-container>
+     
     </tbody>
   </table>
 
@@ -121,4 +128,5 @@
     [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" [pageIndex]="pageIndex"
     aria-label="Select page">
   </mat-paginator>
+
 </section>
