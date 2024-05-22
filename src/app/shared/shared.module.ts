@@ -29,6 +29,7 @@ import { ProjectsService } from '../manager/projects/services/projects.service';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TasksService } from '../manager/tasks/services/tasks.service';
+import { UsersService } from '../manager/users/services/users.service';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,6 @@ import { TasksService } from '../manager/tasks/services/tasks.service';
     MatDialogModule
   ],
 
-  providers: [AuthService, HelperService, ProjectsService,TasksService],
+  providers: [AuthService, HelperService, ProjectsService,TasksService ,UsersService],
 })
 export class SharedModule {}

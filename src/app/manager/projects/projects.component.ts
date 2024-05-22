@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IProjectList, IProjectParamsRequest } from './models/projects';
+import { IProjectList, IProjectParamsRequest ,} from './models/projects';
 import { ProjectsService } from './services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -52,6 +52,7 @@ export class ProjectsComponent implements OnInit {
 
     this._ProjectsService.getAllProjects(requestParams).subscribe({
       next: (res) => {
+        console.log(res);
         this.projectTableData = res;
       },
       error: (error: HttpErrorResponse) =>
