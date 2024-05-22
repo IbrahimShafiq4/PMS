@@ -22,6 +22,9 @@ export class UsersService {
 
 
 
+  getSingleUser(userId: number): Observable<any> {
+    return this._HttpClient.get(`Users/${userId}`);
+  }
 
 
 

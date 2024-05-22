@@ -5,8 +5,9 @@ import { ViewComponent } from 'src/app/shared/components/view/view.component';
 
 
 const routes: Routes = [
-  { path: '', component: UsersComponent }
-  
+  { path: '', component: UsersComponent },
+  { path: 'view/:id', component: ViewComponent ,title:'view'},
+
 ];
 
 @NgModule({

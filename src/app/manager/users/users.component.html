@@ -6,6 +6,8 @@
   [tableBodyContent]="userTableData"
   (pageIndexChanged)="pageNumber($event)"
   (pageSizeChanged)="pageSize($event)"
+  (view)="willBeViewed($event)"
+
   (block)="onToggleitem($event)"
   (filterValueEnterd)="this.getFilterValue($event)"
   (searchValueEntered)="this.getSearchVal($event)"

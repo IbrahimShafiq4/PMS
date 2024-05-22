@@ -217,58 +217,37 @@
         </tr>
       </ng-container>
 
+   
+
+
       <ng-container *ngIf="isUsers(tableBodyContent)">
         <tr *ngFor="let tableBody of tableBodyContent.data">
-          <td>{{ tableBody.userName }}</td>
+          <td>{{tableBody.userName }}</td>
           <!-- <td>{{tableBody.isActivated}}</td> -->
           <td>
-            <span
-              class="status text-center w-50 isActivated"
-              *ngIf="tableBody.isActivated"
-            >
+            <span class="status  text-center w-50 isActivated" *ngIf="tableBody.isActivated">
               Active
             </span>
-            <span
-              class="status text-center w-50 notActivated"
-              *ngIf="!tableBody.isActivated"
-            >
+            <span class="status  text-center w-50 notActivated" *ngIf="!tableBody.isActivated">
               Not Active
             </span>
           </td>
-          <td>{{ tableBody.phoneNumber }}</td>
-          <td>{{ tableBody.email }}</td>
+          <td>{{tableBody.phoneNumber}}</td>
+          <td>{{tableBody.email}}</td>
+
+          
 
           <td>
-            <button
-              mat-icon-button
-              [matMenuTriggerFor]="menu"
-              class="text-white position-relative z-3"
-              aria-label="Example icon-button with a menu"
-            >
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white position-relative z-3"
+              aria-label="Example icon-button with a menu">
               <mat-icon class="text-black">keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button
-                mat-menu-item
-                type="button"
-                (click)="blockItem(tableBody.id)"
-              >
-                <mat-icon
-                  class="main-green-color"
-                  *ngIf="!tableBody.isActivated"
-                  >notifications</mat-icon
-                >
-                <mat-icon class="main-green-color" *ngIf="tableBody.isActivated"
-                  >notifications_off</mat-icon
-                >
-                <span *ngIf="tableBody.isActivated">Not Active</span>
-                <span *ngIf="!tableBody.isActivated">Active</span>
+              <button mat-menu-item type="button" (click)="blockItem(tableBody.id)">
+                <mat-icon class="main-green-color">block</mat-icon>
+                <span>Block</span>
               </button>
-              <button
-                mat-menu-item
-                type="button"
-                (click)="viewItem(tableBody.id)"
-              >
+              <button mat-menu-item type="button" (click)="viewItem(tableBody.id)">
                 <mat-icon class="main-green-color">visibility</mat-icon>
                 <span>View</span>
               </button>

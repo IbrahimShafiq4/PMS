@@ -118,4 +118,12 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  willBeViewed(event: number) {
+    // this._Router.navigate([`/dashboard/manager/users/view/${event}`]);
+
+    
+    this._Router.navigate([`/dashboard/view/${event}/users`]);
+
+  }
+
 }

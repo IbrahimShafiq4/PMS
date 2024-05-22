@@ -1,4 +1,4 @@
-import { IToglleResponse } from './../../../manager/users/models/users';
+import { ISingleUser, IToglleResponse } from './../../../manager/users/models/users';
 import { IProject, IUser } from './../../../manager/tasks/models/tasks';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -31,7 +31,18 @@ export class ViewComponent {
     modificationDate: '',
     task: [],
   };
+  viewUserDetails:ISingleUser={
+    id:0,
+    userName:'',
+    imagePath:'',
+    email:'',
+    country:'',
+    phoneNumber:'',
+    isActivated:false,
 
+    creationDate:'',
+    modificationDate:'',
+  };
   viewTaskDetails: ITask = {
     id: 0,
     title: '',
@@ -92,15 +103,17 @@ export class ViewComponent {
 
     if (this.itemId && this.navigatedFrom == 'projects') {
       this.getSingleProject(this.itemId);
-    } else if (this.itemId && this.navigatedFrom == 'tasks') {
-      this.getSingleTasks(this.itemId);
+    }else if (this.itemId && this.navigatedFrom == 'users') {
+      this.getSingleUsers(this.itemId);
     }
+     else if (this.itemId && this.navigatedFrom == 'tasks') {
+      this.getSingleTasks(this.itemId);
+    } 
 
     if (this.navigatedFrom == 'projects') {
       this.backTo = '/dashboard/manager/projects';
     }
   }
-
   getSingleProject(projectId: number) {
     this._ProjectsService.getSingleProject(projectId).subscribe({
       next: (res) => (this.viewedItemDetails = res),
@@ -110,6 +123,7 @@ export class ViewComponent {
     });
   }
 
+
   getSingleTasks(taskId: number) {
     this._TasksService.getSingleTask(taskId).subscribe({
       next: (res) => (this.viewTaskDetails = res),
@@ -118,6 +132,13 @@ export class ViewComponent {
       // complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
     });
   }
-
+  getSingleUsers(userId: number) {
+    this._UsersService.getSingleUser(userId).subscribe({
+ next: (res) => (this.viewUserDetails = res),
+       error: (error: HttpErrorResponse) =>
+        this._ToastrService.error(error.error.message, 'Error'),
+      // complete: () => this._ToastrService.success('Project details has been Retrieved', 'Success')
+    });
+  }
 
 }
