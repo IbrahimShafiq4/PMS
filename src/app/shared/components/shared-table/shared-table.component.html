@@ -102,8 +102,8 @@
                 <button mat-menu-item type="button" (click)="block.emit(tableBody.id)">
                   <mat-icon class="main-green-color" *ngIf="!tableBody.isActivated">notifications</mat-icon>
                   <mat-icon class="main-green-color" *ngIf="tableBody.isActivated">notifications_off</mat-icon>
-                  <span *ngIf="tableBody.isActivated">Not Active</span>
-                  <span *ngIf="!tableBody.isActivated">Active</span>
+                  <span *ngIf="tableBody.isActivated">unBlock</span>
+                  <span *ngIf="!tableBody.isActivated">Block</span>
                 </button>
                 <button mat-menu-item type="button" (click)="view.emit(tableBody.id)">
                   <mat-icon class="main-green-color">visibility</mat-icon>
