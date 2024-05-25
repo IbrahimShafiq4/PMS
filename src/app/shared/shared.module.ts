@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TasksService } from '../manager/tasks/services/tasks.service';
 import { SharedCardComponent } from './components/shared-card/shared-card.component';
 import { UsersService } from '../manager/users/services/users.service';
+import { TaskBoardService } from '../employee/services/task-board.service';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { UsersService } from '../manager/users/services/users.service';
     ProjectsService,
     TasksService,
     UsersService,
+    TaskBoardService
   ],
 })
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUsersParamsRequest, IUsersResponse, IToglleResponse } from '../models/users';
+import { IUsersParamsRequest, IUsersResponse, IToglleResponse, IActivatedDeactivatedUsers } from '../models/users';
 
 @Injectable({
   providedIn: 'root'
@@ -24,4 +24,7 @@ export class UsersService {
     return this._HttpClient.get(`Users/${userId}`);
   }
 
+  getActivatedAndDeactivatedUsers(): Observable<IActivatedDeactivatedUsers> {
+    return this._HttpClient.get<IActivatedDeactivatedUsers>('Users/count')
+  }
 }

@@ -9,8 +9,8 @@
           <div>
             <!-- Email input -->
             <mat-form-field class="d-block">
-              <mat-label>E-Mail</mat-label>
-              <input matInput placeholder="Please Enter Your E-Email" formControlName="email">
+              <mat-label for="email" >E-Mail</mat-label>
+              <input matInput id="email"  placeholder="Please Enter Your E-Email" formControlName="email">
               <!-- Error message for email field -->
               <mat-error *ngIf="verifyForm.get('email')?.touched && verifyForm.get('email')?.getError('required')">
                 Email is Required
@@ -25,8 +25,8 @@
           <div>
             <!-- Code input -->
             <mat-form-field class="d-block" appearance="fill">
-              <mat-label>Code</mat-label>
-              <input matInput placeholder="Enter OTP" formControlName="code">
+              <mat-label for="code" >Code</mat-label>
+              <input matInput id="code"  placeholder="Enter OTP" formControlName="code">
               <!-- Error message for code field -->
               <mat-error *ngIf="verifyForm.get('code')?.touched && verifyForm.get('code')?.getError('required')"> Code
                 is

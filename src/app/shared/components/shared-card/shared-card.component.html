@@ -45,8 +45,8 @@
             </p>
             <p class="m-0">
               <span *ngIf="tableBody.task.length" class="d-flex gap-1">
-                <ng-container *ngFor="let task of tableBody.task.slice(0, 3); let last = last">
-                  <span class="px-1 text-white fs-6 bg-info rounded-2"> {{ task.title }} </span>
+                <ng-container *ngFor="let task of tableBody.task.slice(0, 2); let last = last">
+                  <span class="text-white rounded-2 tasks-span"> {{ task.title }} </span>
                 </ng-container>
               </span>
               <span class="badge bg-secondary" *ngIf="!tableBody.task.length">No Tasks Yet</span>

@@ -47,6 +47,7 @@ export class TasksComponent {
 
   ngOnInit(): void {
     this.getTasks();
+    this.checkBodyWidth()
   }
 
   getTasks() {
@@ -133,7 +134,11 @@ export class TasksComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResiz(event: Event) {
+  onResize(event: Event) {
+    this.checkBodyWidth()
+  }
+
+  private checkBodyWidth() {
     if (window.innerWidth <= 991) {
       this.toggleViewControls = true;
       this.disableTableButton = true;

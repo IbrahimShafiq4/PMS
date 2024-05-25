@@ -47,16 +47,7 @@ export class UsersComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.getUsers();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    if (window.innerWidth <= 991) {
-      this.toggleViewControls = true;
-      this.disableTableButton = true;
-    } else {
-      this.disableTableButton = false;
-    }
+    this.checkBodyWidth()
   }
 
   getUsers() {
@@ -75,25 +66,21 @@ export class UsersComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this._toastrService.error(error.error.message, 'Error');
-        // console.log(error)
       },
       complete: () => {},
     });
   }
 
   pageSize(event: number) {
-    // Ensure it accepts number
     this.userTableData.pageSize = event;
     this.getUsers();
   }
 
   pageNumber(event: number) {
-    // Ensure it accepts number
     this.userTableData.pageNumber = event;
     this.getUsers();
   }
 
-  // function for active and not active user
   onToggleitem(id: number) {
     this._UsersService.toggleActivatedEmployee(id, 'ww').subscribe({
       next: (res) => {
@@ -119,5 +106,19 @@ export class UsersComponent implements OnInit {
 
   willBeViewed(event: number) {
     this._Router.navigate([`/dashboard/view/${event}/users`]);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkBodyWidth()
+  }
+
+  private checkBodyWidth() {
+    if (window.innerWidth <= 991) {
+      this.toggleViewControls = true;
+      this.disableTableButton = true;
+    } else {
+      this.disableTableButton = false;
+    }
   }
 }

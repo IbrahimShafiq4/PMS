@@ -48,6 +48,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.getProject();
+    this.checkBodyWidth()
   }
 
   getProject() {
@@ -78,13 +79,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   pageSize(event: number) {
-    // Ensure it accepts number
     this.projectTableData.pageSize = event;
     this.getProject();
   }
 
   pageNumber(event: number) {
-    // Ensure it accepts number
     this.projectTableData.pageNumber = event;
     this.getProject();
   }
@@ -103,7 +102,6 @@ export class ProjectsComponent implements OnInit {
         this.onDeleteItem(result);
       }
     });
-    // this._Router.navigate([`/dashboard/delete/${event}/projects`]);
   }
 
   onDeleteItem(id: number) {
@@ -127,7 +125,10 @@ export class ProjectsComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
+    this.checkBodyWidth()
+  }
 
+  private checkBodyWidth() {
     if (window.innerWidth <= 991) {
       this.toggleViewControls = true;
       this.disableTableButton = true;

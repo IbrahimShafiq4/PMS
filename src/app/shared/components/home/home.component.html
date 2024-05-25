@@ -6,16 +6,17 @@
   </article>
 
   <!-- Bottom Section -->
-  <article class="bottom-section d-flex flex-lg-row flex-column gap-4 justify-content-md-around align-items-md-center position-relative">
+  <article
+    class="bottom-section d-flex flex-lg-row flex-column gap-4 justify-content-md-around align-items-md-center position-relative">
     <!-- Tasks Section -->
     <div class="p-2 shadow bg-white rounded-3 pe-3">
       <div class="title-content">
         <h3 class="fw-bold">Tasks</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur</p> <!-- Placeholder text -->
       </div>
       <div>
         <!-- Chart for tasks -->
-        <div [chart]="tasksChart" class="w-100"></div>
+        <!-- <div [chart]="tasksChart" class="w-100"></div> -->
+        <canvas id="projectTaskChart" width="500" height="300"></canvas>
       </div>
     </div>
 
@@ -23,11 +24,10 @@
     <div class="p-2 shadow bg-white rounded-3 pe-3">
       <div class="title-content">
         <h3 class="fw-bold">Users</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur</p> <!-- Placeholder text -->
       </div>
       <div>
         <!-- Chart for users -->
-        <div [chart]="usersChart" class="w-100"></div>
+        <canvas id="userStatusChart" width="500" height="300"></canvas>
       </div>
     </div>
   </article>
