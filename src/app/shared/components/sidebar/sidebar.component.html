@@ -25,7 +25,7 @@
   </div>
 
   <!-- Chart Container -->
-  <div class="d-flex justify-content-center align-items-end h-50">
+  <div class="d-flex justify-content-center align-items-end h-50" *ngIf="isManager()">
     <canvas #projectTaskChart width="100px" height="100px"></canvas>
   </div>
 </aside>

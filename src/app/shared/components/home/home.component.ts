@@ -1,5 +1,7 @@
+import { RoleEnum } from 'src/app/core/Enums/RoleEnum.enum';
 import { Component, inject } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { ICountedTasks } from 'src/app/employee/models/task-board';
 import { TaskBoardService } from 'src/app/employee/services/task-board.service';
 import { IProjectList, IProjectParamsRequest } from 'src/app/manager/projects/models/projects';
@@ -27,12 +29,28 @@ export class HomeComponent {
   activatedUserCount: number = 0;
   deactivatedUserCount: number = 0;
   inProgressCount: number = 0;
+  DoneCount:number=0;
+  toDoCount:number=0;
+  RoleEnum=RoleEnum;
+  zeroCount:number=0;
+ constructor(private _AuthService:AuthService){}
 
   ngOnInit(): void {
-    this.fetchProjectCount();
-    this.fetchTaskCount();
-    this.fetchInProgressCount();
-    this.fetchUserStatusCounts();
+
+    this.fetchTasksEmployeeCount();
+    if (this.isManger()) {
+      this.fetchProjectCount();
+      this.fetchTaskCount();
+      this.fetchUserStatusCounts();
+    }
+
+  }
+
+  isManger():boolean{
+    return this._AuthService.role===this.RoleEnum.MANGER
+  }
+  isEmoloyee():boolean{
+    return this._AuthService.role===this.RoleEnum.EMPLOYEE
   }
 
   fetchProjectCount(): void {
@@ -63,11 +81,17 @@ export class HomeComponent {
     });
   }
 
-  fetchInProgressCount(): void {
+  fetchTasksEmployeeCount(): void {
     this.taskBoardService.countTasksForManagerAndEmployee().subscribe({
       next: (res: ICountedTasks) => {
+        console.log("res",res);
+
         this.inProgressCount = res.inProgress;
-        this.renderProjectTaskChart();
+        this.toDoCount=res.toDo
+        this.DoneCount=res.done
+        console.log("this.inProgressCount");
+       this.isManger()?this.renderProjectTaskChart():this.renderTasksEmployeeCharts()
+
       }
     });
   }
@@ -123,7 +147,6 @@ export class HomeComponent {
     if (this.activatedUserCount === 0 && this.deactivatedUserCount === 0) {
       return;
     }
-
     const data = {
       labels: ['Activated Users', 'Deactivated Users'],
       datasets: [{
@@ -132,7 +155,6 @@ export class HomeComponent {
         hoverOffset: 4
       }]
     };
-
     const options = {
       responsive: true,
       plugins: {
@@ -145,7 +167,6 @@ export class HomeComponent {
         }
       }
     };
-
     const ctx = document.getElementById('userStatusChart') as HTMLCanvasElement;
     if (ctx) {
       new Chart(ctx, {
@@ -154,5 +175,49 @@ export class HomeComponent {
         options: options,
       });
     }
+  }
+  renderTasksEmployeeCharts():void{
+
+    if (this.toDoCount==0) {
+      this.zeroCount++
+    }
+    if (this.inProgressCount==0) {
+      this.zeroCount++
+    }
+    if (this.DoneCount==0) {
+      this.zeroCount++
+    }
+  if (this.zeroCount>=2) {
+         return
+    }
+    const data = {
+      labels: ['To do','In progress','Done'],
+
+      datasets: [{
+        data: [this.toDoCount, this.inProgressCount, this.DoneCount],
+        backgroundColor:  ['rgb(243, 202, 82)', '#CA8787', '#0A6847'],
+        hoverOffset: 4
+      }]
+    };
+
+    const options = {
+      responsive: true,
+      plugins: {
+
+        title: {
+          display: true,
+          text: 'Tasks  Status'
+        }
+      }
+    };
+    const ctx = document.getElementById('TasksEmployee') as HTMLCanvasElement ;
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: options,
+    });
+    }
+
   }
 }

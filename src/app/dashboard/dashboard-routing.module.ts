@@ -4,7 +4,6 @@ import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from '../shared/components/home/home.component';
 import { UpdateProfileComponent } from '../shared/components/update-profile/update-profile.component';
 import { ViewComponent } from '../shared/components/view/view.component';
-import { DeleteComponent } from '../shared/components/delete/delete.component';
 import { managerGuard } from '../core/Guards/manager/manager.guard';
 import { employeeGuard } from '../core/Guards/employee/employee.guard';
 
@@ -34,12 +33,7 @@ const routes: Routes = [
         path: 'view/:id/:navigatedFrom',
         component: ViewComponent,
         title: 'View',
-      },
-      {
-        path: 'delete/:id/:navigatedFrom',
-        component: DeleteComponent,
-        title: 'Delete',
-      },
+      }
     ],
   },
 ];
