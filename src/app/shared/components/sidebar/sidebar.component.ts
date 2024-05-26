@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ICountTasks, ITask, ITaskDetail, ITaskListResponse, ITasksParameters } from 'src/app/manager/tasks/models/tasks';
+import { RoleEnum } from 'src/app/core/Enums/RoleEnum.enum';
 
 Chart.register(...registerables);
 
@@ -37,6 +38,7 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterViewInit {
   projectAddedSubscription!: Subscription;
   projectsCreatedToday: number = 0;
   tasksCreatedToday: number = 0;
+  RoleEnum=RoleEnum
   chart!: Chart<"pie", number[], string>;
 
   constructor(
@@ -73,11 +75,11 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   isManager(): boolean {
-    return this._AuthService.role == 'Manager';
+    return this._AuthService.role == this.RoleEnum.MANGER;
   }
 
   isEmployee(): boolean {
-    return this._AuthService.role == 'Employee';
+    return this._AuthService.role == this.RoleEnum.EMPLOYEE;
   }
 
   menu: IMenu[] = [
@@ -223,7 +225,6 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterViewInit {
         type: 'pie',
         data: data,
         options: options,
-        
       });
     }
   }
