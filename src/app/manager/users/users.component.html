@@ -42,7 +42,7 @@
 
   <app-shared-card *ngIf="toggleViewControls&&!noData" [tableHeaders]="tableHeaders" [tableDefinitionText]="'Users'"
     [tableBodyContentOfUsers]="userTableData" (pageIndexChanged)="pageNumber($event)"
-    (pageSizeChanged)="pageSize($event)" (block)="onToggleitem($event)">
+    (pageSizeChanged)="pageSize($event)" (block)="onToggleitem($event)" (view)="willBeViewed($event)">
 
   </app-shared-card>
 
