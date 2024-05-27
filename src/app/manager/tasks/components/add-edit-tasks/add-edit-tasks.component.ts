@@ -95,9 +95,6 @@ export class AddEditTasksComponent implements OnInit {
     const request = this.taskId
       ? this._TasksService.updateTask(this.taskId, taskData)
       : this._TasksService.createTask(taskData);
-
-    console.log(data.value);
-
     request
       .pipe(
         catchError((error: HttpErrorResponse) => {

@@ -33,10 +33,11 @@ export class HomeComponent {
   toDoCount:number=0;
   RoleEnum=RoleEnum;
   zeroCount:number=0;
+  useName:string=''
  constructor(private _AuthService:AuthService){}
 
   ngOnInit(): void {
-
+    this.getUserName()
     this.fetchTasksEmployeeCount();
     if (this.isManger()) {
       this.fetchProjectCount();
@@ -45,7 +46,11 @@ export class HomeComponent {
     }
 
   }
+ getUserName(){
+ let storedName=localStorage.getItem('userName');
+ storedName?this.useName=storedName:''
 
+ }
   isManger():boolean{
     return this._AuthService.role===this.RoleEnum.MANGER
   }
@@ -84,12 +89,9 @@ export class HomeComponent {
   fetchTasksEmployeeCount(): void {
     this.taskBoardService.countTasksForManagerAndEmployee().subscribe({
       next: (res: ICountedTasks) => {
-        console.log("res",res);
-
         this.inProgressCount = res.inProgress;
         this.toDoCount=res.toDo
         this.DoneCount=res.done
-        console.log("this.inProgressCount");
        this.isManger()?this.renderProjectTaskChart():this.renderTasksEmployeeCharts()
 
       }

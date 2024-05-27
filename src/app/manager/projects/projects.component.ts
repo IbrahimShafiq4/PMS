@@ -89,7 +89,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   willBeDeleted(event: number) {
-    console.log(event);
     const dialogRef = this._dialog.open(DeletePopUpComponent, {
       data: { itemId: event },
       width: '500px',
@@ -97,7 +96,6 @@ export class ProjectsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('result', result);
       if (result) {
         this.onDeleteItem(result);
       }
@@ -107,7 +105,6 @@ export class ProjectsComponent implements OnInit {
   onDeleteItem(id: number) {
     this._ProjectsService.deleteProject(id).subscribe({
       next: (res) => {
-        console.log('res', res);
       },
       error: (errRes: HttpErrorResponse) => {
         this._ToastrService.error(errRes.error.message, 'Error');

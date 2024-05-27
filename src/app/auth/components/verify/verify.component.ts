@@ -33,7 +33,6 @@ export class VerifyComponent {
   onVerifyAccount(verificationForm: FormGroup) {
     this._AuthService.verifyUserAccount(verificationForm.value).subscribe({
       next: (res) => {
-        console.log(res);
       },
       // Error handling with ToastrService to display error messages
       error: (error: HttpErrorResponse) =>

@@ -101,6 +101,7 @@ export class AuthService {
     if (encoded != null) {
       let decoded: IDecryptedToken = jwtDecode(encoded);
       localStorage.setItem('role', decoded.userGroup);
+      localStorage.setItem('userName',decoded.userName)
       this.getRole(); // Get user role
     }
   }
