@@ -89,7 +89,6 @@ export class TasksComponent {
   }
 
   willBeDeleted(event: number) {
-    console.log(event);
     const dialogRef = this._dialog.open(DeletePopUpComponent, {
       data:{itemId:event},
       height: 'auto',
@@ -97,7 +96,6 @@ export class TasksComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('result', result);
       if (result) {
         this.onDeleteItem(result)
       }
@@ -108,7 +106,6 @@ export class TasksComponent {
   onDeleteItem(id:number){
     this._TasksService.deleteSingleTask(id).subscribe({
       next: (res) => {
-        console.log('res', res);
       },
       error: (errRes:HttpErrorResponse) => {
 
@@ -128,8 +125,6 @@ export class TasksComponent {
   }
 
   willBeViewed(event: number) {
-    console.log(event);
-
     this._Router.navigate([`/dashboard/manager/tasks/view/${event}/tasks`]);
   }
 

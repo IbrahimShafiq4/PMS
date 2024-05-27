@@ -180,7 +180,6 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe(
       (count: number) => {
         this.tasksCreatedToday = count;
-        console.log(count);
         if (this.chart) {
           this.chart.destroy();
         }

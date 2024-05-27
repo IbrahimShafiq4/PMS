@@ -50,7 +50,6 @@ export class ProjectsBoardComponent implements OnInit {
     };
     this._ProjectsBoardService.getAllEmplyeeProjects(requestParams).subscribe({
       next:(res)=>{
-        console.log(res);
         this.projectTableData=res;
         this.projectTableData.data.length==0?this.noData=true:this.noData=false
       },error:(err:HttpErrorResponse)=>{
