@@ -24,7 +24,6 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
 import { FirstTenWordsPipe } from '../core/pipe/FirstTenWords.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { ViewComponent } from './components/view/view.component';
-import { DeleteComponent } from './components/delete/delete.component';
 import { ProjectsService } from '../manager/projects/services/projects.service';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -45,7 +44,6 @@ import { TaskBoardService } from '../employee/services/task-board.service';
     UpdateProfileComponent,
     FirstTenWordsPipe,
     ViewComponent,
-    DeleteComponent,
     FirstTenWordsPipe,
     DeletePopUpComponent,
     SharedCardComponent,

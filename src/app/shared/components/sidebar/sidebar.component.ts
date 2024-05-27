@@ -49,21 +49,28 @@ export class SidebarComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.fetchCreatedProjectTodayCount();
-    this.fetchCreateTasksTodayCount();
-    this.projectAddedSubscription = this._ProjectService.projectAddedSubject.subscribe(() => {
+    if (this.isManager()) {
       this.fetchCreatedProjectTodayCount();
-    });
+      this.fetchCreateTasksTodayCount();
+      this.projectAddedSubscription = this._ProjectService.projectAddedSubject.subscribe(() => {
+        this.fetchCreatedProjectTodayCount();
+      });
+    }
+
   }
 
   ngAfterViewInit() {
-    this.renderProjectTaskChart();
+    if (this.isManager()) {
+      this.renderProjectTaskChart();
+    }
   }
 
   ngOnDestroy() {
-    this.projectAddedSubscription.unsubscribe();
-    if (this.chart) {
-      this.chart.destroy();
+    if (this.isManager()) {
+      this.projectAddedSubscription.unsubscribe();
+      if (this.chart) {
+        this.chart.destroy();
+      }
     }
   }
 
